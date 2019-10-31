@@ -1,0 +1,60 @@
+.navbar{
+    font-family: "Poppins" !important;
+    background-color: white !important;
+}
+
+.nav-link:hover {
+    color: #AD84C7 !important;
+}
+
+.carousel-item img {
+    height: 30rem !important;
+}
+
+.buscador {
+    width: 60%;
+    background-color: white;
+    border-radius: 5px;
+    border-color: #AD84C7 !important;
+    margin-top: -100px;
+    position: relative;
+    z-index: 9;
+}
+
+html {
+    font-family: "Poppins" !important;
+}
+
+.btn-primary {
+    background-color: #AD84C7 !important;
+    border-color: #AD84C7 !important;
+}
+
+.text-primary {
+    color: #AD84C7 !important;
+}
+
+select:focus{
+    border-color: #AD84C7 !important;
+    box-shadow: 0 0 0 0.2rem #AD84C7 !important;
+
+}
+.card {
+    width: 20rem;
+}
+.card img {
+    height: 15rem;
+   
+}
+
+.alert {
+    margin-bottom: 0.3rem !important;
+}
+
+.alert .close {
+    margin-top: -0.1rem !important;
+}
+
+.border-primary {
+    border-color: #AD84C7 !important;
+}
