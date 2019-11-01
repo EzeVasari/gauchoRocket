@@ -41,15 +41,36 @@
     $resultadoFecha = mysqli_query($conexion, $fecha);
     $fechaLimite = mysqli_fetch_assoc($resultadoFecha);
     
-    $codigoReserva =  generarCodigoReserva(6);  
+    $codigoReserva =  generarCodigoReserva(6); 
     
-    $queryReserva = "INSERT INTO reserva (codigo,codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
-    $registroReserva = mysqli_query($conexion, $queryReserva);
+    if(!empty($_POST["nombres"]) && !empty($_POST["apellidos"]) && !empty($_POST["documentos"])){
         
-    $insert = "INSERT INTO relacionClienteReserva(codigoReserva, codigoCliente, checkin, pago, fechaLimite, fechaConfirmacion) VALUES
-            ('".$codigoReserva."', '".$_SESSION['user']."', false, false, '".$fechaLimite['fl']."', null);
-          ";
-    $registro = mysqli_query($conexion, $insert);
+        $queryReserva = "INSERT INTO reserva (codigo,codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
+        $registroReserva = mysqli_query($conexion, $queryReserva);
+        
+        $nombres = $_POST["nombres"];
+        $apellidos = $_POST["apellidos"];
+        $documentos = $_POST["documentos"];
+        $nicks = $_POST["nicks"];
+        
+        foreach($nicks as $n) {
+            $queryUsuario = "SELECT * FROM usuario WHERE nick ='".$n. "'";
+            $resultadoNick = mysqli_query($conexion, $queryUsuario);
+            
+            if(mysqli_fetch_assoc($resultadoNick)){
+                $insert = "INSERT INTO relacionClienteReserva(codigoReserva, codigoCliente, checkin, pago, fechaLimite, fechaConfirmacion) VALUES
+                ('".$codigoReserva."', '".$n."', false, false, '".$fechaLimite['fl']."', null);
+              ";
+                $registro = mysqli_query($conexion, $insert);
+            }else {
+                 echo '<br><div class="alert alert-warning mt-5" role="alert">
+                    El usuario '. $n .' no está registrado.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';
+            }  
+        }
+        
     
     if($registro && $registroReserva){
         echo '<br><div class="alert alert-success mt-5" role="alert">
@@ -59,12 +80,15 @@
                 </div>';
     
     } else {
-        '<br><div class="alert alert-warning mt-5" role="alert">
+        echo '<br><div class="alert alert-warning mt-5" role="alert">
                     No se confirmó la reserva.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
     }
+        
+    }
+
 }
     
 ?>
