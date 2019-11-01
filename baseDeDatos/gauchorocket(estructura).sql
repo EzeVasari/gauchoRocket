@@ -8,14 +8,14 @@ dni int,
 rol boolean,
 nombre varchar(50),
 apellido varchar(50),
+email varchar(60),
 fnac date
 );
 
 create table login(
-email varchar(64) primary key,
+fkNickUsuario varchar(64) primary key,
 pass varchar(40),
-fknick varchar(64),
-foreign key (fknick) references usuario(nick)
+foreign key (fkNickUsuario) references usuario(nick)
 );
 
 create table admin(
