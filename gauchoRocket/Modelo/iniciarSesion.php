@@ -37,9 +37,9 @@
 
         include('conexion.php');
 
-        $query = "SELECT l.codigoUsuario AS usuario, l.pass AS pass, u.rol AS rol
-                    FROM usuario AS u INNER JOIN login AS l ON u.nick = l.codigoUsuario
-                    WHERE l.codigoUsuario = '" . $usuario . "'";
+        $query = "SELECT l.fkNickUsuario AS usuario, l.pass AS pass, u.rol AS rol
+                    FROM usuario AS u INNER JOIN login AS l ON u.nick = l.fkNickUsuario
+                    WHERE l.fkNickUsuario = '" . $usuario . "'";
         $resultado = mysqli_query($conexion, $query);
     
     if($row = mysqli_fetch_assoc($resultado)){

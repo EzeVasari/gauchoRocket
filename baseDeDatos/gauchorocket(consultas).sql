@@ -1,62 +1,77 @@
 use gauchorocket;
 
-SELECT distinct l.nombre as codigo, v.origen as nombre
-FROM viaje as v inner join lugar as l on v.origen = l.codigo;
-SELECT distinct l.nombre as codigo, v.origen as nombre FROM viaje as v inner join lugar as l on v.origen = l.codigo;
+select distinct l.nombre as nombre, v.codigoLugarOrigen as codigo
+from viaje as v inner join lugar as l on v.codigoLugarOrigen = l.codigo;
+select distinct l.nombre as codigo, v.codigoLugarOrigen as nombre from viaje as v inner join lugar as l on v.codigoLugarOrigen = l.codigo;
 
-SELECT *
-FROM viaje
-WHERE origen = 1 and destino = 3;
-SELECT * FROM viaje WHERE origen = 1 and destino = 3;
+select *
+from viaje
+where codigoLugarOrigen = 1 and codigoLugarDestino = 3;
+select * from viaje where codigoLugarOrigen = 1 and codigoLugarDestino = 3;
 
-SELECT l.fknick as usuario, l.pass as pass
-FROM usuario as u inner join login as l on u.nick = l.fknick
-WHERE u.nick = 'usuarioUno';
-SELECT * FROM usuario as u inner join login as l on u.nick = l.fknick WHERE l.fknick = 'usuarioUno';
+select l.codigoUsuario as usuario, l.pass as pass
+from usuario as u inner join login as l on u.nick = l.codigoUsuario
+where u.nick = 'Uno';
+select l.codigoUsuario as usuario, l.pass as pass from usuario as u inner join login as l on u.nick = l.codigoUsuario where u.nick = 'Uno';
 
-insert into relacionViajeCliente(codigoviaje, nombreusuario, checkin, pago, fechaLimite, fechaConfirmacion) values
+insert into reserva(codigoviaje, nombreusuario, checkin, pago, fechaLimite, fechaConfirmacion) values
 ();
 
-SELECT *
-FROM viaje
-WHERE DATE(fecha) = '2019.10.27';
+select *
+from viaje
+where date(fecha) = '2019.10.27';
+select * from viaje where date(fecha) = '2019.10.27';
 
-SELECT DATE_SUB(fecha, INTERVAL 5 HOUR) as fl
-FROM viaje
-WHERE codigo = 1;
-SELECT DATE_SUB(fecha, INTERVAL 5 HOUR) as fl FROM viaje WHERE codigo = 1;
+select date_sub(fecha, interval 2 hour) as fechaLimite
+from viaje
+where codigo = 1;
+select date_sub(fecha, interval 2 hour) as fechaLimite from viaje where codigo = 1;
 
-insert into relacionViajeCliente(codigoviaje, nombreusuario, checkin, pago, fechaLimite, fechaConfirmacion) values
-(1, 'usuarioUno', false, false, '2019.10.27 07:00:00', null);
-
-select*
-from relacionViajeCliente;
+insert into relacionClienteReserva(codigoReserva, codigoCliente, checkin, pago, fechaLimite, fechaConfirmacion) values
+(1, 'Uno', false, false, '2019.10.27 10:00:00', null);
 
 select c.codigo as codigo, c.turnos as turno, l.nombre as lugar, c.img as imagen
 from centroMedico as c
 	inner join lugar as l on c.lugar = l.codigo;
-select c.codigo as codigo, c.turnos as turno, l.nombre as lugar, c.img as imagen from centroMedico as c inner join lugar as l on c.lugar = l.codigo;
 
 select nombre
-from lugar
+from lugar as l
+	inner join reserva as r on l.codigo
 where codigo = 1;
-select nombre from lugar where codigo = 1;
 
-insert into turnoMedico(cliente, codigolugar, nombrelugar) values
-('usuarioUno', 1, 'Buenos Aires');
+insert into turnoMedico(codigoCliente, codigoLugar, nombreLugar) values
+('Uno', 1, 'Buenos Aires');
 
 select *
 from turnoMedico;
+/*
 
-select rvc.codigo as codigo, v.img as imagen, v.nombre as nombre, v.descripcion as descripcion, v.precio as precio
-from relacionViajeCliente as rvc
-	inner join viaje as v on rvc.codigoviaje = v.codigo
-where rvc.nombreusuario like 'usuarioUno';
+select rvc.codigo as codigo, v.imagen as imagen, v.nombre as nombre, v.descripcion as descripcion, v.precio as precio
+from reserva as r
+	inner join viaje as v on r.codigoViaje = v.codigo
+    inner join relacionClienteReserva as rcr on r.codigo = rcr.codigoReserva
+where rcr.codigoCliente like 'Uno';
+*/
 
 select verifMedica
 from cliente
-where usuario like 'usuarioUno';
-select verifMedica from cliente where usuario like 'usuarioUno';
+where codigoUsuario like 'Uno';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

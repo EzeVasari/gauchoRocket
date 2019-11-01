@@ -35,7 +35,7 @@
     $resultadoUsuario = mysqli_query($conexion, $busquedaUsuario);
     $datos = mysqli_fetch_assoc($resultadoUsuario);
     
-    if(isset($_POST["pagar"])){
+    if(isset($_POST["confirmarReserva"])){
     //Obtener fecha y hora limite
     $fecha = "SELECT DATE_SUB(fecha, INTERVAL 2 HOUR) as fl FROM viaje WHERE codigo = ".$codigo; //Fecha límite
     $resultadoFecha = mysqli_query($conexion, $fecha);

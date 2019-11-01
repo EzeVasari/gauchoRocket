@@ -8,8 +8,8 @@ dni int,
 rol boolean,
 nombre varchar(50),
 apellido varchar(50),
-email varchar(60),
-fnac date
+email varchar(64), 
+fechaDeNacimiento date
 );
 
 create table login(
@@ -19,9 +19,9 @@ foreign key (fkNickUsuario) references usuario(nick)
 );
 
 create table admin(
-usuario varchar(64) primary key,
+codigoUsuario varchar(64) primary key,
 id int unique,
-foreign key (usuario) references usuario(nick)
+foreign key (codigoUsuario) references usuario(nick)
 );
 
 create table lugar(
@@ -32,18 +32,18 @@ nombre varchar(50)
 create table centroMedico(
 codigo int primary key,
 turnos int,
-lugar int,
-img varchar(100),
-foreign key (lugar) references lugar(codigo)
+codigoLugar int,
+imagen varchar(100),
+foreign key (codigoLugar) references lugar(codigo)
 );
 
 create table cliente(
-usuario varchar(64) primary key,
+codigoUsuario varchar(64) primary key,
 verifMedica boolean,
 nivelVuelo int,
-lugarMedico int,
-foreign key (usuario) references usuario(nick),
-foreign key (lugarMedico) references centroMedico(codigo)
+codigoCentroMedico int,
+foreign key (codigoUsuario) references usuario(nick),
+foreign key (codigoCentroMedico) references centroMedico(codigo)
 );
 
 create table tipoDeViaje(
@@ -60,39 +60,44 @@ create table equipo(
 matricula int primary key,
 modelo varchar(50),
 capacidad int,
-tipoDeEquipo int,
-foreign key (tipoDeEquipo) references tipoDeEquipo(codigo)
+codigoTipoDeEquipo int,
+foreign key (codigoTipoDeEquipo) references tipoDeEquipo(codigo)
 );
 
 create table viaje(
 codigo int primary key,
-img varchar(100),
+imagen varchar(100),
 descripcion varchar(100),
 precio double,
 nombre varchar(50),
 fecha datetime,
 duracion int,
-origen int,
-destino int,
-tipoDeViaje int,
+codigoLugarOrigen int,
+codigoLugarDestino int,
+codigoTipoDeViaje int,
 codigoEquipo int,
-foreign key (origen) references lugar(codigo),
-foreign key (destino) references lugar(codigo),
-foreign key (tipoDeViaje) references tipoDeViaje(codigo),
+foreign key (codigoLugarOrigen) references lugar(codigo),
+foreign key (codigoLugarDestino) references lugar(codigo),
+foreign key (codigoTipoDeViaje) references tipoDeViaje(codigo),
 foreign key (codigoEquipo) references equipo(matricula)
 );
 
-create table relacionViajeCliente(
-codigo int AUTO_INCREMENT,
-codigoviaje int,
-nombreusuario varchar(64),
+create table reserva(
+codigo varchar(6) primary key,
+codigoViaje int,
+foreign key (codigoViaje) references viaje(codigo)
+);
+
+create table relacionClienteReserva(
+codigoReserva varchar(6),
+codigoCliente varchar(64),
 checkin boolean,
 pago boolean,
 fechaLimite datetime,
 fechaConfirmacion datetime,
-primary key (codigo, codigoviaje, nombreusuario),
-foreign key (codigoviaje) references viaje(codigo),
-foreign key (nombreusuario) references cliente(usuario)
+primary key (codigoReserva, codigoCliente),
+foreign key (codigoReserva) references reserva(codigo),
+foreign key (codigoCliente) references cliente(codigoUsuario)
 );
 
 create table tipoDeServicio(
@@ -103,8 +108,8 @@ descripcion varchar(50)
 create table servicio(
 codigo int primary key,
 precio double,
-tipoDeServicio int,
-foreign key (tipoDeServicio) references tipoDeServicio(codigo)
+codigoTipoDeServicio int,
+foreign key (codigoTipoDeServicio) references tipoDeServicio(codigo)
 );
 
 create table relacionViajeServicio(
@@ -124,40 +129,23 @@ create table cabina(
 codigo int primary key,
 asientos int,
 ubicacion varchar(10),
-tipoDeCabina int,
-foreign key (tipoDeCabina) references tipoDeCabina(codigo)
+codigoTipoDeCabina int,
+foreign key (codigoTipoDeCabina) references tipoDeCabina(codigo)
 );
 
 create table relacionCabinaEquipo(
 codigoCabina int,
-matriculaEquipo int,
-primary key (codigoCabina, matriculaEquipo),
+codigoEquipo int,
+primary key (codigoCabina, codigoEquipo),
 foreign key (codigoCabina) references cabina(codigo),
-foreign key (matriculaEquipo) references equipo(matricula)
+foreign key (codigoEquipo) references equipo(matricula)
 );
 
 create table turnoMedico(
 codigo int primary key AUTO_INCREMENT,
-cliente varchar(64),
-codigolugar int,
-nombrelugar varchar(50),
-foreign key (cliente) references cliente(usuario),
-foreign key (codigolugar) references lugar(codigo)
+codigoCliente varchar(64),
+codigoLugar int,
+nombreLugar varchar(50),
+foreign key (codigoCliente) references cliente(codigoUsuario),
+foreign key (codigoLugar) references lugar(codigo)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
