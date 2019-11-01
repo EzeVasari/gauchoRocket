@@ -52,15 +52,16 @@
         $apellidos = $_POST["apellidos"];
         $documentos = $_POST["documentos"];
         $nicks = $_POST["nicks"];
+        $servicio = $_POST["servicio"];
         
         foreach($nicks as $n) {
             $queryUsuario = "SELECT * FROM usuario WHERE nick ='".$n. "'";
             $resultadoNick = mysqli_query($conexion, $queryUsuario);
             
             if(mysqli_fetch_assoc($resultadoNick)){
-                $insert = "INSERT INTO relacionClienteReserva(codigoReserva, codigoCliente, checkin, pago, fechaLimite, fechaConfirmacion) VALUES
-                ('".$codigoReserva."', '".$n."', false, false, '".$fechaLimite['fl']."', null);
-              ";
+                $insert = "INSERT INTO itemReserva(codigoReserva, codigoCliente, checkin, pago, fechaLimite, fechaConfirmacion, codigoServicio) VALUES
+                ('".$codigoReserva."', '".$n."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .")";
+                
                 $registro = mysqli_query($conexion, $insert);
             }else {
                  echo '<br><div class="alert alert-warning mt-5" role="alert">
@@ -68,6 +69,7 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
+                break;
             }  
         }
         

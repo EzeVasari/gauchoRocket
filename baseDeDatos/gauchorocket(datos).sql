@@ -63,6 +63,17 @@ insert into cliente (codigoUsuario, verifMedica, nivelVuelo, codigoCentroMedico)
 insert into admin (codigoUsuario, id) values
 ('Admin', 1);
 
+insert into tipoDeServicio (codigoTipoDeServicio, descripcion) values
+(1, 'Standard'),
+(2, 'Gourmet'),
+(3, 'Spa');
+
+insert into servicio (codigoServicio, precio, fkcodigoTipoDeServicio) values 
+(1, 500, 1),
+(2, 600, 2),
+(3, 800, 3);
+
+
 
 
 

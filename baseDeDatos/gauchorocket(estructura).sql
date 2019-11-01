@@ -88,41 +88,35 @@ codigoViaje int,
 foreign key (codigoViaje) references viaje(codigo)
 );
 
-create table relacionClienteReserva(
+create table tipoDeServicio(
+codigoTipoDeServicio int primary key,
+descripcion varchar(50)
+);
+
+create table servicio(
+codigoServicio int primary key,
+precio double,   
+fkcodigoTipoDeServicio int,
+foreign key (fkcodigoTipoDeServicio) references tipoDeServicio(codigoTipoDeServicio)
+);
+
+create table tipoDeCabina(
+codigo int primary key,
+descripcion varchar(50)
+);
+
+create table itemReserva(
 codigoReserva varchar(6),
 codigoCliente varchar(64),
+codigoServicio int,
 checkin boolean,
 pago boolean,
 fechaLimite datetime,
 fechaConfirmacion datetime,
 primary key (codigoReserva, codigoCliente),
 foreign key (codigoReserva) references reserva(codigo),
-foreign key (codigoCliente) references cliente(codigoUsuario)
-);
-
-create table tipoDeServicio(
-codigo int primary key,
-descripcion varchar(50)
-);
-
-create table servicio(
-codigo int primary key,
-precio double,
-codigoTipoDeServicio int,
-foreign key (codigoTipoDeServicio) references tipoDeServicio(codigo)
-);
-
-create table relacionViajeServicio(
-codigoServicio int,
-codigoViaje int,
-primary key(codigoServicio, codigoViaje),
-foreign key (codigoServicio) references servicio(codigo),
-foreign key (codigoViaje) references viaje(codigo)
-);
-
-create table tipoDeCabina(
-codigo int primary key,
-descripcion varchar(50)
+foreign key (codigoCliente) references cliente(codigoUsuario),
+foreign key (codigoServicio) references servicio(codigoServicio)
 );
 
 create table cabina(
