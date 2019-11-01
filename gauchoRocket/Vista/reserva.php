@@ -85,11 +85,11 @@
                         </select>
                     </div>
                         <div class="form-group col-md-6">
-                          <label class='font-weight-bold'>Servicio</label>
-                          <select class='custom-select' name='servicio'>
-                            <option selected value="Standard">Standard</option>
-                            <option value="Gourmet">Gourmet</option>
-                            <option value="Spa">Spa</option>
+                          <label class="font-weight-bold">Servicio</label>
+                          <select class="custom-select" name="servicio">
+                            <option selected value="1">Standard</option>
+                            <option value="2">Gourmet</option>
+                            <option value="3">Spa</option>
                         </select>
                         </div>
                         </div>
