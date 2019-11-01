@@ -50,16 +50,6 @@ insert into login (pass, fkNickUsuario) values
 (md5('asd'), 'Dos'),
 (md5('asd'), 'Admin');
 
-insert into usuario (nick, dni, rol, nombre, apellido, fechaDeNacimiento) values
-('Uno', 1234, false, 'Susana','Oria', '2000.01.01'),
-('Dos', 2345, false, 'Cesar','Noso', '2000.01.01'),
-('Admin', 1, true, 'Ala','Cran', '1992.08.10');
-
-insert into login (email, pass, codigoUsuario) values
-('uno@gmail.com', md5('asd'), 'Uno'),
-('dos@gmail.com', md5('asd'), 'Dos'),
-('admin@gmail.com', md5('asd'), 'Admin');
-
 
 insert into centroMedico (codigo, turnos, codigoLugar, imagen) values
 (1, 200, 1, 'img/centrosMedicos/buenosaires.jpg'),
