@@ -7,7 +7,7 @@ $(document).ready(function(){
         
     
         
-        var fieldHTML = '<h5>Persona</h5><div class="row"><div class="form-group col-md-6"><label>Nombre</label><input type="text" class="form-control" name="nombres[]" required></div><div class="form-group col-md-6"><label>Apellido</label><input type="text" class="form-control" name="apellidos[]" required></div><div class="form-group col-md-6"><label>DNI</label><input type="text" class="form-control" name="documentos[]" required></div><div class="form-group col-md-6"><label>Nick</label><input type="text" class="form-control" name="nicks[]" required></div></div>'; //Nuevos inputs 
+        var fieldHTML = '<hr><h5>Persona</h5><div class="row"><div class="form-group col-md-6"><label>Nombre</label><input type="text" class="form-control" name="nombres[]" required></div><div class="form-group col-md-6"><label>Apellido</label><input type="text" class="form-control" name="apellidos[]" required></div><div class="form-group col-md-6"><label>DNI</label><input type="text" class="form-control" name="documentos[]" required></div><div class="form-group col-md-6"><label>Nick</label><input type="text" class="form-control" name="nicks[]" required></div></div>'; //Nuevos inputs 
         
         var x = 2; // Iniciamos el contador a 2
         
