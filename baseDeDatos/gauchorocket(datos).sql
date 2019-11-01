@@ -39,7 +39,7 @@ insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, duracion,
 (5, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs.', 6300, 'Ankara - Marte', '2019.10.25 12:00:00', 8, 2, 4, 2, 2222),
 (6, 'img/titan2.jpg', 'Vuelo desde Ankara hasta Titan en 72hs.', 11000, 'Ankara - Titan', '2019.10.27 12:00:00', 72, 2, 8, 1, 4444);
 
-<<<<<<< HEAD
+
 insert into usuario (nick, dni, rol, nombre, apellido, fechaDeNacimiento, email) values
 ('Uno', 1234, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com'),
 ('Dos', 2345, false, 'Cesar','Noso', '2000.01.01', 'dos@gmail.com'),
@@ -49,7 +49,7 @@ insert into login (pass, fkNickUsuario) values
 (md5('asd'), 'Uno'),
 (md5('asd'), 'Dos'),
 (md5('asd'), 'Admin');
-=======
+
 insert into usuario (nick, dni, rol, nombre, apellido, fechaDeNacimiento) values
 ('Uno', 1234, false, 'Susana','Oria', '2000.01.01'),
 ('Dos', 2345, false, 'Cesar','Noso', '2000.01.01'),
@@ -59,7 +59,7 @@ insert into login (email, pass, codigoUsuario) values
 ('uno@gmail.com', md5('asd'), 'Uno'),
 ('dos@gmail.com', md5('asd'), 'Dos'),
 ('admin@gmail.com', md5('asd'), 'Admin');
->>>>>>> 18e9ccca659ad606c7b9b19580a8ec68656db7e3
+
 
 insert into centroMedico (codigo, turnos, codigoLugar, imagen) values
 (1, 200, 1, 'img/centrosMedicos/buenosaires.jpg'),

@@ -8,22 +8,14 @@ dni int,
 rol boolean,
 nombre varchar(50),
 apellido varchar(50),
-<<<<<<< HEAD
 email varchar(64), 
-=======
->>>>>>> 18e9ccca659ad606c7b9b19580a8ec68656db7e3
 fechaDeNacimiento date
 );
 
 create table login(
 fkNickUsuario varchar(64) primary key,
 pass varchar(40),
-<<<<<<< HEAD
 foreign key (fkNickUsuario) references usuario(nick)
-=======
-codigoUsuario varchar(64),
-foreign key (codigoUsuario) references usuario(nick)
->>>>>>> 18e9ccca659ad606c7b9b19580a8ec68656db7e3
 );
 
 create table admin(
@@ -91,21 +83,13 @@ foreign key (codigoEquipo) references equipo(matricula)
 );
 
 create table reserva(
-<<<<<<< HEAD
 codigo varchar(6) primary key,
-=======
-codigo int primary key AUTO_INCREMENT,
->>>>>>> 18e9ccca659ad606c7b9b19580a8ec68656db7e3
 codigoViaje int,
 foreign key (codigoViaje) references viaje(codigo)
 );
 
 create table relacionClienteReserva(
-<<<<<<< HEAD
 codigoReserva varchar(6),
-=======
-codigoReserva int,
->>>>>>> 18e9ccca659ad606c7b9b19580a8ec68656db7e3
 codigoCliente varchar(64),
 checkin boolean,
 pago boolean,
