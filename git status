@@ -1,0 +1,47 @@
+[33mcommit 1f12ff0c1ac51faa92ee2453cd7f1fe8d25001b7[m[33m ([m[1;36mHEAD -> [m[1;32mVasari[m[33m)[m
+Author: EzeVasari <ezequielvasari@gmail.com>
+Date:   Fri Nov 1 15:17:58 2019 -0300
+
+    Se cambiarion los directorios de js
+
+[33mcommit e8493ec5ca44b7db3c914c321111954e2b547378[m
+Author: EzeVasari <ezequielvasari@gmail.com>
+Date:   Fri Nov 1 14:39:32 2019 -0300
+
+    Se agrego la tabla itemReserva, y se agrego el tipo de servicio
+
+[33mcommit 09c7cee5a72db305d9c5c778a15e828634fcd95f[m
+Author: EzeVasari <ezequielvasari@gmail.com>
+Date:   Fri Nov 1 01:25:45 2019 -0300
+
+    Se agregó insertar más personas en la reserva
+
+[33mcommit 51893cc29bfb42801f4be1050344e5db6e8c19c5[m
+Author: EzeVasari <ezequielvasari@gmail.com>
+Date:   Thu Oct 31 22:48:22 2019 -0300
+
+    Se arreglaron errores
+
+[33mcommit 4e8b119bdbe23d6400e64dd8ecdf9d100ee1d39e[m
+Author: EzeVasari <ezequielvasari@gmail.com>
+Date:   Thu Oct 31 21:46:43 2019 -0300
+
+    Se saco 'email' de login y se puso en 'usuario'
+
+[33mcommit 48c8e2139feebcf12e5def5f3d33c5582e9fffbd[m
+Author: EzeVasari <ezequielvasari@gmail.com>
+Date:   Thu Oct 31 16:39:42 2019 -0300
+
+    Se solucionaron errores
+
+[33mcommit c4ac0ab4d84327b4a19f856647750e4ebaa32dca[m
+Author: EzeVasari <ezequielvasari@gmail.com>
+Date:   Thu Oct 31 13:54:37 2019 -0300
+
+    Se hicieron modificaciones en la bd y la validación de la reserva
+
+[33mcommit 2adae4ae190aa0fa9ea36ca0e38bca543afeef84[m
+Author: EzeVasari <ezequielvasari@gmail.com>
+Date:   Thu Oct 31 12:37:03 2019 -0300
+
+    Primer commit
