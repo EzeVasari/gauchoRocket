@@ -58,3 +58,8 @@ select:focus{
 .border-primary {
     border-color: #AD84C7 !important;
 }
+
+.btn-outline-primary {
+     background-color: #AD84C7 !important;
+    border-color: #AD84C7 !important;
+}

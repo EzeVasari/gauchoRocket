@@ -76,7 +76,7 @@ echo                        "
                     </div>
               
                     <div class='col-md-3 mt-3'>
-                        <button class='btn btn-primary w-100' type='submit' name='buscar'>Buscar</button>
+                        <button class='btn btn-primary w-100' type='submit' name='buscar'><i class='fas fa-search'></i> Buscar</button>
                     </div>
                 </div>
             </form>

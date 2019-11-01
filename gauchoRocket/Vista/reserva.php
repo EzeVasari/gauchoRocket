@@ -8,7 +8,7 @@
                 <div class="col-md-7 bg-light p-3 border border-primary rounded-lg" >
                     <h4 class="font-weight-bold">¿Quienes viajan?</h4>
                     <p class="text-muted">El titular será responsable de hacer el check-in</p>
-                    <h5>Persona 1</h5> <div class="btn btn-primary" id="btn-nuevaPersona">Agregar persona</div>
+                    <h5>Persona 1</h5> 
                     <form id="contenedor" action="reserva.php?codigo=<?php echo $codigo ?>" method="post">
                       <div class="row">
                         <div class="form-group col-md-6">
@@ -28,17 +28,10 @@
                         <input type="text" class="form-control" value="<?php echo $datos["nick"];?>" name="nicks[]"readonly>
                       </div>
                       </div>
-                   </div>
-                   
-                   <div class="col-md-4 bg-light p-3 border border-primary rounded-lg">
-                       <h4 class="font-weight-bold">Info de vuelo</h4>
-                          <div class=''>
-                            <h5 class='card-title'><?php echo $viaje['nombre'];?></h5>
-                            <p class='card-text'><?php echo $viaje['descripcion'];?></p>
-                            <h5 class='text-center'>Desde: U$ <?php echo $viaje['precio'];?></h5>
-                          </div>
+                      
                    </div>
                 </div>
+                <div class="btn btn-primary mt-2" id="btn-nuevaPersona"><i class='fas fa-plus'></i> Agregar persona</div>
             <div class="row mt-2">
                 <div class="col-md-7 bg-light p-3 border border-primary rounded-lg">
                     <h4 class="font-weight-bold">Ubicación y Servicio</h4>
@@ -64,7 +57,7 @@
                         </div>
                      </div>
                       <div class="col-md-7 mt-2 mb-3">
-                       <button class='btn btn-primary w-100 text-white' type='submit' name='confirmarReserva'>Confirmar reserva</button>
+                       <button class='btn btn-primary w-100 text-white mt-3' type='submit' name='confirmarReserva'>Confirmar reserva</button>
                        </div>
                     </form>
             </div>
