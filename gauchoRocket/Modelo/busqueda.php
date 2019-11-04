@@ -23,14 +23,14 @@
         $criterio = "";
 
         if(!empty($origen) || $origen != 0){
-            $criterio = " where origen = ".$origen;
+            $criterio = " where codigoLugarorigen = ".$origen;
         }
         
         if(!empty($destino) || $destino != 0){
             if($criterio == ""){
-                $criterio = " where destino = ".$destino;
+                $criterio = " where codigoLugardestino = ".$destino;
             }else{
-                $criterio .= " and destino = ".$destino;
+                $criterio .= " and codigoLugardestino = ".$destino;
             }
         }
         
