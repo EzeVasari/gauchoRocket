@@ -7,7 +7,7 @@ $(document).ready(function(){
         
     
         
-        var fieldHTML = '<hr><h5>Persona</h5><div class="row"><div class="form-group col-md-6"><label>Nombre</label><input type="text" class="form-control" name="nombres[]" required></div><div class="form-group col-md-6"><label>Apellido</label><input type="text" class="form-control" name="apellidos[]" required></div><div class="form-group col-md-6"><label>DNI</label><input type="text" class="form-control" name="documentos[]" required></div><div class="form-group col-md-6"><label>Nick</label><input type="text" class="form-control" name="nicks[]" required></div></div>'; //Nuevos inputs 
+        var fieldHTML = '<hr><div class="row"><div class="form-group col-md-6"><label>Nombre</label><input type="text" class="form-control" name="nombres[]" required></div><div class="form-group col-md-6"><label>Apellido</label><input type="text" class="form-control" name="apellidos[]" required></div><div class="form-group col-md-6"><label>DNI</label><input type="text" class="form-control" name="documentos[]" required></div><div class="form-group col-md-6"><label>Nick</label><input type="text" class="form-control" name="nicks[]" required></div><div class="btn btn-danger ml-3 mt-2" id="btn-borrar"><i class="fas fa-trash"></i> Eliminar</div></div>'; //Nuevos inputs 
         
         var x = 2; // Iniciamos el contador a 2
         
@@ -18,7 +18,7 @@ $(document).ready(function(){
             }
         });
         
-        $(wrapper).on('click', '.remove_button', function(e){ // Una vez se ha hecho click en el boton de eliminar
+        $(wrapper).on('click', '#btn-borrar', function(e){ // Una vez se ha hecho click en el boton de eliminar
             e.preventDefault();
             $(this).parent('div').remove(); //Eliminamos el div
             x--; // Reducimos el contador en 1
