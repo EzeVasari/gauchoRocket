@@ -24,8 +24,7 @@
 
     }
        
-    
-    $usuario = ' ';
+    $email = ' ';
     
     if(isset($_COOKIE['login'])){    
         $usuario = $_COOKIE['login'];

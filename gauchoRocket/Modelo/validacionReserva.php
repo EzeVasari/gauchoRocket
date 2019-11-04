@@ -17,7 +17,7 @@
         $max = strlen($pattern)-1;
         for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
         return $key;
-}
+    }
     
     
     if(isset($_GET["codigo"])) {
@@ -59,21 +59,44 @@
             $resultadoEmail = mysqli_query($conexion, $queryUsuario);
             
             if(mysqli_fetch_assoc($resultadoEmail)){
-                $insert = "INSERT INTO itemReserva(codigoReserva, codigoCliente, checkin, pago, fechaLimite, fechaConfirmacion, codigoServicio) VALUES
+                $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, codigoServicio) VALUES
                 ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .")";
                 
                 $registro = mysqli_query($conexion, $insert);
+                
+                
+                $asunto = "Este mensaje es de prueba"; 
+                $cuerpo = ' 
+                <html> 
+                <head> 
+                   <title>Prueba de correo</title> 
+                </head> 
+                <body> 
+                <h1>Hola amigos!</h1> 
+                <p> 
+                <b>Bienvenidos a mi correo electrónico de prueba</b>. Estoy encantado de tener tantos lectores. Este cuerpo del mensaje es del artículo de envío de mails por PHP. Habría que cambiarlo para poner tu propio cuerpo. Por cierto, cambia también las cabeceras del mensaje. 
+                </p> 
+                </body> 
+                </html> 
+                ';
+                
+                $headers = "MIME-Version: 1.0\r\n"; 
+                $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
+                
+                if (mail($e,$asunto,$cuerpo,$headers)) {
+                    echo "<br><br><br><br><br><br>SIIIII";
+                }
             }else {
-                 echo '<br><div class="alert alert-warning mt-5" role="alert">
-                    El usuario '. $e .' no está registrado.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </div>';
+                echo '<br><div class="alert alert-warning mt-5" role="alert">
+                                El email '. $e .' no está registrado.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </div>';
             }  
         }
         
     
-    if($registro && $registroReserva){
+    if($registro){
         echo '<br><div class="alert alert-success mt-5" role="alert">
                     Se confirmó la reserva. <a class="alert-link" href="../Vista/pago.php">Pagar reserva</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
