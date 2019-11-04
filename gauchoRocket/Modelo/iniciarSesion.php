@@ -32,21 +32,21 @@
     }
     
     if(isset($_POST['iniciar'])){
-        $usuario = $_POST["usuario"];
+        $email = $_POST["email"];
         $pass = $_POST["pass"];
 
         include('conexion.php');
 
-        $query = "SELECT l.fkNickUsuario AS usuario, l.pass AS pass, u.rol AS rol
-                    FROM usuario AS u INNER JOIN login AS l ON u.nick = l.fkNickUsuario
-                    WHERE l.fkNickUsuario = '" . $usuario . "'";
+        $query = "SELECT l.fkEmailUsuario AS usuario, l.pass AS pass, u.rol AS rol
+                    FROM usuario AS u INNER JOIN login AS l ON u.email = l.fkEmailUsuario
+                    WHERE l.fkEmailUsuario = '" . $email . "'";
         $resultado = mysqli_query($conexion, $query);
     
     if($row = mysqli_fetch_assoc($resultado)){
         if($row["pass"] == md5($pass)){
             session_start();
-	        $_SESSION['user'] = $usuario;
-            setcookie('login',$usuario,time()+1000);
+	        $_SESSION['user'] = $email;
+            setcookie('login', $email, time()+1000);
             if($row["rol"] == false){
                 header('Location: ../Vista/index.php?m=1');
             }else {
@@ -62,7 +62,7 @@
         }
     }else{
         echo '<br><div class="alert alert-danger mt-5" role="alert">
-                    Usuario incorrecto. <a href="#" class="alert-link" data-toggle="modal" data-target="#iniciar">Volver a intentarlo</a>
+                    E-mail incorrecto. <a href="#" class="alert-link" data-toggle="modal" data-target="#iniciar">Volver a intentarlo</a>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';

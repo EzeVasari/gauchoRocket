@@ -3,25 +3,24 @@ create database gauchorocket;
 use gauchorocket;
 
 create table usuario(
-nick varchar(64) primary key,
+email varchar(64) primary key,
 dni int,
 rol boolean,
 nombre varchar(50),
-apellido varchar(50),
-email varchar(64), 
+apellido varchar(50), 
 fechaDeNacimiento date
 );
 
 create table login(
-fkNickUsuario varchar(64) primary key,
+fkEmailUsuario varchar(64) primary key,
 pass varchar(40),
-foreign key (fkNickUsuario) references usuario(nick)
+foreign key (fkEmailUsuario) references usuario(email)
 );
 
 create table admin(
-codigoUsuario varchar(64) primary key,
+fkEmailUsuario varchar(64) primary key,
 id int unique,
-foreign key (codigoUsuario) references usuario(nick)
+foreign key (fkEmailUsuario) references usuario(email)
 );
 
 create table lugar(
@@ -38,11 +37,11 @@ foreign key (codigoLugar) references lugar(codigo)
 );
 
 create table cliente(
-codigoUsuario varchar(64) primary key,
+fkEmailUsuario varchar(64) primary key,
 verifMedica boolean,
 nivelVuelo int,
 codigoCentroMedico int,
-foreign key (codigoUsuario) references usuario(nick),
+foreign key (fkEmailUsuario) references usuario(email),
 foreign key (codigoCentroMedico) references centroMedico(codigo)
 );
 
@@ -106,16 +105,16 @@ descripcion varchar(50)
 );
 
 create table itemReserva(
-codigoReserva varchar(6),
-codigoCliente varchar(64),
+fkCodigoReserva varchar(6),
+fkEmailCliente varchar(64),
 codigoServicio int,
 checkin boolean,
 pago boolean,
 fechaLimite datetime,
 fechaConfirmacion datetime,
-primary key (codigoReserva, codigoCliente),
-foreign key (codigoReserva) references reserva(codigo),
-foreign key (codigoCliente) references cliente(codigoUsuario),
+primary key (fkCodigoReserva, fkEmailCliente),
+foreign key (fkcodigoReserva) references reserva(codigo),
+foreign key (fkEmailCliente) references cliente(fkEmailUsuario),
 foreign key (codigoServicio) references servicio(codigoServicio)
 );
 
@@ -137,9 +136,9 @@ foreign key (codigoEquipo) references equipo(matricula)
 
 create table turnoMedico(
 codigo int primary key AUTO_INCREMENT,
-codigoCliente varchar(64),
+fkEmailCliente varchar(64),
 codigoLugar int,
 nombreLugar varchar(50),
-foreign key (codigoCliente) references cliente(codigoUsuario),
+foreign key (fkEmailCliente) references cliente(fkEmailUsuario),
 foreign key (codigoLugar) references lugar(codigo)
 );

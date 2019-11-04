@@ -20,9 +20,6 @@
             <input type="text" class="form-control" name="DNI" placeholder="DNI" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="usuario" placeholder="Usuario" required>
-          </div>
-          <div class="form-group">
             <input type="email" class="form-control" name="email" placeholder="E-mail" required>
           </div>
           <div class="form-group">

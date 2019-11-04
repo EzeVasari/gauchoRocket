@@ -23,8 +23,8 @@
                         <input type="text" class="form-control" value="<?php echo $datos["dni"];?>" name="documentos[]" readonly>
                       </div>
                       <div class="form-group col-md-6">
-                        <label>Nick</label>
-                        <input type="text" class="form-control" value="<?php echo $datos["nick"];?>" name="nicks[]"readonly>
+                        <label>E-mail</label>
+                        <input type="text" class="form-control" value="<?php echo $datos["email"];?>" name="emails[]"readonly>
                       </div>
                       </div>
                       

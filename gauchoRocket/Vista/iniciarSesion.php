@@ -10,7 +10,7 @@
       <div class="modal-body">
         <form action="index.php" method="post">
           <div class="form-group">
-            <input type="text" class="form-control" name="usuario" placeholder="Usuario" required>
+            <input type="email" class="form-control" name="email" placeholder="E-mail" required>
           </div>
           <div class="form-group">
             <input type="password" class="form-control" name="pass" placeholder="Contraseña" required>

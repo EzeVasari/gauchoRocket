@@ -31,7 +31,7 @@
     }
     
     //Busqueda Usuario
-    $busquedaUsuario = "SELECT * FROM usuario WHERE nick ='" .$_SESSION['user']. "'";
+    $busquedaUsuario = "SELECT * FROM usuario WHERE email ='" .$_SESSION['user']. "'";
     $resultadoUsuario = mysqli_query($conexion, $busquedaUsuario);
     $datos = mysqli_fetch_assoc($resultadoUsuario);
     
@@ -45,31 +45,30 @@
     
     if(!empty($_POST["nombres"]) && !empty($_POST["apellidos"]) && !empty($_POST["documentos"])){
         
-        $queryReserva = "INSERT INTO reserva (codigo,codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
+        $queryReserva = "INSERT INTO reserva (codigo, codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
         $registroReserva = mysqli_query($conexion, $queryReserva);
         
         $nombres = $_POST["nombres"];
         $apellidos = $_POST["apellidos"];
         $documentos = $_POST["documentos"];
-        $nicks = $_POST["nicks"];
+        $emails = $_POST["emails"];
         $servicio = $_POST["servicio"];
         
-        foreach($nicks as $n) {
-            $queryUsuario = "SELECT * FROM usuario WHERE nick ='".$n. "'";
-            $resultadoNick = mysqli_query($conexion, $queryUsuario);
+        foreach($emails as $e) {
+            $queryUsuario = "SELECT * FROM usuario WHERE email ='".$e. "'";
+            $resultadoEmail = mysqli_query($conexion, $queryUsuario);
             
-            if(mysqli_fetch_assoc($resultadoNick)){
+            if(mysqli_fetch_assoc($resultadoEmail)){
                 $insert = "INSERT INTO itemReserva(codigoReserva, codigoCliente, checkin, pago, fechaLimite, fechaConfirmacion, codigoServicio) VALUES
-                ('".$codigoReserva."', '".$n."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .")";
+                ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .")";
                 
                 $registro = mysqli_query($conexion, $insert);
             }else {
                  echo '<br><div class="alert alert-warning mt-5" role="alert">
-                    El usuario '. $n .' no está registrado.
+                    El usuario '. $e .' no está registrado.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
-                break;
             }  
         }
         
@@ -89,6 +88,12 @@
                 </div>';
     }
         
+    }else {
+        echo '<br><div class="alert alert-warning mt-5" role="alert">
+                    Hay campos vacíos!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';
     }
 
 }
