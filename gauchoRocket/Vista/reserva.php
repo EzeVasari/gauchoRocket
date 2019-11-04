@@ -7,8 +7,7 @@
             <div class="row justify-content-between" id="tabla">
                 <div class="col-md-7 bg-light p-3 border border-primary rounded-lg" >
                     <h4 class="font-weight-bold">¿Quienes viajan?</h4>
-                    <p class="text-muted">El titular será responsable de hacer el check-in</p>
-                    <h5>Persona 1</h5> 
+                    <p class="text-muted">Se pueden reservar pasajes de hasta 5 personas.</p>
                     <form id="contenedor" action="reserva.php?codigo=<?php echo $codigo ?>" method="post">
                       <div class="row">
                         <div class="form-group col-md-6">
