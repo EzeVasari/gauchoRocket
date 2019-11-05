@@ -2,8 +2,6 @@
 <html>
     <?php
     session_start();
-    
-
 
     include("../Modelo/conexion.php");
     
@@ -11,18 +9,14 @@
     include('navbar.php');
     include('../Modelo/iniciarSesion.php');
     include('iniciarSesion.php');
-    include('../Modelo/registroUsuarios.php');
-    include('registroUsuarios.php');
-    include('carrousel.php');
     ?>
     
     <body>
-        <div class="container mt-5">
+        <br><br><div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-7 text-center mb-3">
                     <h2 class="font-weight-bold">Sus reservas</h2>
                     <p class="text-muted">Detallamos todos las reservas de las que dispone para poder abonar</p>
-                    <p class="text-muted">Recuerde que puede usar cualquier tarjeta de crédito para poder abonar</p>
                 </div>
             </div>
             <div class="row">
@@ -46,7 +40,7 @@
                                 <div class='card-body'>
                                     <h5 class='card-title'>".$centro['nombre']." (#".$centro['codigo'].")</h5>
                                     <p class='card-text'>".$centro['descripcion']."</p>
-                                    <a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Pagar</a>
+                                    <a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'><i class='fas fa-dollar-sign'></i> Pagar</a>
                                 </div>
                             </div>
                         </div>

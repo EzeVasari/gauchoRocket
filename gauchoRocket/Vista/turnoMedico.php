@@ -16,13 +16,11 @@
     include('navbar.php');
     include('../Modelo/iniciarSesion.php');
     include('iniciarSesion.php');
-    include('../Modelo/registroUsuarios.php');
-    include('registroUsuarios.php');
-    include('carrousel.php');
+
     ?>
     
     <body>
-        <div class="container mt-5">
+        <br><br><div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-7 text-center mb-3">
                     <h2 class="font-weight-bold">Centros médicos</h2>
@@ -42,7 +40,7 @@
                                 <div class='card-body'>
                                     <h5 class='card-title'>Ubicación: ".$centro['lugar']."</h5>
                                     <p class='card-text'>Turnos: ".$centro['turno']."</p>
-                                    <a href='../Modelo/validacionTurnoMedico.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Solicitar turno</a>
+                                    <a href='../Modelo/validacionTurnoMedico.php?codigo=".$centro['codigo']."' class='btn btn-primary'><i class='far fa-calendar-check'></i> Solicitar turno</a>
                                 </div>
                             </div>
                         </div>
