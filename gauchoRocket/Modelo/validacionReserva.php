@@ -63,16 +63,17 @@
                 ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .")";
                 
                 $registro = mysqli_query($conexion, $insert);
-                
-                
-                $asunto = "Confirmación de reserva #".$codigoReserva; 
+
+                /* == PRUEBA, IGNORAR == 
+                $asunto = "Confirmacion de su Registro de reserva"; 
+
                 $cuerpo = ' 
                 <html> 
                 <head> 
                    <title>Prueba de correo</title> 
                 </head> 
                 <body> 
-                <h1>Hola amigos!</h1> 
+                <h1>Estimado Usuario!</h1> 
                 <p> 
                 <b>Bienvenidos a mi correo electrónico de prueba</b>. Estoy encantado de tener tantos lectores. Este cuerpo del mensaje es del artículo de envío de mails por PHP. Habría que cambiarlo para poner tu propio cuerpo. Por cierto, cambia también las cabeceras del mensaje. 
                 </p> 
@@ -83,8 +84,15 @@
                 $headers = "MIME-Version: 1.0\r\n"; 
                 $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
                 
+
                 mail($e,$asunto,$cuerpo,$headers);
                     
+
+                if (mail($e,$asunto,$cuerpo,$headers)) {
+                    echo "<br><br><br><br><br><br>SIIIII";
+                }
+                == PRUEBA, IGNORAR == */
+
             }else {
                 echo '<br><div class="alert alert-warning mt-5" role="alert">
                                 El email '. $e .' no está registrado.
