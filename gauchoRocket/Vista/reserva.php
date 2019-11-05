@@ -39,10 +39,10 @@
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label class='font-weight-bold'>Cabina</label>
-                          <select class='custom-select' name='cabina'>
-                            <option selected value="General">General</option>
-                            <option value="Familiar">Familiar</option>
-                            <option value="Suite">Suite</option>
+                          <select class='custom-select' name="cabina">
+                            <option selected value="1">General</option>
+                            <option value="2">Familiar</option>
+                            <option value="3">Suite</option>
                         </select>
                     </div>
                         <div class="form-group col-md-6">

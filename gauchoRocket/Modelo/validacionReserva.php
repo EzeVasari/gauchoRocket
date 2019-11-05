@@ -53,14 +53,14 @@
         $documentos = $_POST["documentos"];
         $emails = $_POST["emails"];
         $servicio = $_POST["servicio"];
+        $cabina = $_POST["cabina"];
         
         foreach($emails as $e) {
             $queryUsuario = "SELECT * FROM usuario WHERE email ='".$e. "'";
             $resultadoEmail = mysqli_query($conexion, $queryUsuario);
             
             if(mysqli_fetch_assoc($resultadoEmail)){
-                $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, codigoServicio) VALUES
-                ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .")";
+                $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
                 
                 $registro = mysqli_query($conexion, $insert);
 

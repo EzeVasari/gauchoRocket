@@ -100,14 +100,23 @@ foreign key (fkcodigoTipoDeServicio) references tipoDeServicio(codigoTipoDeServi
 );
 
 create table tipoDeCabina(
-codigo int primary key,
+codigoTipoDeCabina int primary key,
 descripcion varchar(50)
+);
+
+create table cabina(
+codigoCabina int primary key,
+asientos int,
+ubicacion varchar(10),
+fkCodigoTipoDeCabina int,
+foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
 );
 
 create table itemReserva(
 fkCodigoReserva varchar(6),
 fkEmailCliente varchar(64),
-codigoServicio int,
+fkCodigoServicio int,
+fkCodigoCabina int,
 checkin boolean,
 pago boolean,
 fechaLimite datetime,
@@ -115,23 +124,16 @@ fechaConfirmacion datetime,
 primary key (fkCodigoReserva, fkEmailCliente),
 foreign key (fkcodigoReserva) references reserva(codigo),
 foreign key (fkEmailCliente) references cliente(fkEmailUsuario),
-foreign key (codigoServicio) references servicio(codigoServicio)
-);
-
-create table cabina(
-codigo int primary key,
-asientos int,
-ubicacion varchar(10),
-codigoTipoDeCabina int,
-foreign key (codigoTipoDeCabina) references tipoDeCabina(codigo)
+foreign key (fkCodigoServicio) references servicio(codigoServicio),
+foreign key (fkCodigoCabina) references cabina(codigoCabina)
 );
 
 create table relacionCabinaEquipo(
-codigoCabina int,
-codigoEquipo int,
-primary key (codigoCabina, codigoEquipo),
-foreign key (codigoCabina) references cabina(codigo),
-foreign key (codigoEquipo) references equipo(matricula)
+fkCodigoCabina int,
+fkCodigoEquipo int,
+primary key (fkCodigoCabina, fkCodigoEquipo),
+foreign key (fkCodigoCabina) references cabina(codigoCabina),
+foreign key (fkCodigoEquipo) references equipo(matricula)
 );
 
 create table turnoMedico(
