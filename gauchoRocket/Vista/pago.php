@@ -27,25 +27,25 @@
             </div>
             <div class="row">
                 <?php
-                $usuario = $_SESSION['user']; //Usuario logueado
+                $email = $_SESSION['user']; //Usuario logueado
                 
-                $query = "select rvc.codigo as codigo, v.img as imagen, v.nombre as nombre, v.descripcion as descripcion, v.precio as precio
-                            from relacionViajeCliente as rvc inner join viaje as v on rvc.codigoviaje = v.codigo
-                            where rvc.nombreusuario like '".$usuario."'";
+                $query = "select i.fkCodigoReserva as codigo, v.imagen as imagen, v.nombre as nombre, v.descripcion as descripcion, v.precio as precio
+                            from itemReserva as i inner join reserva as r 
+                                on i.fkCodigoReserva = r.codigo 
+                            inner join viaje as v 
+                                on r.codigoViaje = v.codigo
+                            where fkEmailCliente like '".$email."'";
+                
                 $resultado = mysqli_query($conexion, $query);
-                $centro = mysqli_fetch_row($resultado);
 
-                
-           while($centro=!1)
-                    {
+                while ($centro = mysqli_fetch_assoc($resultado)){
                     echo"
                         <div class='col mb-4'>
                             <div class='card text-center mx-auto'>
                                 <img src='".$centro['imagen']."' class='card-img-top' alt='...'>
                                 <div class='card-body'>
-                                    <h5 class='card-title'>".$centro['nombre']."</h5>
+                                    <h5 class='card-title'>".$centro['nombre']." (#".$centro['codigo'].")</h5>
                                     <p class='card-text'>".$centro['descripcion']."</p>
-                                    <h5 class='text-center'>Desde: U$ ".$centro['precio']."</h5>
                                     <a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Pagar</a>
                                 </div>
                             </div>

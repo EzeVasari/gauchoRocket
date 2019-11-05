@@ -64,7 +64,7 @@
                 
                 $registro = mysqli_query($conexion, $insert);
                 
-                
+                /* == PRUEBA, IGNORAR == 
                 $asunto = "Confirmacion de su Registro de reserva"; 
                 $cuerpo = ' 
                 <html> 
@@ -86,6 +86,7 @@
                 if (mail($e,$asunto,$cuerpo,$headers)) {
                     echo "<br><br><br><br><br><br>SIIIII";
                 }
+                == PRUEBA, IGNORAR == */
             }else {
                 echo '<br><div class="alert alert-warning mt-5" role="alert">
                                 El email '. $e .' no está registrado.

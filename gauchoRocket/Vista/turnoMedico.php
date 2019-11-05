@@ -31,7 +31,7 @@
             </div>
             <div class="row">
                 <?php
-                $query = "select c.codigo as codigo, c.turnos as turno, l.nombre as lugar, c.imagen as imagen from centroMedico as c inner join lugar as l on c.lugar = l.codigo;";
+                $query = "select c.codigo as codigo, c.turnos as turno, l.nombre as lugar, c.imagen as imagen from centroMedico as c inner join lugar as l on c.codigoLugar = l.codigo;";
                 $resultado = mysqli_query($conexion, $query);
 
                 while ($centro = mysqli_fetch_assoc($resultado)){
