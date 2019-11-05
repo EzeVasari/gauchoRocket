@@ -65,7 +65,7 @@
                 $registro = mysqli_query($conexion, $insert);
                 
                 
-                $asunto = "Este mensaje es de prueba"; 
+                $asunto = "Confirmación de reserva #".$codigoReserva; 
                 $cuerpo = ' 
                 <html> 
                 <head> 
@@ -83,9 +83,8 @@
                 $headers = "MIME-Version: 1.0\r\n"; 
                 $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
                 
-                if (mail($e,$asunto,$cuerpo,$headers)) {
-                    echo "<br><br><br><br><br><br>SIIIII";
-                }
+                mail($e,$asunto,$cuerpo,$headers);
+                    
             }else {
                 echo '<br><div class="alert alert-warning mt-5" role="alert">
                                 El email '. $e .' no está registrado.
