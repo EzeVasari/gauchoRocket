@@ -104,7 +104,7 @@
                 
                 $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
                 
-                $registro2 = mysqli_query($conexion, $insert);
+                $registro = mysqli_query($conexion, $insert);
                 
                 $hashEmail = generarCodigoReserva(10);
             }  

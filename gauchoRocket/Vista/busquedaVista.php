@@ -10,7 +10,7 @@ echo "
             <form class='needs-validation' method='post' action='index.php'>
                 <div class='form-row'>
                     <div class='col-md-6 mb-3'>
-                        <label class='font-weight-bold' for='validationTooltip01'>Origen</label>
+                        <label class='font-weight-bold' for='validationTooltip01'><i class='fas fa-plane-departure'></i>  Origen</label>
                         <select class='custom-select' name='origen'>
                             <option selected value='0'>Seleccione origen</option>
                             ";
@@ -26,7 +26,7 @@ echo                        "
                     </div>
                     
                     <div class='col-md-6 mb-3'>
-                        <label class='font-weight-bold' for='validationTooltip02'>Destino</label>
+                        <label class='font-weight-bold' for='validationTooltip02'><i class='fas fa-plane-arrival'></i>  Destino</label>
                         <select class='custom-select' name='destino'>
                             <option selected value='0'>Seleccione destino</option>
                             ";
@@ -49,7 +49,7 @@ echo                        "
                 
                 <div class='form-row align-items-center'>
                     <div class='col-md-3 mb-3'>
-                        <label class='font-weight-bold' for='validationTooltip03'>Pasajeros/as</label>
+                        <label class='font-weight-bold' for='validationTooltip03'><i class='fas fa-users'></i>  Pasajeros/as</label>
                         <select class='custom-select' name='pasajeros'>
                             <option value='1' selected>1</option>
                             <option value='2'>2</option>
@@ -60,7 +60,7 @@ echo                        "
                     </div>
               
                     <div class='col-md-3 mb-3'>
-                        <label class='font-weight-bold' for='validationTooltip04'>Nivel de vuelo</label>
+                        <label class='font-weight-bold' for='validationTooltip04'><i class='fas fa-layer-group'></i>  Nivel de vuelo</label>
                         <select class='custom-select' name='nivel'>
                             <option value='1' selected>1</option>
                             <option value='2'>2</option>
@@ -69,14 +69,14 @@ echo                        "
                     </div>
               
                     <div class='col-md-3 mb-3'>
-                        <label class='font-weight-bold' for='validationTooltip05'>Fecha</label>
+                        <label class='font-weight-bold' for='validationTooltip05'><i class='far fa-calendar-alt'></i>  Fecha</label>
                         <div class='input-group date'>
                             <input type='text' autocomplete='off' id='fecha' class='form-control' name='fecha' placeholder='DD/MM/AAAA'>
                         </div>
                     </div>
               
                     <div class='col-md-3 mt-3'>
-                        <button class='btn btn-primary w-100' type='submit' name='buscar'><i class='fas fa-search'></i> Buscar</button>
+                        <button class='btn btn-primary w-100' type='submit' name='buscar'><i class='fas fa-search'></i>  Buscar</button>
                     </div>
                 </div>
             </form>
