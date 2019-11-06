@@ -63,7 +63,8 @@
                 $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
                 
                 $registro = mysqli_query($conexion, $insert);
-
+                
+            
                 /* == PRUEBA, IGNORAR == 
                 $asunto = "Confirmacion de su Registro de reserva"; 
 
@@ -94,11 +95,20 @@
                 == PRUEBA, IGNORAR == */
 
             }else {
-                echo '<br><div class="alert alert-warning mt-5" role="alert">
-                                El email '. $e .' no está registrado.
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </div>';
+                $insert = "INSERT INTO itemReserva (fkCodigoReserva, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
+                
+                $registro2 = mysqli_query($conexion, $insert);
+                
+                if($registro2){
+                    
+                    echo "<br><br>siiii";
+                    echo $e;
+                }else{
+                    echo "<br><br>noo";
+                    echo $e;
+                }
+                
+                $hashEmail = generarCodigoReserva(10);
             }  
         }
         

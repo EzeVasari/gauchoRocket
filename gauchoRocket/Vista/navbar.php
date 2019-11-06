@@ -19,17 +19,10 @@
                     <a class="nav-link" href="#">Nosotros</a>
                   </li>
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Destinos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">Europa</a>
-                      <a class="dropdown-item" href="#">Titán</a>
-                      <a class="dropdown-item" href="#">Ío</a>
-                    </div>
+                    <a class="nav-link" href="destinos.php">Destinos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" tabindex="-1">Contacto</a>
+                    <a class="nav-link" href="contacto.php" tabindex="-1">Contacto</a>
                   </li>
                 </ul>
             </div>
@@ -39,7 +32,7 @@
                    echo "
                         <ul class='navbar-nav'>
                             <li class='nav-item'>
-                                <a class='nav-link' href='turnoMedico.php'>Médico</a>
+                                <a class='nav-link' href='../Modelo/validacionTurnoMedico.php'>Médico</a>
                             </li>
                             <li class='nav-item'>
                                 <a class='nav-link' href='pago.php'>Reservas</a>

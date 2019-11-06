@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html>
     <?php
+    if(!isset($_SESSION)){
     session_start();
-    
-    if(!isset($_SESSION['user'])){
-        header("Location: ERROR_turno_medico.php");
-        exit();
-    }
-    
-    
-    
+}
+
     include("../Modelo/conexion.php");
-    
     include('head.php');
     include('navbar.php');
-    include('../Modelo/iniciarSesion.php');
-    include('iniciarSesion.php');
 
     ?>
     
@@ -38,7 +30,7 @@
                             <div class='card text-center mx-auto'>
                                 <img src='".$centro['imagen']."' class='card-img-top' alt='...'>
                                 <div class='card-body'>
-                                    <h5 class='card-title'>Ubicación: ".$centro['lugar']."</h5>
+                                    <h5 class='card-title'>".$centro['lugar']."</h5>
                                     <p class='card-text'>Turnos: ".$centro['turno']."</p>
                                     <a href='../Modelo/validacionTurnoMedico.php?codigo=".$centro['codigo']."' class='btn btn-primary'><i class='far fa-calendar-check'></i> Solicitar turno</a>
                                 </div>
