@@ -98,3 +98,4 @@ insert into cabina (codigoCabina, asientos, ubicacion, fkCodigoTipoDeCabina) val
 
 
 
+

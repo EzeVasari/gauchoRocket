@@ -54,7 +54,7 @@
         $emails = $_POST["emails"];
         $servicio = $_POST["servicio"];
         $cabina = $_POST["cabina"];
-        
+        $i = 0;
         foreach($emails as $e) {
             $queryUsuario = "SELECT * FROM usuario WHERE email ='".$e. "'";
             $resultadoEmail = mysqli_query($conexion, $queryUsuario);
@@ -95,18 +95,16 @@
                 == PRUEBA, IGNORAR == */
 
             }else {
-                $insert = "INSERT INTO itemReserva (fkCodigoReserva, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
+                $i++;
+                $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido) VALUES ('".$e."','".$documentos[$i]."',false,'".$nombres[$i]."','".$apellidos[$i]."')";
+                $queryDos = "INSERT INTO cliente (fkEmailUsuario) VALUES ('".$e."')";
+    
+                $insert = mysqli_query($conexion, $query);
+                $insertDos = mysqli_query($conexion, $queryDos);
+                
+                $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
                 
                 $registro2 = mysqli_query($conexion, $insert);
-                
-                if($registro2){
-                    
-                    echo "<br><br>siiii";
-                    echo $e;
-                }else{
-                    echo "<br><br>noo";
-                    echo $e;
-                }
                 
                 $hashEmail = generarCodigoReserva(10);
             }  
