@@ -8,7 +8,9 @@ dni int,
 rol boolean,
 nombre varchar(50),
 apellido varchar(50), 
-fechaDeNacimiento date
+fechaDeNacimiento date,
+codigoHash varchar(32),
+active boolean
 );
 
 create table login(

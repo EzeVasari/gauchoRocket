@@ -36,9 +36,9 @@
 
         include('conexion.php');
 
-        $query = "SELECT l.fkEmailUsuario AS usuario, l.pass AS pass, u.rol AS rol
+        $query = "SELECT l.fkEmailUsuario AS usuario, l.pass AS pass, u.rol AS rol, u.active
                     FROM usuario AS u INNER JOIN login AS l ON u.email = l.fkEmailUsuario
-                    WHERE l.fkEmailUsuario = '" . $email . "'";
+                    WHERE l.fkEmailUsuario = '" . $email . "' AND u.active = true";
         $resultado = mysqli_query($conexion, $query);
     
     if($row = mysqli_fetch_assoc($resultado)){
@@ -61,7 +61,7 @@
         }
     }else{
         echo '<br><div class="alert alert-danger mt-5" role="alert">
-                    E-mail incorrecto. <a href="#" class="alert-link" data-toggle="modal" data-target="#iniciar">Volver a intentarlo</a>
+                    E-mail incorrecto o no verificado. <a href="#" class="alert-link" data-toggle="modal" data-target="#iniciar">Volver a intentarlo</a>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';

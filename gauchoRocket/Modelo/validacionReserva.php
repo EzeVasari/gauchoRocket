@@ -64,7 +64,20 @@
                 
                 $registro = mysqli_query($conexion, $insert);
                 
-            
+            }else {
+                $i++;
+                $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido) VALUES ('".$e."','".$documentos[$i]."',false,'".$nombres[$i]."','".$apellidos[$i]."')";
+                $queryDos = "INSERT INTO cliente (fkEmailUsuario) VALUES ('".$e."')";
+    
+                $insert = mysqli_query($conexion, $query);
+                $insertDos = mysqli_query($conexion, $queryDos);
+                
+                $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
+                
+                $registro = mysqli_query($conexion, $insert);
+                
+                $hashEmail = generarCodigoReserva(10);
+                
                 /* == PRUEBA, IGNORAR == 
                 $asunto = "Confirmacion de su Registro de reserva"; 
 
@@ -93,20 +106,10 @@
                     echo "<br><br><br><br><br><br>SIIIII";
                 }
                 == PRUEBA, IGNORAR == */
-
-            }else {
-                $i++;
-                $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido) VALUES ('".$e."','".$documentos[$i]."',false,'".$nombres[$i]."','".$apellidos[$i]."')";
-                $queryDos = "INSERT INTO cliente (fkEmailUsuario) VALUES ('".$e."')";
-    
-                $insert = mysqli_query($conexion, $query);
-                $insertDos = mysqli_query($conexion, $queryDos);
                 
-                $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
                 
-                $registro = mysqli_query($conexion, $insert);
                 
-                $hashEmail = generarCodigoReserva(10);
+                
             }  
         }
         
