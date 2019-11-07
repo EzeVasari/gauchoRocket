@@ -34,7 +34,7 @@
         
         $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido, codigoHash, active) VALUES ('".$email."','".$dni."','cliente','".$nombre."','".$apellido."', '".$codigoHash."', false)";
         $queryDos = "INSERT INTO login (fkEmailUsuario, pass) VALUES ('".$email."','".$pass."')";
-        $queryTres = "INSERT INTO cliente (fkEmailUsuario) VALUES ('".$email."')";
+        $queryTres = "INSERT INTO cliente (fkEmailUsuario, verifMedica) VALUES ('".$email."', false)";
     
         $insert = mysqli_query($conexion, $query);
         $insertDos = mysqli_query($conexion, $queryDos);
