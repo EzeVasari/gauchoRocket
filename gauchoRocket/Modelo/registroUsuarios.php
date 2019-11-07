@@ -48,37 +48,33 @@
                 <html lang="">
                 <head>
                     <meta charset="utf-8">
-                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-                    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
-                    <script src="https://kit.fontawesome.com/06b3ad8f3c.js" crossorigin="anonymous"></script>
-                    <title></title>
                 </head>
-
-                <body style="font-family: "Poppins" !important;">
-                    <div class="container p-4 mb-2 bg-secondary text-white">
-                     <div class="d-flex justify-content-center">
-                       <h3>
-                        <img src="img/cohete.png" width="25" height="25" alt="">
-                        <i class="fal fa-rocket"></i>
+              
+                <body style="font-family: sans-serif !important;">
+                    <div style="width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; @media (min-width: 576px) { max-width: 540px; }; @media (min-width: 768px) { max-width: 720px;}; @media (min-width: 992px) { max-width: 960px;}; padding: 1.5rem !important; margin-bottom: 0.5rem !important; @page { min-width: 992px !important;}; background-color: #A08DD7 !important; color: #fff !important;">
+                     <div style="display: -ms-flexbox !important; display: flex !important; -ms-flex-pack: center !important; justify-content: center !important;">
+                       <h2>
+                        <img src="http://localhost/gauchoRocket/gauchoRocket/Vista/img/cohete.png" width="25" height="25" alt="">
                         Gaucho Rocket
-                      </h3>
+                      </h2>
                      </div>
-                     <div class="p-3 bg-white text-dark">
+                     <div style="padding: 1rem !important; background-color: #fff !important; color: #343a40 !important;">
                         <p>Hola:</p>
                         <p>¡Gracias por registrarse en Gaucho Rocket! Por favor, haga click en el enlace de la parte inferior para confirmar su dirección de correo electrónico. Una vez que confirme su correo electrónico, puede comenzar a utilizar nuestro servicio.</p>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-primary" href="http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmail.php?email='.$email.'&hash='.$codigoHash.'" role="button" style="background-color: #AD84C7 !important; border-color: #AD84C7 !important;">Confirmar cuenta</a>
+                        <div style="display: -ms-flexbox !important; display: flex !important; -ms-flex-pack: center !important; justify-content: center !important;">
+                            <a href="http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmail.php?email='.$email.'&hash='.$codigoHash.'" role="button" style="display: inline-block; font-weight: 400; color: #212529; text-align: center; vertical-align: middle; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: transparent; border: 1px solid transparent; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; color: #fff; background-color: #AD84C7 !important; border-color: #AD84C7 !important; text-decoration: none !important;">Confirmar cuenta</a>
                         </div>
-                        <p class="mt-2">
+                        <p style="margin-top: 0.5rem !important;">
                         Gracias,<br>
-                        El equipo de <span class="font-weight-bold">Gaucho Rocket</span>.
+                        El equipo de <span style="font-weight: 700 !important;">Gaucho Rocket</span>.
                         </p>
-                        <p class="font-italic">
+                        <p style="font-style: italic !important;">
                         Si no puede ver el botón de confirmación de arriba, aquí tiene el enlace de confirmación: http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmail.php?email='.$email.'&hash='.$codigoHash.'
                         </p>
                      </div>
                     </div>
                 </body>
+                
                 </html>
  
                 ';

@@ -20,7 +20,7 @@
             
             echo "<br><br><div class='container mt-5'>
                     <div class='alert alert-success' role='alert'>
-                      <h4 class='alert-heading'>Cuenta confirmada!</h4>
+                      <h4 class='alert-heading'>¡Cuenta confirmada!</h4>
                       <p>Bien, has confimado tu cuenta mediante el email <span class='font-weight-bold'>$email</span>. Ya puedes <a href='#' class='alert-link' data-toggle='modal' data-target='#iniciar'>iniciar sesión</a> y utilizar todos nuestros servicios, muchas gracias.</p>
                     </div>
                     </div>";
