@@ -2,8 +2,8 @@
 <html>
     <?php
     if(!isset($_SESSION)){
-    session_start();
-}
+        session_start();
+    }
 
     include("../Modelo/conexion.php");
     include('head.php');
