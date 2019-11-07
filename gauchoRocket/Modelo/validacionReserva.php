@@ -54,7 +54,8 @@
         $queryReserva = "INSERT INTO reserva (codigo, codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
         $registroReserva = mysqli_query($conexion, $queryReserva);
         
-        $idItemReserva = rand(1000,5000);
+        $idItemReserva = rand(1000,8000);
+       
         
         $queryItemReserva = "INSERT INTO itemReserva(idItemReserva, fkCodigoReserva, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES (".$idItemReserva.",'".$codigoReserva."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
         $registro = mysqli_query($conexion, $queryItemReserva);
@@ -72,16 +73,70 @@
              
             }else {
                 $i++;
-                $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido) VALUES ('".$e."','".$documentos[$i]."',false,'".$nombres[$i]."','".$apellidos[$i]."')";
+                $codigoHash = md5(rand(0,1000));
+                
+                $pass = md5(rand(1000,7000));
+                
+                $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido, codigoHash, active) VALUES('".$e."','".$documentos[$i]."',false,'".$nombres[$i]."','".$apellidos[$i]."', '".$codigoHash."', false)";
                 $queryDos = "INSERT INTO cliente (fkEmailUsuario) VALUES ('".$e."')";
+                $queryTres = "INSERT INTO login (fkEmailUsuario, pass) VALUES ('".$e."', '".$pass."')";
     
                 $insert = mysqli_query($conexion, $query);
                 $insertDos = mysqli_query($conexion, $queryDos);
+                $insertTres = mysqli_query($conexion, $queryTres);
+                
                 
                 $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente) VALUES (".$idItemReserva.", '".$e."')";
                 $registro = mysqli_query($conexion, $queryRelacion);
                 
-                $hashEmail = generarCodigoReserva(10);
+                /* == Envio de email == */
+        $asunto = "Confirmación de cuenta | Gaucho Rocket"; 
+
+        $cuerpo = ' 
+                <!DOCTYPE html>
+                <html lang="">
+                <head>
+                    <meta charset="utf-8">
+                </head>
+              
+                <body style="font-family: sans-serif !important;">
+                    <div style="width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; @media (min-width: 576px) { max-width: 540px; }; @media (min-width: 768px) { max-width: 720px;}; @media (min-width: 992px) { max-width: 960px;}; padding: 1.5rem !important; margin-bottom: 0.5rem !important; @page { min-width: 992px !important;}; background-color: #A08DD7 !important; color: #fff !important;">
+                     <div style="display: -ms-flexbox !important; display: flex !important; -ms-flex-pack: center !important; justify-content: center !important;">
+                       <h2>
+                        <img src="http://localhost/gauchoRocket/gauchoRocket/Vista/img/cohete.png" width="25" height="25" alt="">
+                        Gaucho Rocket
+                      </h2>
+                     </div>
+                     <div style="padding: 1rem !important; background-color: #fff !important; color: #343a40 !important;">
+                        <p>Hola:</p>
+                        <p>¡Han registrado una reserva que contiene tu email en Gaucho Rocket! Se te ha lo siguiente de forma automatica:</p>
+                        <p style ="margin-top: 0.5rem !important;">Usuario: '.$e.'</p>
+                        <p>Contraseña: '.md5($pass).'</p>
+                        <p style ="margin-top: 0.5rem !important;">Por favor, haga click en el enlace de la parte inferior para confirmar su dirección de correo electrónico. Una vez que confirme su correo electrónico, puede comenzar a utilizar nuestro servicio.</p>
+                        <div style="display: -ms-flexbox !important; display: flex !important; -ms-flex-pack: center !important; justify-content: center !important;">
+                            <a href="http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmail.php?email='.$e.'&hash='.$codigoHash.'" role="button" style="display: inline-block; font-weight: 400; color: #212529; text-align: center; vertical-align: middle; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: transparent; border: 1px solid transparent; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; color: #fff; background-color: #AD84C7 !important; border-color: #AD84C7 !important; text-decoration: none !important;">Confirmar cuenta</a>
+                        </div>
+                        <p style="margin-top: 0.5rem !important;">
+                        Gracias,<br>
+                        El equipo de <span style="font-weight: 700 !important;">Gaucho Rocket</span>.
+                        </p>
+                        <p style="font-style: italic !important;">
+                        Si no puede ver el botón de confirmación de arriba, aquí tiene el enlace de confirmación: http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmail.php?email='.$e.'&hash='.$codigoHash.'
+                        </p>
+                     </div>
+                    </div>
+                </body>
+                
+                </html>
+ 
+                ';
+                
+        $headers = "MIME-Version: 1.0\r\n"; 
+        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
+            
+        mail($e,$asunto,$cuerpo,$headers);
+            
+        /* == Fin envio de email == */
                 
             }  
         }
