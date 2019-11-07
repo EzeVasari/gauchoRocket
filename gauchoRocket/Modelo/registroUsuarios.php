@@ -67,14 +67,14 @@
                         <p>Hola:</p>
                         <p>¡Gracias por registrarse en Gaucho Rocket! Por favor, haga click en el enlace de la parte inferior para confirmar su dirección de correo electrónico. Una vez que confirme su correo electrónico, puede comenzar a utilizar nuestro servicio.</p>
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-primary" href="C:\xampp\htdocs\gauchoRocket\gauchoRocket\Vista\verificacionEmail.php?email='.$email.'&hash='.$codigoHash.'" role="button" style="background-color: #AD84C7 !important; border-color: #AD84C7 !important;">Confirmar cuenta</a>
+                            <a class="btn btn-primary" href="http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmail.php?email='.$email.'&hash='.$codigoHash.'" role="button" style="background-color: #AD84C7 !important; border-color: #AD84C7 !important;">Confirmar cuenta</a>
                         </div>
                         <p class="mt-2">
                         Gracias,<br>
                         El equipo de <span class="font-weight-bold">Gaucho Rocket</span>.
                         </p>
                         <p class="font-italic">
-                        Si no puede ver el botón de confirmación de arriba, aquí tiene el enlace de confirmación: C:\xampp\htdocs\gauchoRocket\gauchoRocket\Vista\verificacionEmail.php?email='.$email.'&hash='.$codigoHash.'
+                        Si no puede ver el botón de confirmación de arriba, aquí tiene el enlace de confirmación: http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmail.php?email='.$email.'&hash='.$codigoHash.'
                         </p>
                      </div>
                     </div>
