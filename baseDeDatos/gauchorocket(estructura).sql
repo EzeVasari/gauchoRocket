@@ -115,19 +115,25 @@ foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
 );
 
 create table itemReserva(
+idItemReserva int primary key,
 fkCodigoReserva varchar(6),
-fkEmailCliente varchar(64),
 fkCodigoServicio int,
 fkCodigoCabina int,
 checkin boolean,
 pago boolean,
 fechaLimite datetime,
 fechaConfirmacion datetime,
-primary key (fkCodigoReserva, fkEmailCliente),
 foreign key (fkcodigoReserva) references reserva(codigo),
-foreign key (fkEmailCliente) references cliente(fkEmailUsuario),
 foreign key (fkCodigoServicio) references servicio(codigoServicio),
 foreign key (fkCodigoCabina) references cabina(codigoCabina)
+);
+
+create table relacionClienteItemReserva (
+fkIdItemReserva int,
+fkEmailCliente varchar(64),
+primary key (fkIdItemReserva, fkEmailCliente),
+foreign key (fkIdItemReserva) references itemReserva (idItemReserva),
+foreign key (fkEmailCliente) references cliente (fkEmailUsuario)
 );
 
 create table relacionCabinaEquipo(

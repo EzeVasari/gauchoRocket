@@ -40,10 +40,10 @@ insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, duracion,
 (6, 'img/titan2.jpg', 'Vuelo desde Ankara hasta Titan en 72hs.', 11000, 'Ankara - Titan', '2019.10.27 12:00:00', 72, 2, 8, 1, 4444);
 
 
-insert into usuario (dni, rol, nombre, apellido, fechaDeNacimiento, email) values
-(1234, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com'),
-(2345, false, 'Cesar','Noso', '2000.01.01', 'dos@gmail.com'),
-(1, true, 'Ala','Cran', '1992.08.10', 'admin@gmail.com');
+insert into usuario (dni, rol, nombre, apellido, fechaDeNacimiento, email, active) values
+(1234, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com', true),
+(2345, false, 'Cesar','Noso', '2000.01.01', 'dos@gmail.com', true),
+(1, true, 'Ala','Cran', '1992.08.10', 'admin@gmail.com', true);
 
 insert into login (pass, fkEmailUsuario) values
 (md5('asd'), 'uno@gmail.com'),

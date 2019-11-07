@@ -44,26 +44,32 @@
     $codigoReserva =  generarCodigoReserva(6); 
     
     if(!empty($_POST["nombres"]) && !empty($_POST["apellidos"]) && !empty($_POST["documentos"])){
-        
-        $queryReserva = "INSERT INTO reserva (codigo, codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
-        $registroReserva = mysqli_query($conexion, $queryReserva);
-        
         $nombres = $_POST["nombres"];
         $apellidos = $_POST["apellidos"];
         $documentos = $_POST["documentos"];
         $emails = $_POST["emails"];
         $servicio = $_POST["servicio"];
         $cabina = $_POST["cabina"];
+        
+        $queryReserva = "INSERT INTO reserva (codigo, codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
+        $registroReserva = mysqli_query($conexion, $queryReserva);
+        
+        $idItemReserva = rand(1000,5000);
+        
+        $queryItemReserva = "INSERT INTO itemReserva(idItemReserva, fkCodigoReserva, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES (".$idItemReserva.",'".$codigoReserva."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
+        $registro = mysqli_query($conexion, $queryItemReserva);
+        
+        
         $i = 0;
         foreach($emails as $e) {
             $queryUsuario = "SELECT * FROM usuario WHERE email ='".$e. "'";
             $resultadoEmail = mysqli_query($conexion, $queryUsuario);
             
             if(mysqli_fetch_assoc($resultadoEmail)){
-                $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
+                $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente) VALUES (".$idItemReserva.", '".$e."')";
                 
-                $registro = mysqli_query($conexion, $insert);
-                
+                $registro = mysqli_query($conexion, $queryRelacion);
+             
             }else {
                 $i++;
                 $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido) VALUES ('".$e."','".$documentos[$i]."',false,'".$nombres[$i]."','".$apellidos[$i]."')";
@@ -72,43 +78,10 @@
                 $insert = mysqli_query($conexion, $query);
                 $insertDos = mysqli_query($conexion, $queryDos);
                 
-                $insert = "INSERT INTO itemReserva(fkCodigoReserva, fkEmailCliente, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES ('".$codigoReserva."', '".$e."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
-                
-                $registro = mysqli_query($conexion, $insert);
+                $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente) VALUES (".$idItemReserva.", '".$e."')";
+                $registro = mysqli_query($conexion, $queryRelacion);
                 
                 $hashEmail = generarCodigoReserva(10);
-                
-                /* == PRUEBA, IGNORAR == 
-                $asunto = "Confirmacion de su Registro de reserva"; 
-
-                $cuerpo = ' 
-                <html> 
-                <head> 
-                   <title>Prueba de correo</title> 
-                </head> 
-                <body> 
-                <h1>Estimado Usuario!</h1> 
-                <p> 
-                <b>Bienvenidos a mi correo electrónico de prueba</b>. Estoy encantado de tener tantos lectores. Este cuerpo del mensaje es del artículo de envío de mails por PHP. Habría que cambiarlo para poner tu propio cuerpo. Por cierto, cambia también las cabeceras del mensaje. 
-                </p> 
-                </body> 
-                </html> 
-                ';
-                
-                $headers = "MIME-Version: 1.0\r\n"; 
-                $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
-                
-
-                mail($e,$asunto,$cuerpo,$headers);
-                    
-
-                if (mail($e,$asunto,$cuerpo,$headers)) {
-                    echo "<br><br><br><br><br><br>SIIIII";
-                }
-                == PRUEBA, IGNORAR == */
-                
-                
-                
                 
             }  
         }
