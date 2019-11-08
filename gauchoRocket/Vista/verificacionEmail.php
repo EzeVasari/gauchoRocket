@@ -34,16 +34,6 @@
         }
     }
 
-
-/* echo '<br><div class="alert alert-success mt-5" role="alert">
-                Registro exitoso! <a href="#" class="alert-link" data-toggle="modal" data-target="#iniciar">Iniciá sesión</a>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </div>'; 
-            */
-
-
-
 ?>
                
 

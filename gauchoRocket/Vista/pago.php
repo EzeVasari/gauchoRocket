@@ -36,7 +36,7 @@
                     
                     while ($centro = mysqli_fetch_assoc($resultado)){
                         echo"<div class='col mb-4'>
-                                <div class='card text-center mx-auto'>
+                                <div class='card reservas text-center mx-auto'>
                                     <img src='".$centro['img']."' class='card-img-top' alt='...'>
                                     <div class='card-body'>
                                         <h5 class='card-title'>".$centro['nombre']." (#".$centro['codigo'].")</h5>

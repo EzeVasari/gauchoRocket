@@ -39,7 +39,7 @@ select:focus{
     box-shadow: 0 0 0 0.2rem #AD84C7 !important;
 
 }
-.card {
+.destinos, .reservas {
     width: 20rem;
 }
 .card img {

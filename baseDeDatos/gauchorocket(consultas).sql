@@ -58,16 +58,6 @@ from cliente
 where codigoUsuario like 'Uno';
 
 
-select ir.fkCodigoReserva as codigo, v.imagen as img, v.nombre as nombre, v.descripcion AS descripcion, v.precio AS precio
-from relacionClienteItemReserva as rcr inner join itemReserva as ir
-	on rcr.fkIdItemReserva = ir.idItemReserva
-inner join Reserva as r
-	on ir.fkCodigoReserva = r.codigo
-inner join Viaje as v
-	on r.codigoViaje = v.codigo
-where fkCodigoReserva = 'uno@gmail.com';
-
-
 
 
 
