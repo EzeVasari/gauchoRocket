@@ -57,8 +57,10 @@ select verifMedica
 from cliente
 where codigoUsuario like 'Uno';
 
-
-
+select fkEmailUsuario as user, verifMedica as medico
+from relacionClienteItemReserva as rel
+	inner join cliente as c on rel.fkEmailCliente = c.fkEmailUsuario
+where fkIdItemReserva = 2714;
 
 
 
