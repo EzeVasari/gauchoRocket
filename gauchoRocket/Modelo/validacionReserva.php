@@ -74,17 +74,12 @@
             }else {
                 $i++;
                 $codigoHash = md5(rand(0,1000));
-                
-                $pass = md5(rand(1000,7000));
-                
+              
                 $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido, codigoHash, active) VALUES('".$e."','".$documentos[$i]."',false,'".$nombres[$i]."','".$apellidos[$i]."', '".$codigoHash."', false)";
                 $queryDos = "INSERT INTO cliente (fkEmailUsuario) VALUES ('".$e."')";
-                $queryTres = "INSERT INTO login (fkEmailUsuario, pass) VALUES ('".$e."', '".$pass."')";
-    
+            
                 $insert = mysqli_query($conexion, $query);
                 $insertDos = mysqli_query($conexion, $queryDos);
-                $insertTres = mysqli_query($conexion, $queryTres);
-                
                 
                 $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente) VALUES (".$idItemReserva.", '".$e."')";
                 $registro = mysqli_query($conexion, $queryRelacion);
@@ -109,19 +104,17 @@
                              </div>
                              <div style="padding: 1rem !important; background-color: #fff !important; color: #343a40 !important;">
                                 <p>Hola:</p>
-                                <p>¡Han registrado una reserva que contiene tu email en Gaucho Rocket! Se te ha lo siguiente de forma automatica:</p>
-                                <p style ="margin-top: 0.5rem !important;">Usuario: '.$e.'</p>
-                                <p>Contraseña: '.md5($pass).'</p>
+                                <p>¡Han registrado una reserva que contiene tu email en Gaucho Rocket!</p>
                                 <p style ="margin-top: 0.5rem !important;">Por favor, haga click en el enlace de la parte inferior para confirmar su dirección de correo electrónico. Una vez que confirme su correo electrónico, puede comenzar a utilizar nuestro servicio.</p>
                                 <div style="display: -ms-flexbox !important; display: flex !important; -ms-flex-pack: center !important; justify-content: center !important;">
-                                    <a href="http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmail.php?email='.$e.'&hash='.$codigoHash.'" role="button" style="display: inline-block; font-weight: 400; color: #212529; text-align: center; vertical-align: middle; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: transparent; border: 1px solid transparent; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; color: #fff; background-color: #AD84C7 !important; border-color: #AD84C7 !important; text-decoration: none !important;">Confirmar cuenta</a>
+                                    <a href="http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmailReserva.php?email='.$e.'&hash='.$codigoHash.'" role="button" style="display: inline-block; font-weight: 400; color: #212529; text-align: center; vertical-align: middle; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: transparent; border: 1px solid transparent; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; color: #fff; background-color: #AD84C7 !important; border-color: #AD84C7 !important; text-decoration: none !important;">Confirmar cuenta</a>
                                 </div>
                                 <p style="margin-top: 0.5rem !important;">
                                 Gracias,<br>
                                 El equipo de <span style="font-weight: 700 !important;">Gaucho Rocket</span>.
                                 </p>
                                 <p style="font-style: italic !important;">
-                                Si no puede ver el botón de confirmación de arriba, aquí tiene el enlace de confirmación: http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmail.php?email='.$e.'&hash='.$codigoHash.'
+                                Si no puede ver el botón de confirmación de arriba, aquí tiene el enlace de confirmación: http://localhost/gauchoRocket/gauchoRocket/Vista/verificacionEmailReserva.php?email='.$e.'&hash='.$codigoHash.'
                                 </p>
                              </div>
                             </div>

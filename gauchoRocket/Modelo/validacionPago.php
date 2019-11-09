@@ -21,7 +21,7 @@ if($verifmedica['verifMedica'] == false){
 }else
 {
 
-	header('Location: ../Vista/IngresoDePago.php?reserva="'.$codigo = $_GET["codigo"].'"');
+	header('Location: ../Vista/IngresoDePago.php?reserva='.$codigo = $_GET["codigo"].'');
 
 }
 
