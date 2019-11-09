@@ -96,7 +96,7 @@
                                                 if($habilitar == "NO"){
                                                     echo "<button type='button' class='btn btn-lg btn-primary' disabled='disabled'>PAGAR</button>";
                                                 }else{
-                                                    echo "<button type='button' class='btn btn-primary btn-lg'>PAGAR</button>";
+                                                    echo "<a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'><i class='fas fa-dollar-sign'></i> Pagar</a>";
                                                 }
                                         
                                         echo "
