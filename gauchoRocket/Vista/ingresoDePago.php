@@ -8,11 +8,12 @@
     include('../Modelo/iniciarSesion.php');
     include('iniciarSesion.php');
 
-  if(isset($_GET["codigo"])){
-        $codigoReserva = $_GET["codigo"];
+  if(isset($_GET["reserva"])){
+        $codigoReserva = $_GET["reserva"];
     }
 
-    $query="select v.descripcion, v.nombre, count(rci.fkEmailCliente)*SUM(v.precio + s.precio) as total, s.precio as precioServicio, v.precio as precioViaje from viaje as v inner join reserva as r on v.codigo = r.codigoViaje inner join itemreserva as i on i.fkCodigoReserva = r.codigo inner join servicio as s on s.codigoServicio= i.fkCodigoServicio inner join relacionclienteitemreserva as rci on i.idItemReserva = rci.fkIdItemReserva";
+    $query="select v.descripcion, v.nombre, count(rci.fkIdItemReserva)*SUM(v.precio + s.precio) as total, s.precio as precioServicio, v.precio as precioViaje from viaje as v inner join reserva as r on v.codigo = r.codigoViaje inner join itemreserva as i on i.fkCodigoReserva = r.codigo inner join servicio as s on s.codigoServicio= i.fkCodigoServicio inner join relacionclienteitemreserva as rci on i.idItemReserva = rci.fkIdItemReserva
+    where i.fkCodigoReserva='".$codigoReserva."'";
 $precio = mysqli_query($conexion, $query);
  $datos = mysqli_fetch_assoc($precio);
 
