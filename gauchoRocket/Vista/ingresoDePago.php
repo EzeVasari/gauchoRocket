@@ -12,15 +12,19 @@
         $codigoReserva = $_GET["reserva"];
     }
 
-    $query="select v.descripcion, v.nombre, count(rci.fkIdItemReserva)*SUM(v.precio + s.precio) as total, s.precio as precioServicio, v.precio as precioViaje from viaje as v inner join reserva as r on v.codigo = r.codigoViaje inner join itemreserva as i on i.fkCodigoReserva = r.codigo inner join servicio as s on s.codigoServicio= i.fkCodigoServicio inner join relacionclienteitemreserva as rci on i.idItemReserva = rci.fkIdItemReserva
-    where i.fkCodigoReserva='".$codigoReserva."'";
-$precio = mysqli_query($conexion, $query);
- $datos = mysqli_fetch_assoc($precio);
-
-
-
+    $query="SELECT v.descripcion, v.nombre, COUNT(rci.fkIdItemReserva)*SUM(v.precio + s.precio) AS total, s.precio AS precioServicio, v.precio AS precioViaje 
+            FROM viaje AS v INNER JOIN reserva AS r 
+                ON v.codigo = r.codigoViaje 
+            INNER JOIN itemreserva AS i 
+                ON i.fkCodigoReserva = r.codigo 
+            INNER JOIN servicio AS s 
+                ON s.codigoServicio= i.fkCodigoServicio 
+            INNER JOIN relacionclienteitemreserva AS rci 
+                ON i.idItemReserva = rci.fkIdItemReserva
+            WHERE i.fkCodigoReserva='".$codigoReserva."'";
  
-
+     $precio = mysqli_query($conexion, $query);
+     $datos = mysqli_fetch_assoc($precio);
 
   echo'<script type="text/javascript">
     $(function () {
@@ -28,7 +32,7 @@ $precio = mysqli_query($conexion, $query);
     })
 </script>
 
-<div class="container mt-5">
+<br><div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center">
@@ -37,35 +41,27 @@ $precio = mysqli_query($conexion, $query);
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">"'.$datos["nombre"].'"</h6>
+            <h6 class="my-0">'.$datos["nombre"].'</h6>
             <small class="text-muted">"'.$datos["descripcion"].'"</small>
           </div>
-          <span class="text-muted">"Precio Total $'.$datos["total"].'"</span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">viaje</h6>
+            <h6 class="my-0">Vuelo</h6>
             <small class="text-muted">Precio del Viaje </small>
           </div>
-          <span class="text-muted">$"'.$datos["precioViaje"].'"</span>
+          <span class="text-muted">$'.$datos["precioViaje"].'</span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
             <h6 class="my-0">Servicio</h6>
             <small class="text-muted">El monto del servicio ya fue adherido al precio total</small>
           </div>
-          <span class="text-muted">$"'.$datos["precioServicio"].'"</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between bg-light">
-          <div class="text-success">
-            <h6 class="my-0">Promo code</h6>
-            <small>EXAMPLECODE</small>
-          </div>
-          <span class="text-success">-$5</span>
+          <span class="text-muted">$'.$datos["precioServicio"].'</span>
         </li>
         <li class="list-group-item d-flex justify-content-between">
           <span>Total (USD)</span>
-          <strong>$20</strong>
+          <strong>$'.$datos["total"].'</strong>
         </li>
       </ul>
 
