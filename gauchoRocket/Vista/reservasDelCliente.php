@@ -8,17 +8,18 @@
     include('head.php');
     include('navbar.php');
     include('../Modelo/iniciarSesion.php');
-    include('iniciarSesion.php');
    
                 $email = $_SESSION['user']; //Usuario logueado
                 
                 $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
                             v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod
-                        FROM relacionClienteItemReserva AS rcr
-                            INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
-                            INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
-                            INNER JOIN Viaje AS v ON r.codigoViaje = v.codigo
-                        WHERE fkEmailCliente ='".$email."'";
+                          FROM relacionClienteItemReserva AS rcr INNER JOIN itemReserva AS ir 
+                            ON rcr.fkIdItemReserva = ir.idItemReserva
+                          INNER JOIN Reserva AS r 
+                            ON ir.fkCodigoReserva = r.codigo
+                          INNER JOIN Viaje AS v 
+                            ON r.codigoViaje = v.codigo
+                          WHERE fkEmailCliente ='".$email."'";
                 
                 $resultado = mysqli_query($conexion, $query);
                 
@@ -40,9 +41,7 @@
                                             <div class='card-body'>
                                                 <h5 class='card-title'>".$centro['nombre']." (#".$centro['codigo'].")</h5>
                                                 <p class='card-text'>".$centro['descripcion']."</p>
-                                                <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>
-                                                    <i class='fas fa-dollar-sign'></i> Pagar
-                                                </a>
+                                                <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>Pagar</a>
                                             </div>
                                         </div>
                                     </div>

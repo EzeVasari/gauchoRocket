@@ -1,7 +1,8 @@
 <?php
     include("../Vista/head.php");
     include("../Vista/navbar.php");
-
+    include("../Vista/iniciarSesion.php");
+    
      session_start();
     if(!isset($_SESSION['user'])){
         header("Location: ../Vista/index.php?m=3");
@@ -136,7 +137,7 @@
         
     if($registro){
         echo '<br><div class="alert alert-success mt-5" role="alert">
-                    Se confirmó la reserva. <a class="alert-link" href="../Vista/pago.php">Pagar reserva</a>.
+                    Se confirmó la reserva. <a class="alert-link" href="../Vista/reservasDelCliente.php">Pagar reserva</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';

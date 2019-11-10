@@ -35,7 +35,7 @@
                                 <a class='nav-link' href='../Modelo/validacionTurnoMedico.php'>Médico</a>
                             </li>
                             <li class='nav-item'>
-                                <a class='nav-link' href='pago.php'>Reservas</a>
+                                <a class='nav-link' href='reservasDelCliente.php'>Reservas</a>
                             </li>
                             <li class='nav-item'>
                                 <a class='nav-link text-right text-primary' href='cerrarSesion.php'>Cerrar sesión</a>
