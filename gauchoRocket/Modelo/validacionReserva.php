@@ -1,9 +1,10 @@
 <?php
     include("../Vista/head.php");
     include("../Vista/navbar.php");
-    include("../Vista/iniciarSesion.php");
     
-     session_start();
+     if(!isset($_SESSION)){
+        session_start();
+     }
     if(!isset($_SESSION['user'])){
         header("Location: ../Vista/index.php?m=3");
         exit();
