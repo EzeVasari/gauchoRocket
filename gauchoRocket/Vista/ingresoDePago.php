@@ -8,11 +8,20 @@
     include('../Modelo/iniciarSesion.php');
     include('iniciarSesion.php');
 
-	if(isset($_GET["codigo"])){
+  if(isset($_GET["codigo"])){
         $codigoReserva = $_GET["codigo"];
     }
 
-	echo'<script type="text/javascript">
+    $query="select v.descripcion, v.nombre, count(rci.fkEmailCliente)*SUM(v.precio + s.precio) as total, s.precio as precioServicio, v.precio as precioViaje from viaje as v inner join reserva as r on v.codigo = r.codigoViaje inner join itemreserva as i on i.fkCodigoReserva = r.codigo inner join servicio as s on s.codigoServicio= i.fkCodigoServicio inner join relacionclienteitemreserva as rci on i.idItemReserva = rci.fkIdItemReserva";
+$precio = mysqli_query($conexion, $query);
+ $datos = mysqli_fetch_assoc($precio);
+
+
+
+ 
+
+
+  echo'<script type="text/javascript">
     $(function () {
       $("[data-toggle="tooltip"]").tooltip();
     })
@@ -27,17 +36,24 @@
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Product name</h6>
-            <small class="text-muted">Brief description</small>
+            <h6 class="my-0">"'.$datos["nombre"].'"</h6>
+            <small class="text-muted">"'.$datos["descripcion"].'"</small>
           </div>
-          <span class="text-muted">$12</span>
+          <span class="text-muted">"Precio Total $'.$datos["total"].'"</span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Second product</h6>
-            <small class="text-muted">Brief description</small>
+            <h6 class="my-0">viaje</h6>
+            <small class="text-muted">Precio del Viaje </small>
           </div>
-          <span class="text-muted">$8</span>
+          <span class="text-muted">$"'.$datos["precioViaje"].'"</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">Servicio</h6>
+            <small class="text-muted">El monto del servicio ya fue adherido al precio total</small>
+          </div>
+          <span class="text-muted">$"'.$datos["precioServicio"].'"</span>
         </li>
         <li class="list-group-item d-flex justify-content-between bg-light">
           <div class="text-success">
@@ -119,6 +135,8 @@
     </ul>
   </footer>
 </div>';
-    
+
+
+
 
 ?>
