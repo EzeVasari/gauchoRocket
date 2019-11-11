@@ -57,10 +57,71 @@ select verifMedica
 from cliente
 where codigoUsuario like 'Uno';
 
-select fkEmailUsuario as user, verifMedica as medico
+
+select fkEmailUsuario as user, verifMedica as medico, i.idItemReserva as cod, v.precio as precio, tcab.precio as precioCabina
 from relacionClienteItemReserva as rel
 	inner join cliente as c on rel.fkEmailCliente = c.fkEmailUsuario
-where fkIdItemReserva = 2714;
+	inner join itemReserva as i on rel.fkIdItemReserva = i.idItemReserva
+    inner join reserva as r on i.fkCodigoReserva = r.codigo
+    inner join viaje as v on r.codigoViaje = v.codigo
+    inner join cabina as cab on i.fkCodigoCabina = cab.codigoCabina
+    inner join tipoDeCabina as tcab on cab.fkCodigoTipoDeCabina = tcab.codigoTipoDeCabina
+where fkIdItemReserva = 6695;
+
+select * from turnomedico where fkEmailCliente like 'dos%';
+
+select turnos
+from centroMedico
+where codigo = 1;
+
+select *
+from turnoMedico
+where fkEmailCliente like '%uno%';
+
+select c.turnos as turnos, l.nombre as nombre
+from centroMedico as c
+	inner join lugar as l on c.codigoLugar = l.codigo
+where c.codigo = 1;
+
+select t.fechaTurnoMedico as fecha, c.verifMedica as medico
+from turnoMedico as t
+	inner join cliente as c on t.fkEmailCliente = c.fkEmailUsuario
+where t.fkEmailCliente like '%dos%';
+
+select *
+from cliente;
+
+select *
+from turnoMedico;
+
+update cliente
+set codigoCentroMedico = 1
+where fkEmailUsuario like 'uno@gmail.com';
+
+select fechaTurnoMedico from turnomedico
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

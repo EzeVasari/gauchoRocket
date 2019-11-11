@@ -69,7 +69,7 @@ create table viaje(
 codigo int primary key,
 imagen varchar(100),
 descripcion varchar(100),
-precio double,
+precio int,
 nombre varchar(50),
 fecha datetime,
 duracion int,
@@ -148,6 +148,7 @@ foreign key (fkCodigoEquipo) references equipo(matricula)
 create table turnoMedico(
 codigo int primary key AUTO_INCREMENT,
 fkEmailCliente varchar(64),
+fechaTurnoMedico datetime,
 codigoLugar int,
 nombreLugar varchar(50),
 foreign key (fkEmailCliente) references cliente(fkEmailUsuario),

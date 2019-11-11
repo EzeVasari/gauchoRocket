@@ -8,18 +8,17 @@
     include('head.php');
     include('navbar.php');
     include('../Modelo/iniciarSesion.php');
+    include('iniciarSesion.php');
    
                 $email = $_SESSION['user']; //Usuario logueado
                 
                 $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
                             v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod
-                          FROM relacionClienteItemReserva AS rcr INNER JOIN itemReserva AS ir 
-                            ON rcr.fkIdItemReserva = ir.idItemReserva
-                          INNER JOIN Reserva AS r 
-                            ON ir.fkCodigoReserva = r.codigo
-                          INNER JOIN Viaje AS v 
-                            ON r.codigoViaje = v.codigo
-                          WHERE fkEmailCliente ='".$email."'";
+                        FROM relacionClienteItemReserva AS rcr
+                            INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
+                            INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
+                            INNER JOIN Viaje AS v ON r.codigoViaje = v.codigo
+                        WHERE fkEmailCliente ='".$email."'";
                 
                 $resultado = mysqli_query($conexion, $query);
                 
@@ -41,7 +40,9 @@
                                             <div class='card-body'>
                                                 <h5 class='card-title'>".$centro['nombre']." (#".$centro['codigo'].")</h5>
                                                 <p class='card-text'>".$centro['descripcion']."</p>
-                                                <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>Pagar</a>
+                                                <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>
+                                                    <i class='fas fa-dollar-sign'></i> Pagar
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -60,13 +61,24 @@
                                             <div class='modal-body'>
                                                 <div class='row'>";
                                                 
-                                                $queryDos = "select fkEmailUsuario as user, verifMedica as medico
+                                                $queryDos = "select fkEmailUsuario as user, verifMedica as medico,
+                                                                i.idItemReserva as cod, v.precio as precio, tcab.precio as precioCabina
                                                             from relacionClienteItemReserva as rel
                                                                 inner join cliente as c on rel.fkEmailCliente = c.fkEmailUsuario
+	                                                            inner join itemReserva as i on rel.fkIdItemReserva = i.idItemReserva
+                                                                inner join reserva as r on i.fkCodigoReserva = r.codigo
+                                                                inner join viaje as v on r.codigoViaje = v.codigo
+                                                                inner join cabina as cab on i.fkCodigoCabina = cab.codigoCabina
+                                                                inner join tipoDeCabina as tcab on cab.fkCodigoTipoDeCabina = tcab.codigoTipoDeCabina
                                                             where fkIdItemReserva = ".$centro['cod']."";
                                                 $resultadoDos = mysqli_query($conexion, $queryDos);
                         
                                                 $habilitar = "SI";
+                                                
+                                                $total = 0;
+                                                $totalViajes = 0;
+                                                $totalCabinas = 0;
+                                                
                                                 while($centroDos = mysqli_fetch_assoc($resultadoDos)){
                                                     if($centroDos['medico'] == 0){
                                                         $valor = "No.";
@@ -74,6 +86,13 @@
                                                     }else{
                                                         $valor = "Sí.";
                                                     }
+                                                    
+                                                    
+                                                    
+                                                    $totalViajes += $centroDos['precio'];
+                                                    $totalCabinas += $centroDos['precioCabina'];
+                                                    $total += $centroDos['precio'];
+                                                    $total += $centroDos['precioCabina'];
                                                     
                                                     echo "
                                                         <div class='col mb-4'>
@@ -93,9 +112,17 @@
                                                 </div>";
                                                 
                                                 if($habilitar == "NO"){
-                                                    echo "<button type='button' class='btn btn-lg btn-primary' disabled='disabled'>PAGAR</button>";
+                                                    echo "  <h6 class='modal-title'>Total de viajes: U$ ".$totalViajes."</h6>
+                                                            <h6 class='modal-title'>Total de cabinas: U$ ".$totalCabinas."</h6>
+                                                            <h4 class='modal-title'>Total a pagar: U$ ".$total."</h4>
+                                                            <button type='button' class='btn btn-lg btn-primary' disabled='disabled'>PAGAR</button>";
                                                 }else{
-                                                    echo "<a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'><i class='fas fa-dollar-sign'></i> Pagar</a>";
+                                                    echo "<h6 class='modal-title'>Total de viajes: U$ ".$totalViajes."</h6>
+                                                          <h6 class='modal-title'>Total de cabinas: U$ ".$totalCabinas."</h6>
+                                                          <h4 class='modal-title'>Total a pagar: U$ ".$total."</h4>
+                                                          <a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>
+                                                            <i class='fas fa-dollar-sign'></i> Pagar
+                                                          </a>";
                                                 }
                                         
                                         echo "

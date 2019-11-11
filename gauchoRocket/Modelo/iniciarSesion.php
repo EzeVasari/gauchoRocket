@@ -47,6 +47,8 @@
 	        $_SESSION['user'] = $email;
             setcookie('login', $email, time()+1000);
             if($row["rol"] == false){
+                include('verificacionesDeInicioDeSesion.php');
+                
                 header('Location: ../Vista/index.php?m=1');
             }else {
                 header('Location: ../Vista/indexAdmin.php?m=1');
