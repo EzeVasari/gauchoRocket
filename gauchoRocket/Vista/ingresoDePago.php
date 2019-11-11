@@ -123,7 +123,7 @@
                             <div class="col-sm-4">
                               <div class="form-group mb-4">
                                 <label data-toggle="tooltip" title="3 digitos en el reverso de la tarjeta">CVV <i class="fa fa-question-circle"></i></label>
-                                <input type="text" name="cvv" class="form-control" required>
+                                <input type="number" name="cvv" class="form-control" required>
                               </div>
                             </div>
                         </div> <!-- row.// -->

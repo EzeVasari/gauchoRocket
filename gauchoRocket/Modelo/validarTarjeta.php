@@ -10,6 +10,9 @@
     }
 
     $tarjeta = $_POST["nroTarjeta"];
+    $cvv= $_POST["cvv"];
+
+    $codigocvv= (int)$cvv;
 
     function luhn_check($number) {  /*algoritmo para tarjetas de 10 y 16 digitos*/
 
@@ -43,15 +46,22 @@
 
     $confirmacion = luhn_check($tarjeta); /*llamo a la funcion para validar una tarjeta por ejemplo 4111 1111 1111 1111 */
 
-    if($confirmacion == true){
+  if(is_int($codigocvv))/*verifica primero que sea un numero y cuenta la cantidad de digitos que tienen generalmente son 3 */
+  {
+    $numerocvv= strlen($cvv);
+  }
+
+    if($confirmacion == true and $numerocvv==3){
         $query="UPDATE itemReserva SET  itemReserva.pago = '1' WHERE fkCodigoReserva = '".$codigoReserva."'";
 
         $resultado = mysqli_query($conexion, $query);
 
-       header('Location: ../Vista/pagoExitoso.php?reserva='.$codigoReserva.'');
+     header('Location: ../Vista/pagoExitoso.php?reserva='.$codigoReserva.'');
 
     }else{
-        header('Location: ../Vista/ingresoDePago.php?reserva='.$codigoReserva.'');
+       header('Location: ../Vista/ingresoDePago.php?reserva='.$codigoReserva.'');
     }
+
+  
 
 ?>
