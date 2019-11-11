@@ -63,3 +63,39 @@ select:focus{
      background-color: #AD84C7 !important;
     border-color: #AD84C7 !important;
 }
+
+
+/* Lista de usuario - verificacion medica */
+.cardList {
+    -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    margin-bottom: 10px;
+}
+.table th {
+    font-weight: 500;
+    color: #AD84C7;
+}
+.table thead {
+    background-color: #f3f2f7;
+}
+.table>tbody>tr>td, .table>tfoot>tr>td, .table>thead>tr>td {
+    padding: 14px 12px;
+    vertical-align: middle;
+}
+
+.thumb-sm {
+    height: 32px;
+    width: 32px;
+}
+.badge-soft-warning {
+    background-color: rgba(248,201,85,.2);
+    color: #f8c955;
+}
+
+.badge {
+    font-weight: 500;
+}
+.badge-soft-primary {
+    background-color: rgba(21,87,36,.2);
+    color: #155724;
+}

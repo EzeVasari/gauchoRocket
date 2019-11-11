@@ -8,17 +8,18 @@
     include('head.php');
     include('navbar.php');
     include('../Modelo/iniciarSesion.php');
-    include('iniciarSesion.php');
    
                 $email = $_SESSION['user']; //Usuario logueado
                 
                 $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
                             v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod
-                        FROM relacionClienteItemReserva AS rcr
-                            INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
-                            INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
-                            INNER JOIN Viaje AS v ON r.codigoViaje = v.codigo
-                        WHERE fkEmailCliente ='".$email."'";
+                          FROM relacionClienteItemReserva AS rcr INNER JOIN itemReserva AS ir 
+                            ON rcr.fkIdItemReserva = ir.idItemReserva
+                          INNER JOIN Reserva AS r 
+                            ON ir.fkCodigoReserva = r.codigo
+                          INNER JOIN Viaje AS v 
+                            ON r.codigoViaje = v.codigo
+                          WHERE fkEmailCliente ='".$email."'";
                 
                 $resultado = mysqli_query($conexion, $query);
                 
@@ -34,95 +35,99 @@
                                 <div class="row">';
                     
                     while ($centro = mysqli_fetch_assoc($resultado)){
-                        echo"       <div class='col mb-4'>
-                                        <div class='card reservas text-center mx-auto'>
-                                            <img src='".$centro['img']."' class='card-img-top' alt='...'>
-                                            <div class='card-body'>
-                                                <h5 class='card-title'>".$centro['nombre']." (#".$centro['codigo'].")</h5>
-                                                <p class='card-text'>".$centro['descripcion']."</p>
-                                                <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>
-                                                    <i class='fas fa-dollar-sign'></i> Pagar
-                                                </a>
+                    echo "<div class='col mb-4'>
+                            <div class='card reservas text-center mx-auto'>
+                                <img src='".$centro['img']."' class='card-img-top' alt='...'>
+                                <div class='card-body'>
+                                    <h5 class='card-title'>".$centro['nombre']." (#".$centro['codigo'].")</h5>
+                                    <p class='card-text'>".$centro['descripcion']."</p>
+                                    <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>Pagar</a>
+                                </div>
+                            </div>
+                        </div>         
+                        <div class='modal fade' id='pagarReserva".$centro['cod']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                            <div class='modal-dialog modal-lg' role='document'>
+                                <div class='modal-content'>
+                                    <div class='modal-header'>
+                                        <h5 class='modal-title' id='exampleModalLabel'>Control de verificación médica</h5>
+                                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class='modal-body'>
+                                        <div class='row'>";
+                                                
+                                            $queryDos = "SELECT fkEmailUsuario AS user, u.active AS estado, u.nombre AS nombre, u.apellido AS apellido, c.verifMedica AS medico, c.nivelVuelo AS nivel
+                                                         FROM usuario AS u INNER JOIN cliente AS c
+                                                            ON c.fkEmailUsuario = u.email
+                                                         INNER JOIN relacionClienteItemReserva AS rcr
+                                                            ON c.fkEmailUsuario = rcr.fkEmailCliente
+                                                         INNER JOIN itemReserva AS ir
+                                                            ON rcr.fkIdItemReserva = ir.idItemReserva
+                                                        WHERE fkIdItemReserva = ".$centro['cod'];            
+                                            $resultadoDos = mysqli_query($conexion, $queryDos);
+
+                                            $habilitar = true;
+
+                                            echo '<div class="container">
+                                                    <div class="row">
+                                                        <div class="col-xl-12">
+                                                            <div class="cardList">
+                                                                <div class="card-body"> 
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover mb-0">
+                                                                            <thead>
+                                                                                <tr class="align-self-center">
+                                                                                    <th>Cliente</th>
+                                                                                    <th>Email</th>
+                                                                                    <th>Estado</th>
+                                                                                    <th>Verificación Médica</th>
+                                                                                    <th>Nivel</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>';
+                                            while($usuario = mysqli_fetch_assoc($resultadoDos)){
+                                                echo '<tr>
+                                                        <td><i class="fas fa-user"></i> '.$usuario["nombre"].' '.$usuario["apellido"].'</td>
+                                                        <td>'.$usuario["user"].'</td>';
+                                                        if ($usuario["estado"] == true){
+                                                            echo '<td><span class="badge badge-boxed badge-soft-primary">Activo</span></td>';
+                                                        }else {
+                                                            echo '<td><span class="badge badge-boxed badge-soft-warning">Inactivo</span></td>';
+                                                        }
+
+                                                        if ($usuario["medico"] == true){
+                                                            echo '<td>Si</td>
+                                                                  <td>'.$usuario["nivel"].'</td>';
+                                                        }else {
+                                                            echo '<td>No</td>
+                                                                  <td>-</td>';
+                                                            $habilitar = false;
+                                                        }
+                                            }
+                                                echo '
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!--end table-responsive-->
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                
-                                
-                                
-                                <div class='modal fade' id='pagarReserva".$centro['cod']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-                                    <div class='modal-dialog modal-lg' role='document'>
-                                        <div class='modal-content'>
-                                            <div class='modal-header'>
-                                                <h5 class='modal-title' id='exampleModalLabel'>Sus reservas y acompañantes</h5>
-                                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                                    <span aria-hidden='true'>&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class='modal-body'>
-                                                <div class='row'>";
-                                                
-                                                $queryDos = "select fkEmailUsuario as user, verifMedica as medico,
-                                                                i.idItemReserva as cod, v.precio as precio, tcab.precio as precioCabina
-                                                            from relacionClienteItemReserva as rel
-                                                                inner join cliente as c on rel.fkEmailCliente = c.fkEmailUsuario
-	                                                            inner join itemReserva as i on rel.fkIdItemReserva = i.idItemReserva
-                                                                inner join reserva as r on i.fkCodigoReserva = r.codigo
-                                                                inner join viaje as v on r.codigoViaje = v.codigo
-                                                                inner join cabina as cab on i.fkCodigoCabina = cab.codigoCabina
-                                                                inner join tipoDeCabina as tcab on cab.fkCodigoTipoDeCabina = tcab.codigoTipoDeCabina
-                                                            where fkIdItemReserva = ".$centro['cod']."";
-                                                $resultadoDos = mysqli_query($conexion, $queryDos);
-                        
-                                                $habilitar = "SI";
-                                                
-                                                $total = 0;
-                                                $totalViajes = 0;
-                                                $totalCabinas = 0;
-                                                
-                                                while($centroDos = mysqli_fetch_assoc($resultadoDos)){
-                                                    if($centroDos['medico'] == 0){
-                                                        $valor = "No.";
-                                                        $habilitar = "NO";
-                                                    }else{
-                                                        $valor = "Sí.";
-                                                    }
-                                                    
-                                                    
-                                                    
-                                                    $totalViajes += $centroDos['precio'];
-                                                    $totalCabinas += $centroDos['precioCabina'];
-                                                    $total += $centroDos['precio'];
-                                                    $total += $centroDos['precioCabina'];
-                                                    
-                                                    echo "
-                                                        <div class='col mb-4'>
-                                                            <div class='card reservas text-center mx-auto'>
-                                                                <img src='img/usuario.jpg' class='card-img-top' alt='...'>
-                                                                <div class='card-body'>
-                                                                    <h5 class='card-title'>Usuario: ".$centroDos['user']."</h5>
-                                                                    <p class='card-text'>Verificación médica: ".$valor."</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                         ";
-                                                    
-                                                }
+                                    </div>';
+                                    if($habilitar == false) {
+                                                echo '<div class="alert alert-warning" role="alert">
+                                                        No se puede pagar la reserva, existe usuarios sin verificación médica            </div>';
+                                            }
+                                echo' </div>'; 
                                                 
                                         echo "        
                                                 </div>";
                                                 
-                                                if($habilitar == "NO"){
-                                                    echo "  <h6 class='modal-title'>Total de viajes: U$ ".$totalViajes."</h6>
-                                                            <h6 class='modal-title'>Total de cabinas: U$ ".$totalCabinas."</h6>
-                                                            <h4 class='modal-title'>Total a pagar: U$ ".$total."</h4>
-                                                            <button type='button' class='btn btn-lg btn-primary' disabled='disabled'>PAGAR</button>";
+                                                if($habilitar == false){
+                                                    echo "<button type='button' class='btn btn-lg btn-primary' disabled='disabled'>Pagar</button>";
                                                 }else{
-                                                    echo "<h6 class='modal-title'>Total de viajes: U$ ".$totalViajes."</h6>
-                                                          <h6 class='modal-title'>Total de cabinas: U$ ".$totalCabinas."</h6>
-                                                          <h4 class='modal-title'>Total a pagar: U$ ".$total."</h4>
-                                                          <a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>
-                                                            <i class='fas fa-dollar-sign'></i> Pagar
-                                                          </a>";
+                                                    echo "<a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Pagar</a>";
                                                 }
                                         
                                         echo "
