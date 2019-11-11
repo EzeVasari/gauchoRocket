@@ -43,13 +43,15 @@
 
     $confirmacion = luhn_check($tarjeta); /*llamo a la funcion para validar una tarjeta por ejemplo 4111 1111 1111 1111 */
 
-    if($confirmacion){
+    if($confirmacion == true){
         $query="UPDATE itemReserva SET  itemReserva.pago = '1' WHERE fkCodigoReserva = '".$codigoReserva."'";
 
         $resultado = mysqli_query($conexion, $query);
 
+       header('Location: ../Vista/pagoExitoso.php?reserva='.$codigoReserva.'');
+
     }else{
-        header('Location: ../Vista/ingresoDePago.php');
+        header('Location: ../Vista/ingresoDePago.php?reserva='.$codigoReserva.'');
     }
 
 ?>
