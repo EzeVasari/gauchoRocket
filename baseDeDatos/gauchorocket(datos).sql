@@ -73,10 +73,10 @@ insert into servicio (codigoServicio, precio, fkcodigoTipoDeServicio) values
 (2, 600, 2),
 (3, 800, 3);
 
-insert into tipoDeCabina (codigoTipoDeCabina, descripcion) values 
-(1, 'General'),
-(2, 'Familiar'),
-(3, 'Suite');
+insert into tipoDeCabina (codigoTipoDeCabina, descripcion, precio) values 
+(1, 'General', 350),
+(2, 'Familiar', 550),
+(3, 'Suite', 850);
 
 insert into cabina (codigoCabina, asientos, ubicacion, fkCodigoTipoDeCabina) values 
 (1, 80, null, 1),

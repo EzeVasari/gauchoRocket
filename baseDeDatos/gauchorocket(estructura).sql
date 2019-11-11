@@ -103,7 +103,8 @@ foreign key (fkcodigoTipoDeServicio) references tipoDeServicio(codigoTipoDeServi
 
 create table tipoDeCabina(
 codigoTipoDeCabina int primary key,
-descripcion varchar(50)
+descripcion varchar(50),
+precio int
 );
 
 create table cabina(
