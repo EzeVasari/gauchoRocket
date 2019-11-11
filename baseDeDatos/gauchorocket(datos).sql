@@ -84,12 +84,6 @@ insert into cabina (codigoCabina, asientos, ubicacion, fkCodigoTipoDeCabina) val
 (3, 30, null, 3);
 
 
-/* DATOS CARGADOS "A LA FUERZA" PARA HACER PRUEBAS */
-/* Los comento sólo para poder ejecutar todo de arriba a abajo */
-
-insert into relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente) values
-(2714, 'dos@gmail.com');
-
 
 
 
