@@ -11,6 +11,8 @@
 
     $tarjeta = $_POST["nroTarjeta"];
     $cvv= $_POST["cvv"];
+    $mes= $_POST["mm"];
+    $year= $_POST["yy"];
 
     $codigocvv= (int)$cvv;
 
@@ -46,12 +48,24 @@
 
     $confirmacion = luhn_check($tarjeta); /*llamo a la funcion para validar una tarjeta por ejemplo 4111 1111 1111 1111 */
 
+    if($mes>=1 && $mes<=12)
+    {
+      $mesvalido=true;
+    }
+
+    if($year>=19)
+    {
+      $yearvalido=true;
+    }
+
+
+
   if(is_int($codigocvv))/*verifica primero que sea un numero y cuenta la cantidad de digitos que tienen generalmente son 3 */
   {
     $numerocvv= strlen($cvv);
   }
 
-    if($confirmacion == true and $numerocvv==3){
+    if($confirmacion == true and $numerocvv==3 and $mesvalido==true and $yearvalido==true){
         $query="UPDATE itemReserva SET  itemReserva.pago = '1' WHERE fkCodigoReserva = '".$codigoReserva."'";
 
         $resultado = mysqli_query($conexion, $query);
