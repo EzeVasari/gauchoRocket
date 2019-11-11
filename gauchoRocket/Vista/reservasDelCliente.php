@@ -119,13 +119,11 @@
                                                 echo '<div class="alert alert-warning" role="alert">
                                                         No se puede pagar la reserva, existe usuarios sin verificación médica            </div>';
                                             }
-                                echo' </div>'; 
-                                                
-                                        echo "        
-                                                </div>";
+                                echo' </div>        
+                                    </div>';
                                                 
                                                 if($habilitar == false){
-                                                    echo "<button type='button' class='btn btn-lg btn-primary' disabled='disabled'>Pagar</button>";
+                                                    echo "<div class='row justify-content-end mr-2'><button type='button' class='btn btn-lg btn-primary' disabled='disabled'>Pagar</button></div>";
                                                 }else{
                                                     echo "<a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Pagar</a>";
                                                 }
