@@ -8,6 +8,12 @@
     $nombre = $_POST["nombre"];
     $apellido = $_POST["apellido"];
     $dni = $_POST["DNI"];
+
+     $fecha = $_POST["fecha"]; //27-10-2019
+        $anio = substr($fecha, -4);
+        $mes = substr($fecha, 3, -5);
+        $dia = substr($fecha, 0, -8);
+        $fechaAComparar = "$anio.$mes.$dia";
         
     
     $buscarUsuario = "SELECT * FROM usuario WHERE email='" . $email . "' OR dni=".$dni;
@@ -32,7 +38,7 @@
         
         $codigoHash = md5(rand(0,1000));
         
-        $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido, codigoHash, active) VALUES ('".$email."','".$dni."','cliente','".$nombre."','".$apellido."', '".$codigoHash."', false)";
+        $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido, codigoHash, active, fechaDeNacimiento) VALUES ('".$email."','".$dni."','cliente','".$nombre."','".$apellido."', '".$codigoHash."', false, '".$fechaAComparar."')";
         $queryDos = "INSERT INTO login (fkEmailUsuario, pass) VALUES ('".$email."','".$pass."')";
         $queryTres = "INSERT INTO cliente (fkEmailUsuario, verifMedica) VALUES ('".$email."', false)";
     

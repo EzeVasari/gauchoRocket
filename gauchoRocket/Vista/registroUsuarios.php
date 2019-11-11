@@ -19,6 +19,11 @@
           <div class="form-group">
             <input type="text" class="form-control" name="DNI" placeholder="DNI" required>
           </div>
+          <diV class="form-group">
+              
+          <input type='text' autocomplete='off' id='fecha' class='form-control' name='fecha' placeholder='DD/MM/AAAA'>
+                      
+          </diV>
           <div class="form-group">
             <input type="email" class="form-control" name="email" placeholder="E-mail" required>
           </div>
