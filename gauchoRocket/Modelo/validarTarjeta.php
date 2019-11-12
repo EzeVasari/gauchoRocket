@@ -13,6 +13,7 @@
     $cvv= $_POST["cvv"];
     $mes= $_POST["mm"];
     $year= $_POST["yy"];
+    $nombre= $_POST["nombre"];
 
     $codigocvv= (int)$cvv;
 
@@ -59,13 +60,21 @@
     }
 
 
+    if(strlen($nombre)>0 && is_string($nombre))
+    {
+      $nombreValido=true;
+    }
+
+
+
+
 
   if(is_int($codigocvv))/*verifica primero que sea un numero y cuenta la cantidad de digitos que tienen generalmente son 3 */
   {
     $numerocvv= strlen($cvv);
   }
 
-    if($confirmacion == true and $numerocvv==3 and $mesvalido==true and $yearvalido==true){
+    if($confirmacion == true and $numerocvv==3 and $mesvalido==true and $yearvalido==true and $nombreValido == true){
         $query="UPDATE itemReserva SET  itemReserva.pago = '1' WHERE fkCodigoReserva = '".$codigoReserva."'";
 
         $resultado = mysqli_query($conexion, $query);
