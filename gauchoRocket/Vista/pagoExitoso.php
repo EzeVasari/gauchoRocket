@@ -37,6 +37,11 @@
  $precioViaje = $datos["precioViaje"] * $datos["personas"];
  $precioTotal = $precioDeServicio+ $precioViaje + $precioDeCabina;
 
+ $resultado = mysqli_query($conexion, $query);
+
+          $query2="UPDATE cliente SET  cliente.montoDeCompras = '".$precioTotal."' WHERE fkEmailUsuario = '".$usuario."'";
+           $ingresoTotal = mysqli_query($conexion, $query2); /*actualiza el monto total en la base de datos*/
+
 
  echo '<br><div class="col-0-md-7 text-center mt-5">
                 <h2 class="font-weight-bold">Su pago ha sido registrado</h2>

@@ -8,6 +8,9 @@
     include('../Modelo/iniciarSesion.php');
     include('iniciarSesion.php');
 
+
+
+
   if(isset($_GET["reserva"])){
         $codigoReserva = $_GET["reserva"];
     }
@@ -36,6 +39,7 @@
  $precioDeCabina = $datos["precioCabina"] * $datos["personas"];
  $precioViaje = $datos["precioViaje"] * $datos["personas"];
  $precioTotal = $precioDeServicio+ $precioViaje + $precioDeCabina;/* realice esto por que fue lo unico que se me ocurrio en 6 horas pensando y funciono, es probable que sea una blaqueada pero funciono, o eso espero*/
+
 
 
   echo'<br><br><div class="container mt-5">

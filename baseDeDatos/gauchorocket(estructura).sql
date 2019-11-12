@@ -42,6 +42,7 @@ create table cliente(
 fkEmailUsuario varchar(64) primary key,
 verifMedica boolean,
 nivelVuelo int,
+montoDecompras int,
 codigoCentroMedico int,
 foreign key (fkEmailUsuario) references usuario(email),
 foreign key (codigoCentroMedico) references centroMedico(codigo)

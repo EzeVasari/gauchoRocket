@@ -5,6 +5,7 @@
     session_start();
 
 
+
  if(isset($_GET["reserva"])){
         $codigoReserva = $_GET["reserva"];
     }
@@ -77,7 +78,8 @@
     if($confirmacion == true and $numerocvv==3 and $mesvalido==true and $yearvalido==true and $nombreValido == true){
         $query="UPDATE itemReserva SET  itemReserva.pago = '1' WHERE fkCodigoReserva = '".$codigoReserva."'";
 
-        $resultado = mysqli_query($conexion, $query);
+
+ 
 
      header('Location: ../Vista/pagoExitoso.php?reserva='.$codigoReserva.'');
 
