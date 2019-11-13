@@ -51,9 +51,6 @@ if(isset($_POST['medico'])){
         $insertUno = "insert into turnoMedico (fkEmailCliente, fechaTurnoMedico, codigoLugar, nombreLugar) values
                         ('".$usuario."', date_add(curtime(), interval 5 minute), ".$codigoCentro.", '".$cantidadDeTurnos['nombre']."');";
         $queryTres = mysqli_query($conexion, $insertUno);
-        
-        $updateDos = "update cliente set codigoCentroMedico = ".$codigoCentro." where fkEmailUsuario like '".$usuario."';";
-        $querycuatro = mysqli_query($conexion, $updateDos);
     }
     
     header("Location: ../Vista/datosDelTurno.php");

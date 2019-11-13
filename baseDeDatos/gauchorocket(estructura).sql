@@ -25,6 +25,14 @@ id int unique,
 foreign key (fkEmailUsuario) references usuario(email)
 );
 
+create table cliente(
+fkEmailUsuario varchar(64) primary key,
+verifMedica boolean,
+nivelVuelo int,
+montoDecompras int,
+foreign key (fkEmailUsuario) references usuario(email)
+);
+
 create table lugar(
 codigo int primary key,
 nombre varchar(50)
@@ -38,14 +46,14 @@ imagen varchar(100),
 foreign key (codigoLugar) references lugar(codigo)
 );
 
-create table cliente(
-fkEmailUsuario varchar(64) primary key,
-verifMedica boolean,
-nivelVuelo int,
-montoDecompras int,
-codigoCentroMedico int,
-foreign key (fkEmailUsuario) references usuario(email),
-foreign key (codigoCentroMedico) references centroMedico(codigo)
+create table turnoMedico(
+codigo int primary key AUTO_INCREMENT,
+fkEmailCliente varchar(64),
+fechaTurnoMedico datetime,
+codigoLugar int,
+nombreLugar varchar(50),
+foreign key (fkEmailCliente) references cliente(fkEmailUsuario),
+foreign key (codigoLugar) references centroMedico(codigoLugar)
 );
 
 create table tipoDeViaje(
@@ -144,14 +152,4 @@ fkCodigoEquipo int,
 primary key (fkCodigoCabina, fkCodigoEquipo),
 foreign key (fkCodigoCabina) references cabina(codigoCabina),
 foreign key (fkCodigoEquipo) references equipo(matricula)
-);
-
-create table turnoMedico(
-codigo int primary key AUTO_INCREMENT,
-fkEmailCliente varchar(64),
-fechaTurnoMedico datetime,
-codigoLugar int,
-nombreLugar varchar(50),
-foreign key (fkEmailCliente) references cliente(fkEmailUsuario),
-foreign key (codigoLugar) references lugar(codigo)
 );

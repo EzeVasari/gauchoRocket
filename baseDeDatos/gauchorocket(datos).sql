@@ -58,10 +58,10 @@ insert into centroMedico (codigo, turnos, codigoLugar, imagen) values
 (2, 200, 2, 'img/centrosMedicos/ankara.jpg'),
 (3, 200, 13, 'img/centrosMedicos/shanghai.jpg');
 
-insert into cliente (fkEmailUsuario, verifMedica, nivelVuelo, montoDecompras ,codigoCentroMedico) values
-('uno@gmail.com', false, null, 0, null),
-('dos@gmail.com', true, 1, 0, 1),
-('tres@gmail.com', false, null, 0, null);
+insert into cliente (fkEmailUsuario, verifMedica, nivelVuelo, montoDecompras) values
+('uno@gmail.com', false, null, 0),
+('dos@gmail.com', true, 1, 0),
+('tres@gmail.com', false, null, 0);
 
 insert into admin (fkEmailUsuario, id) values
 ('admin@gmail.com', 1);
