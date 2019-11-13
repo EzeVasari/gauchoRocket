@@ -100,12 +100,12 @@ foreign key (codigoViaje) references viaje(codigo)
 
 create table tipoDeServicio(
 codigoTipoDeServicio int primary key,
+precio double,
 descripcion varchar(50)
 );
 
 create table servicio(
 codigoServicio int primary key,
-precio double,   
 fkcodigoTipoDeServicio int,
 foreign key (fkcodigoTipoDeServicio) references tipoDeServicio(codigoTipoDeServicio)
 );
@@ -132,6 +132,7 @@ fkCodigoCabina int,
 checkin boolean,
 pago boolean,
 fechaLimite datetime,
+fechaInicio datetime,
 fechaConfirmacion datetime,
 foreign key (fkcodigoReserva) references reserva(codigo),
 foreign key (fkCodigoServicio) references servicio(codigoServicio),

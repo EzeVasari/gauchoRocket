@@ -66,20 +66,20 @@ insert into cliente (fkEmailUsuario, verifMedica, nivelVuelo, montoDecompras) va
 insert into admin (fkEmailUsuario, id) values
 ('admin@gmail.com', 1);
 
-insert into tipoDeServicio (codigoTipoDeServicio, descripcion) values
-(1, 'Standard'),
-(2, 'Gourmet'),
-(3, 'Spa');
+insert into tipoDeServicio (codigoTipoDeServicio, descripcion, precio) values
+(1, 'Standard', 500),
+(2, 'Gourmet', 600),
+(3, 'Spa', 800);
 
 /* ====== NECESARIO INCLUIR EN LA BD PORQUE EL USUARIO 2 YA REALIZÓ SU TURNO MÉDICO ====== */
 insert into turnoMedico (fkEmailCliente, fechaTurnoMedico, codigoLugar, nombreLugar) values
 ('dos@gmail.com', '2019.01.01 17:00:00', 1, 'Buenos Aires');
 /* ======================================================================================= */
 
-insert into servicio (codigoServicio, precio, fkcodigoTipoDeServicio) values 
-(1, 500, 1),
-(2, 600, 2),
-(3, 800, 3);
+insert into servicio (codigoServicio, fkcodigoTipoDeServicio) values 
+(1, 1),
+(2, 2),
+(3, 3);
 
 insert into tipoDeCabina (codigoTipoDeCabina, descripcion, precio) values
 (1, 'General', 350),
