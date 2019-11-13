@@ -12,14 +12,16 @@
         $codigoReserva = $_GET["reserva"];
     }
 
-       $query="SELECT v.descripcion,v.imagen as img, v.nombre, tdc.descripcion as nombreCabina, COUNT(rci.fkIdItemReserva) AS personas, s.precio AS precioServicio, v.precio AS precioViaje, tdc.precio AS precioCabina 
+       $query="SELECT v.descripcion,v.imagen as img, v.nombre, tdc.descripcion as nombreCabina, COUNT(rci.fkIdItemReserva) AS personas, tipoSer.precio AS precioServicio, v.precio AS precioViaje, tdc.precio AS precioCabina 
             FROM viaje AS v 
             INNER JOIN reserva AS r 
                 ON v.codigo = r.codigoViaje 
             INNER JOIN itemreserva AS i 
                 ON i.fkCodigoReserva = r.codigo 
             INNER JOIN servicio AS s 
-                ON s.codigoServicio= i.fkCodigoServicio 
+                ON s.codigoServicio= i.fkCodigoServicio
+            INNER JOIN tipoDeServicio AS tipoSer
+                ON s.fkcodigoTipoDeServicio = tipoSer.codigoTipoDeServicio
             INNER JOIN relacionclienteitemreserva AS rci 
                 ON i.idItemReserva = rci.fkIdItemReserva 
             INNER JOIN cabina AS c 
