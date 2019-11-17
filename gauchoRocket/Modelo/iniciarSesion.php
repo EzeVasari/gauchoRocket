@@ -35,22 +35,49 @@
         $pass = $_POST["pass"];
 
         include('conexion.php');
-
-        $query = "SELECT l.fkEmailUsuario AS usuario, l.pass AS pass, u.rol AS rol, u.active
-                    FROM usuario AS u INNER JOIN login AS l ON u.email = l.fkEmailUsuario
-                    WHERE l.fkEmailUsuario = '" . $email . "' AND u.active = true";
-        $resultado = mysqli_query($conexion, $query);
-    
-    if($row = mysqli_fetch_assoc($resultado)){
-        if($row["pass"] == md5($pass)){
+        
+        /* CREAMOS LA CONSULTA */
+        $sql = "SELECT l.fkEmailUsuario AS usuario, l.pass AS pass, u.rol AS rol
+                    FROM usuario AS u
+                        INNER JOIN login AS l ON u.email = l.fkEmailUsuario
+                    WHERE l.fkEmailUsuario = ? AND u.active = true";
+        
+        /* PREPARAMOS LA CONSULTA */
+        $query = mysqli_prepare($conexion, $sql);
+        
+        /* UNIMOS LOS PARÁMETROS DETALLANDO EL TIPO DE DATO QUE VA A RECIBIR */
+        /* "s" es para string */
+        /* "i" es para numéricos */
+        /* "d" es para decimales */
+        $resultado = mysqli_stmt_bind_param($query, "s", $email);
+        
+        /* EJECUTAMOS LA CONSULTA */
+        /* Si por alguna razón no se ejectura la consulta devolvería FALSE */
+        /* PISAMOS $resultado de forma intencional ya que sólo validan TRUE/FALSE en este punto de la inyección SQL */
+        $resultado = mysqli_stmt_execute($query);
+        
+        
+        /* ASOCIAMOS VARIABLES. LOS CAMPOS DE CADA REGISTRO OBTENIDO EN LA CONSULTA EJECUTADA */
+        $resultado = mysqli_stmt_bind_result($query, $mailUsuario, $mailPass, $mailRol);
+        
+        /* RECORREMOS LOS REGISTROS OBTENIDOS (EQUIVALE A mysqli_fetch_assoc) */
+        /* mysqli_stmt_fetch */
+    if(mysqli_stmt_fetch($query)){
+        if($mailPass == md5($pass)){
             session_start();
 	        $_SESSION['user'] = $email;
             setcookie('login', $email, time()+1000);
-            if($row["rol"] == false){
+            if($mailRol == false){
                 include('verificacionesDeInicioDeSesion.php');
+                
+                /* cerrar sentencia */
+                mysqli_stmt_close($query);
                 
                 header('Location: ../Vista/index.php?m=1');
             }else {
+                /* cerrar sentencia */
+                mysqli_stmt_close($query);
+                
                 header('Location: ../Vista/indexAdmin.php?m=1');
             }
             
