@@ -10,6 +10,7 @@
     include('registroUsuarios.php');
     include('carrousel.php');
     include('../Modelo/busqueda.php');
+    include('../Modelo/validarPaginasParaInteresados.php');
     
     
 ?>

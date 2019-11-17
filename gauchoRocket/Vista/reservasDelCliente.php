@@ -4,6 +4,7 @@
     session_start();
 
     include("../Modelo/conexion.php");
+    include("../Modelo/validarPaginasParaClientes.php");
     
     include('head.php');
     include('navbar.php');

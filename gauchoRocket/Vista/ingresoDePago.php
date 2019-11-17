@@ -7,11 +7,12 @@
     include('navbar.php');
     include('../Modelo/iniciarSesion.php');
     include('iniciarSesion.php');
+    include("../Modelo/validarPaginasParaClientes.php");
 
 
 
 
-  if(isset($_GET["reserva"])){
+    if(isset($_GET["reserva"])){
         $codigoReserva = $_GET["reserva"];
     }
 

@@ -1,4 +1,7 @@
-<?php include("../Modelo/validacionReserva.php");?>
+<?php
+include("../Modelo/validacionReserva.php");
+include("../Modelo/validarPaginasParaClientes.php");
+?>
 <!DOCTYPE html>
 <html>
     <body>

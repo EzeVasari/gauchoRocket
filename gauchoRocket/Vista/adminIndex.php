@@ -8,7 +8,10 @@
     }
     
     include('head.php');
-    include('navbarAdmin.php');
+    include('adminNavbar.php');
+    include('../Modelo/iniciarSesion.php');
+    include('../Modelo/conexion.php');
+    include('../Modelo/validarPaginasParaAdministradores.php');
     
     
 ?>

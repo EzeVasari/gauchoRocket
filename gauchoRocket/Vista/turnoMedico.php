@@ -8,6 +8,7 @@
     include("../Modelo/conexion.php");
     include('head.php');
     include('navbar.php');
+    include("../Modelo/validarPaginasParaClientes.php");
     ?>
     
     <body>
