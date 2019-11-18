@@ -37,7 +37,9 @@ insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, duracion,
 (3, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2020.10.22 12:00:00', 8, 1, 4, 2, 2222),
 (4, 'img/titan.jpg', 'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 72, 1, 8, 1, 4444),
 (5, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs.', 6300, 'Ankara - Marte', '2020.10.25 12:00:00', 8, 2, 4, 2, 2222),
-(6, 'img/titan2.jpg', 'Vuelo desde Ankara hasta Titan en 72hs.', 11000, 'Ankara - Titan', '2020.10.27 12:00:00', 72, 2, 8, 1, 4444);
+(6, 'img/titan2.jpg', 'Vuelo desde Ankara hasta Titan en 72hs.', 11000, 'Ankara - Titan', '2020.10.27 12:00:00', 72, 2, 8, 1, 4444),
+(7, 'img/titan2.jpg', 'VUELO DE PRUEBA 1.', 11000, 'VUELO DE PRUEBA 1', '2019.11.20 17:19:00', 72, 2, 8, 1, 4444),
+(8, 'img/titan2.jpg', 'VUELO DE PRUEBA 2.', 11000, 'VUELO DE PRUEBA 2', '2019.11.18 19:25:00', 72, 2, 8, 1, 4444);
 
 
 insert into usuario (dni, rol, nombre, apellido, fechaDeNacimiento, email, active) values

@@ -14,7 +14,7 @@
                 
                 $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
                                 v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
-                                ir.pago as pago,
+                                ir.pago as pago, ir.checkin as checki,
                                 ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
                           FROM relacionClienteItemReserva AS rcr
                                 INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
@@ -118,7 +118,9 @@
                                     </div>';
                                     if($habilitar == false) {
                                                 echo '<div class="alert alert-warning" role="alert">
-                                                        No se puede pagar la reserva, existen usuarios sin verificación médica            </div>';
+                                                        No se puede pagar la reserva, existen usuarios sin verificación médica
+                                                      </div>
+                                                     ';
                                             }
                                 echo' </div>        
                                     </div>';
@@ -130,7 +132,34 @@
                                                         if($centro['pago'] == false){
                                                             echo "<div class='row justify-content-end mr-2'><a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Pagar</a></div>";
                                                         }else{
-                                                            
+                                                            echo '
+                                                                <div class="alert alert-success" role="alert">
+                                                                    Usted ya ha abonado esta reserva.
+                                                                </div>';
+                                                        }
+                                                    }else{
+                                                        if($centro['ahora'] < $centro['fechaL']){
+                                                            if($centro['pago'] == true){
+                                                                if($centro['checki'] == false){
+                                                                echo "<div class='row justify-content-end mr-2'>
+                                                                        <a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>
+                                                                            Confirmar check-in
+                                                                        </a>
+                                                                      </div>";
+                                                                }else{
+                                                                    echo '<div class="alert alert-success" role="alert">
+                                                                        Usted ya ha realizado el check-in.
+                                                                      </div>';
+                                                                }
+                                                            }else{
+                                                                echo '<div class="alert alert-danger" role="alert">
+                                                                    No puede realizar el check-in dado a que no ha abonado la reserva. Su reserva será dada de baja.
+                                                                  </div>';
+                                                            }
+                                                        }else{
+                                                            echo '<div class="alert alert-danger" role="alert">
+                                                                    El tiempo para realizar el check-in ha finalizado. Su reserva será dada de baja.
+                                                                  </div>';
                                                         }
                                                     }
                                                     

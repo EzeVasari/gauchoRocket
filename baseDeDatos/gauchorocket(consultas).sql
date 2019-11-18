@@ -106,8 +106,12 @@ FROM viaje WHERE codigo = 1;
 select *
 from itemReserva;
 
+select *
+from relacionClienteItemReserva;
 
-
+update itemReserva set pago = true where idItemReserva = 3116;
+update itemReserva set checkin = true where idItemReserva = 3116;
+update itemReserva set listaDeEspera = false where idItemReserva = 3116;
 
 
 

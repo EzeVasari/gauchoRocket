@@ -141,7 +141,7 @@ foreign key (fkCodigoServicio) references servicio(codigoServicio),
 foreign key (fkCodigoCabina) references cabina(codigoCabina)
 );
 
-create table relacionClienteItemReserva (
+create table relacionClienteItemReserva(
 fkIdItemReserva int,
 fkEmailCliente varchar(64),
 primary key (fkIdItemReserva, fkEmailCliente),
