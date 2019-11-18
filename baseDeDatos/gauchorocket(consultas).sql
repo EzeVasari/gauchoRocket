@@ -109,9 +109,9 @@ from itemReserva;
 select *
 from relacionClienteItemReserva;
 
-update itemReserva set pago = true where idItemReserva = 3116;
-update itemReserva set checkin = true where idItemReserva = 3116;
-update itemReserva set listaDeEspera = false where idItemReserva = 3116;
+update itemReserva set pago = true where idItemReserva = 4390;
+update itemReserva set checkin = false where idItemReserva = 4390;
+update itemReserva set listaDeEspera = false where idItemReserva = 4390;
 
 
 

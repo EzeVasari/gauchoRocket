@@ -14,7 +14,7 @@
                 
                 $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
                                 v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
-                                ir.pago as pago, ir.checkin as checki,
+                                ir.pago as pago, ir.checkin as checki, ir.listaDeEspera as espera,
                                 ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
                           FROM relacionClienteItemReserva AS rcr
                                 INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
@@ -42,7 +42,7 @@
                                 <div class='card-body'>
                                     <h5 class='card-title'>".$centro['nombre']." (#".$centro['codigo'].")</h5>
                                     <p class='card-text'>".$centro['descripcion']."</p>
-                                    <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>Pagar</a>
+                                    <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>VERIFICAR</a>
                                 </div>
                             </div>
                         </div>         
@@ -142,10 +142,42 @@
                                                             if($centro['pago'] == true){
                                                                 if($centro['checki'] == false){
                                                                 echo "<div class='row justify-content-end mr-2'>
-                                                                        <a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>
+                                                                        <a href='#' class='btn btn-primary' data-toggle='modal'
+                                                                        data-target='#validarCheckIn".$centro['cod']."'>
                                                                             Confirmar check-in
                                                                         </a>
-                                                                      </div>";
+                                                                      </div>
+                                                                      
+<div class='modal fade' id='validarCheckIn".$centro['cod']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+    <div class='modal-dialog modal-sm' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header text-center'>
+                <h5 class='modal-title' id='exampleModalLabel'>
+                    ¿Confirma Check-in?
+                </h5>
+                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <form action='../Modelo/validacionCheckIn.php' method='post'>
+                    <input type='hidden' name='codigoDeLaReserva' value='".$centro['cod']."'>
+                    <div class='container'>
+                        <div class='row align-items-start'>
+                            <button type='button' class='col btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                            <button type='submit' name='valida' class='col btn btn-primary'>Aceptar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+                                                                      
+                                                                      
+                                                                      
+                                                                      
+                                                                      ";
                                                                 }else{
                                                                     echo '<div class="alert alert-success" role="alert">
                                                                         Usted ya ha realizado el check-in.
