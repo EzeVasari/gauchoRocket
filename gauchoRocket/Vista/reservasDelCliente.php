@@ -13,13 +13,13 @@
                 $email = $_SESSION['user']; //Usuario logueado
                 
                 $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
-                            v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod
-                          FROM relacionClienteItemReserva AS rcr INNER JOIN itemReserva AS ir 
-                            ON rcr.fkIdItemReserva = ir.idItemReserva
-                          INNER JOIN Reserva AS r 
-                            ON ir.fkCodigoReserva = r.codigo
-                          INNER JOIN Viaje AS v 
-                            ON r.codigoViaje = v.codigo
+                                v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
+                                ir.pago as pago,
+                                ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
+                          FROM relacionClienteItemReserva AS rcr
+                                INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
+                                INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
+                                INNER JOIN Viaje AS v ON r.codigoViaje = v.codigo
                           WHERE fkEmailCliente ='".$email."'";
                 
                 $resultado = mysqli_query($conexion, $query);
@@ -126,7 +126,14 @@
                                                 if($habilitar == false){
                                                     echo "<div class='row justify-content-end mr-2'><button type='button' class='btn btn-primary' disabled='disabled'>Pagar</button></div>";
                                                 }else{
-                                                    echo "<div class='row justify-content-end mr-2'><a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Pagar</a></div>";
+                                                    if($centro['ahora'] < $centro['fechaI']){
+                                                        if($centro['pago'] == false){
+                                                            echo "<div class='row justify-content-end mr-2'><a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Pagar</a></div>";
+                                                        }else{
+                                                            
+                                                        }
+                                                    }
+                                                    
                                                 }
                                         
                                         echo "

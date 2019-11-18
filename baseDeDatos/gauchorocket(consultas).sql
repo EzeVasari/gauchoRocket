@@ -103,7 +103,8 @@ select fechaTurnoMedico from turnomedico;
 SELECT DATE_SUB(fecha, INTERVAL 2 HOUR) as fl, DATE_SUB(fecha, INTERVAL 2 DAY) as fi, curtime()
 FROM viaje WHERE codigo = 1;
 
-
+select *
+from itemReserva;
 
 
 
