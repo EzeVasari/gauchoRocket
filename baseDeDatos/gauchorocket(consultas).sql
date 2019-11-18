@@ -98,10 +98,10 @@ update cliente
 set codigoCentroMedico = 1
 where fkEmailUsuario like 'uno@gmail.com';
 
-select fechaTurnoMedico from turnomedico
+select fechaTurnoMedico from turnomedico;
 
-
-
+SELECT DATE_SUB(fecha, INTERVAL 2 HOUR) as fl, DATE_SUB(fecha, INTERVAL 2 DAY) as fi, curtime()
+FROM viaje WHERE codigo = 1;
 
 
 

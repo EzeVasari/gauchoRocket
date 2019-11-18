@@ -38,10 +38,11 @@
     $datos = mysqli_fetch_assoc($resultadoUsuario);
     
     if(isset($_POST["confirmarReserva"])){
-    //Obtener fecha y hora limite
-    $fecha = "SELECT DATE_SUB(fecha, INTERVAL 2 HOUR) as fl FROM viaje WHERE codigo = ".$codigo; //Fecha límite
+    //Obtener fecha y hora de inicio y límite de check-in
+    $fecha = "SELECT DATE_SUB(fecha, INTERVAL 2 HOUR) as fl, DATE_SUB(fecha, INTERVAL 2 DAY) as fi, now() as ahora
+                FROM viaje WHERE codigo = ".$codigo;
     $resultadoFecha = mysqli_query($conexion, $fecha);
-    $fechaLimite = mysqli_fetch_assoc($resultadoFecha);
+    $fechaLimiteDeCheckin = mysqli_fetch_assoc($resultadoFecha);
     
     $codigoReserva =  generarCodigoReserva(6); 
     
@@ -53,19 +54,25 @@
         $servicio = $_POST["servicio"];
         $cabina = $_POST["cabina"];
         
+        $espera;
+        if($fechaLimiteDeCheckin['ahora'] < $fechaLimiteDeCheckin['fi']){
+            $espera = false;
+        }else{
+            $espera = true;
+        }
+        
         $queryReserva = "INSERT INTO reserva (codigo, codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
         $registroReserva = mysqli_query($conexion, $queryReserva);
         
         $idItemReserva = rand(1000,8000);
-       
         
-        $queryItemReserva = "INSERT INTO itemReserva(idItemReserva, fkCodigoReserva, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES (".$idItemReserva.",'".$codigoReserva."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
+        $queryItemReserva = "INSERT INTO itemReserva(idItemReserva, fkCodigoReserva, checkin, pago, fechaLimiteDeCheckin, fechaInicioDeCheckin, fechaConfirmacion, fechaQuePidioReserva, fkCodigoServicio, fkCodigoCabina, listaDeEspera) VALUES
+        (".$idItemReserva.",'".$codigoReserva."', false, false, '".$fechaLimiteDeCheckin['fl']."', '".$fechaLimiteDeCheckin['fi']."', null, '".$fechaLimiteDeCheckin['ahora']."', ". $servicio .", ". $cabina .", ".$espera.")";
         $registro = mysqli_query($conexion, $queryItemReserva);
-        
         
         $i = 0;
         foreach($emails as $e) {
-            $queryUsuario = "SELECT * FROM usuario WHERE email ='".$e. "'";
+            $queryUsuario = "SELECT * FROM usuario WHERE email ='".$e."'";
             $resultadoEmail = mysqli_query($conexion, $queryUsuario);
             
             if(mysqli_fetch_assoc($resultadoEmail)){
