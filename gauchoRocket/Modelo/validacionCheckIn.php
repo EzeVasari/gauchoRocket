@@ -1,14 +1,19 @@
 <?php
+ include("conexion.php");
+
 if(isset($_POST['valida'])){
-    $codigReser = $_POST['codigoDeLaReserva'];
+    $codigReserva = $_GET['reserva'];
     
-    $queryUpdate = "update itemReserva set checkin = true where idItemReserva = ".$codigReser.";";
+    
+    $queryUpdate = "UPDATE itemReserva SET checkin = 1 where idItemReserva = ".$codigReserva."";
     $resultadoUpdate = mysqli_query($conexion, $queryUpdate);
+    
+    
     
     if($resultadoUpdate){
         header("Location: ../Vista/index.php?m=7");
     }else{
-        header("Location: ../Vista/index.php?m=8");
+       header("Location: ../Vista/index.php?m=8");
     }
 }
 

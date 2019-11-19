@@ -32,7 +32,7 @@ insert into equipo (matricula, modelo, capacidad, codigoTipoDeEquipo) values
 (4444, 'Guanaco', 400, 2);
 
 insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, duracion, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, codigoEquipo) values
-(1, 'img/Luna.jpg', 'Vuelo desde Ankara hasta la Luna en 8hs.', 4000, 'Ankara - Luna', '2019.10.21 12:00:00', 8, 2, 3, 2, 1111),
+(1, 'img/Luna.jpg', 'Vuelo desde Ankara hasta la Luna en 8hs.', 4000, 'Ankara - Luna', '2019.11.20 12:00:00', 8, 2, 3, 2, 1111),
 (2, 'img/Luna2.jpg', 'Vuelo desde Buenos Aires a Luna en 8hs.', 4000, 'Bs. As. - Luna', '2020.10.22 12:00:00', 8, 1, 3, 2, 2222),
 (3, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2020.10.22 12:00:00', 8, 1, 4, 2, 2222),
 (4, 'img/titan.jpg', 'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 72, 1, 8, 1, 4444),

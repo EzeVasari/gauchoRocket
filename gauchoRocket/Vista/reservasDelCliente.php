@@ -160,8 +160,7 @@
                 </button>
             </div>
             <div class='modal-body'>
-                <form action='../Modelo/validacionCheckIn.php' method='post'>
-                    <input type='hidden' name='codigoDeLaReserva' value='".$centro['cod']."'>
+                <form action='../Modelo/validacionCheckIn.php?reserva=".$centro['cod']."' method='post'>
                     <div class='container'>
                         <div class='row align-items-start'>
                             <button type='button' class='col btn btn-secondary' data-dismiss='modal'>Cancelar</button>
