@@ -13,13 +13,13 @@
                 $email = $_SESSION['user']; //Usuario logueado
                 
                 $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
-                            v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod
-                          FROM relacionClienteItemReserva AS rcr INNER JOIN itemReserva AS ir 
-                            ON rcr.fkIdItemReserva = ir.idItemReserva
-                          INNER JOIN Reserva AS r 
-                            ON ir.fkCodigoReserva = r.codigo
-                          INNER JOIN Viaje AS v 
-                            ON r.codigoViaje = v.codigo
+                                v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
+                                ir.pago as pago, ir.checkin as checki, ir.listaDeEspera as espera,
+                                ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
+                          FROM relacionClienteItemReserva AS rcr
+                                INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
+                                INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
+                                INNER JOIN Viaje AS v ON r.codigoViaje = v.codigo
                           WHERE fkEmailCliente ='".$email."'";
                 
                 $resultado = mysqli_query($conexion, $query);
@@ -42,7 +42,7 @@
                                 <div class='card-body'>
                                     <h5 class='card-title'>".$centro['nombre']." (#".$centro['codigo'].")</h5>
                                     <p class='card-text'>".$centro['descripcion']."</p>
-                                    <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>Pagar</a>
+                                    <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#pagarReserva".$centro['cod']."'>VERIFICAR</a>
                                 </div>
                             </div>
                         </div>         
@@ -118,7 +118,9 @@
                                     </div>';
                                     if($habilitar == false) {
                                                 echo '<div class="alert alert-warning" role="alert">
-                                                        No se puede pagar la reserva, existen usuarios sin verificación médica            </div>';
+                                                        No se puede pagar la reserva, existen usuarios sin verificación médica
+                                                      </div>
+                                                     ';
                                             }
                                 echo' </div>        
                                     </div>';
@@ -126,7 +128,73 @@
                                                 if($habilitar == false){
                                                     echo "<div class='row justify-content-end mr-2'><button type='button' class='btn btn-primary' disabled='disabled'>Pagar</button></div>";
                                                 }else{
-                                                    echo "<div class='row justify-content-end mr-2'><a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Pagar</a></div>";
+                                                    if($centro['ahora'] < $centro['fechaI']){
+                                                        if($centro['pago'] == false){
+                                                            echo "<div class='row justify-content-end mr-2'><a href='../Modelo/validacionPago.php?codigo=".$centro['codigo']."' class='btn btn-primary'>Pagar</a></div>";
+                                                        }else{
+                                                            echo '
+                                                                <div class="alert alert-success" role="alert">
+                                                                    Usted ya ha abonado esta reserva.
+                                                                </div>';
+                                                        }
+                                                    }else{
+                                                        if($centro['ahora'] < $centro['fechaL']){
+                                                            if($centro['pago'] == true){
+                                                                if($centro['checki'] == false){
+                                                                echo "<div class='row justify-content-end mr-2'>
+                                                                        <a href='#' class='btn btn-primary' data-toggle='modal'
+                                                                        data-target='#validarCheckIn".$centro['cod']."'>
+                                                                            Confirmar check-in
+                                                                        </a>
+                                                                      </div>
+                                                                      
+<div class='modal fade' id='validarCheckIn".$centro['cod']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+    <div class='modal-dialog modal-sm' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header text-center'>
+                <h5 class='modal-title' id='exampleModalLabel'>
+                    ¿Confirma Check-in?
+                </h5>
+                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <form action='../Modelo/validacionCheckIn.php' method='post'>
+                    <input type='hidden' name='codigoDeLaReserva' value='".$centro['cod']."'>
+                    <div class='container'>
+                        <div class='row align-items-start'>
+                            <button type='button' class='col btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                            <button type='submit' name='valida' class='col btn btn-primary'>Aceptar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+                                                                      
+                                                                      
+                                                                      
+                                                                      
+                                                                      ";
+                                                                }else{
+                                                                    echo '<div class="alert alert-success" role="alert">
+                                                                        Usted ya ha realizado el check-in.
+                                                                      </div>';
+                                                                }
+                                                            }else{
+                                                                echo '<div class="alert alert-danger" role="alert">
+                                                                    No puede realizar el check-in dado a que no ha abonado la reserva. Su reserva será dada de baja.
+                                                                  </div>';
+                                                            }
+                                                        }else{
+                                                            echo '<div class="alert alert-danger" role="alert">
+                                                                    El tiempo para realizar el check-in ha finalizado. Su reserva será dada de baja.
+                                                                  </div>';
+                                                        }
+                                                    }
+                                                    
                                                 }
                                         
                                         echo "

@@ -19,28 +19,36 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
-            
         }elseif ($_GET["m"] == 4){
             echo '<br><div class="alert alert-warning mt-5" role="alert">
                     Usted es un administrador. Esa página es exclusiva para clientes.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
-            
         }elseif ($_GET["m"] == 5){
             echo '<br><div class="alert alert-warning mt-5" role="alert">
                     Esa página es exclusiva para clientes logueados. <a class="alert-link" href="#" data-toggle="modal" data-target="#iniciar">Iniciar sesión</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
-            
         }elseif ($_GET["m"] == 6){
             echo '<br><div class="alert alert-warning mt-5" role="alert">
                     Acceso a la página no permitido.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
-            
+        }elseif ($_GET["m"] == 7){
+            echo '<br><div class="alert alert-success mt-5" role="alert">
+                    Check-in realizado exitosamente.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';
+        }elseif ($_GET["m"] == 8){
+            echo '<br><div class="alert alert-danger mt-5" role="alert">
+                    El check-in no se ha realizado.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';
         }
 
     }

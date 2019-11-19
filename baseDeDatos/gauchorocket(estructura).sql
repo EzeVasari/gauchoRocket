@@ -131,15 +131,17 @@ fkCodigoServicio int,
 fkCodigoCabina int,
 checkin boolean,
 pago boolean,
-fechaLimite datetime,
-fechaInicio datetime,
+fechaLimiteDeCheckin datetime,
+fechaInicioDeCheckin datetime,
 fechaConfirmacion datetime,
+fechaQuePidioReserva datetime,
+listaDeEspera boolean,
 foreign key (fkcodigoReserva) references reserva(codigo),
 foreign key (fkCodigoServicio) references servicio(codigoServicio),
 foreign key (fkCodigoCabina) references cabina(codigoCabina)
 );
 
-create table relacionClienteItemReserva (
+create table relacionClienteItemReserva(
 fkIdItemReserva int,
 fkEmailCliente varchar(64),
 primary key (fkIdItemReserva, fkEmailCliente),

@@ -38,10 +38,11 @@
     $datos = mysqli_fetch_assoc($resultadoUsuario);
     
     if(isset($_POST["confirmarReserva"])){
-    //Obtener fecha y hora limite
-    $fecha = "SELECT DATE_SUB(fecha, INTERVAL 2 HOUR) as fl FROM viaje WHERE codigo = ".$codigo; //Fecha límite
+    //Obtener fecha y hora de inicio y límite de check-in
+    $fecha = "SELECT DATE_SUB(fecha, INTERVAL 2 HOUR) as fl, DATE_SUB(fecha, INTERVAL 2 DAY) as fi, now() as ahora
+                FROM viaje WHERE codigo = ".$codigo.";";
     $resultadoFecha = mysqli_query($conexion, $fecha);
-    $fechaLimite = mysqli_fetch_assoc($resultadoFecha);
+    $fechaDeCheckin = mysqli_fetch_assoc($resultadoFecha);
     
     $codigoReserva =  generarCodigoReserva(6); 
     
@@ -57,15 +58,20 @@
         $registroReserva = mysqli_query($conexion, $queryReserva);
         
         $idItemReserva = rand(1000,8000);
-       
         
-        $queryItemReserva = "INSERT INTO itemReserva(idItemReserva, fkCodigoReserva, checkin, pago, fechaLimite, fechaConfirmacion, fkCodigoServicio, fkCodigoCabina) VALUES (".$idItemReserva.",'".$codigoReserva."', false, false, '".$fechaLimite['fl']."', null, ". $servicio .", ". $cabina .")";
+        if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi']){
+            $queryItemReserva = "INSERT INTO itemReserva (idItemReserva, fkCodigoReserva, fkCodigoServicio, fkCodigoCabina, checkin, pago, fechaLimiteDeCheckin, fechaInicioDeCheckin, fechaConfirmacion, fechaQuePidioReserva, listaDeEspera) VALUES
+            (".$idItemReserva.",'".$codigoReserva."', ". $servicio .", ". $cabina .", false, false, '".$fechaDeCheckin['fl']."', '".$fechaDeCheckin['fi']."', null, '".$fechaDeCheckin['ahora']."', true);";
+        }else{
+            $queryItemReserva = "INSERT INTO itemReserva (idItemReserva, fkCodigoReserva, fkCodigoServicio, fkCodigoCabina, checkin, pago, fechaLimiteDeCheckin, fechaInicioDeCheckin, fechaConfirmacion, fechaQuePidioReserva, listaDeEspera) VALUES
+            (".$idItemReserva.",'".$codigoReserva."', ". $servicio .", ". $cabina .", false, false, '".$fechaDeCheckin['fl']."', '".$fechaDeCheckin['fi']."', null, '".$fechaDeCheckin['ahora']."', false);";
+        }
+        
         $registro = mysqli_query($conexion, $queryItemReserva);
-        
         
         $i = 0;
         foreach($emails as $e) {
-            $queryUsuario = "SELECT * FROM usuario WHERE email ='".$e. "'";
+            $queryUsuario = "SELECT * FROM usuario WHERE email ='".$e."'";
             $resultadoEmail = mysqli_query($conexion, $queryUsuario);
             
             if(mysqli_fetch_assoc($resultadoEmail)){
@@ -137,19 +143,25 @@
         }
         
     if($registro){
-        echo '<br><div class="alert alert-success mt-5" role="alert">
+        if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi']){
+            echo '<br><div class="alert alert-success mt-5" role="alert">
+                    Usted se encuentra en lista de espera. Será informado...
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';
+        }else{
+            echo '<br><div class="alert alert-success mt-5" role="alert">
                     Se confirmó la reserva. <a class="alert-link" href="../Vista/reservasDelCliente.php">Pagar reserva</a>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
+        }
         
-        $query = "SELECT ir.fkCodigoReserva AS codigo, time(v.fecha) as hora, date(v.fecha) as fecha, v.imagen AS img, v.nombre AS nombre, v.descripcion AS descripcion, v.precio AS precio
-                FROM relacionClienteItemReserva AS rcr INNER JOIN itemReserva AS ir
-                    ON rcr.fkIdItemReserva = ir.idItemReserva
-                INNER JOIN Reserva AS r
-                    ON ir.fkCodigoReserva = r.codigo
-                INNER JOIN Viaje AS v
-                    ON r.codigoViaje = v.codigo
+        $query = "SELECT ir.fkCodigoReserva AS codigo, time(v.fecha) as hora, date(v.fecha) as fecha, v.imagen AS img, v.nombre AS nombre, v.descripcion AS descripcion,               v.precio AS precio
+                FROM relacionClienteItemReserva AS rcr
+                    INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
+                    INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
+                    INNER JOIN Viaje AS v ON r.codigoViaje = v.codigo
                 WHERE ir.idItemReserva ='".$idItemReserva."'";
                 
         $resultadoReserva = mysqli_query($conexion, $query);

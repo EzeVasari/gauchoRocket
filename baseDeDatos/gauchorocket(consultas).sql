@@ -98,15 +98,20 @@ update cliente
 set codigoCentroMedico = 1
 where fkEmailUsuario like 'uno@gmail.com';
 
-select fechaTurnoMedico from turnomedico
+select fechaTurnoMedico from turnomedico;
 
+SELECT DATE_SUB(fecha, INTERVAL 2 HOUR) as fl, DATE_SUB(fecha, INTERVAL 2 DAY) as fi, curtime()
+FROM viaje WHERE codigo = 1;
 
+select *
+from itemReserva;
 
+select *
+from relacionClienteItemReserva;
 
-
-
-
-
+update itemReserva set pago = true where idItemReserva = 4390;
+update itemReserva set checkin = false where idItemReserva = 4390;
+update itemReserva set listaDeEspera = false where idItemReserva = 4390;
 
 
 
