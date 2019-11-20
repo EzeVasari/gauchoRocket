@@ -32,13 +32,13 @@ insert into equipo (matricula, modelo, capacidad, codigoTipoDeEquipo) values
 (4444, 'Guanaco', 400, 2);
 
 insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, duracion, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, codigoEquipo) values
-(1, 'img/Luna.jpg', 'Vuelo desde Ankara hasta la Luna en 8hs.', 4000, 'Ankara - Luna', '2019.11.20 12:00:00', 8, 2, 3, 2, 1111),
+(1, 'img/Luna.jpg', 'Vuelo desde Ankara hasta la Luna en 8hs.', 4000, 'Ankara - Luna', '2020.11.20 12:00:00', 8, 2, 3, 2, 1111),
 (2, 'img/Luna2.jpg', 'Vuelo desde Buenos Aires a Luna en 8hs.', 4000, 'Bs. As. - Luna', '2020.10.22 12:00:00', 8, 1, 3, 2, 2222),
 (3, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2020.10.22 12:00:00', 8, 1, 4, 2, 2222),
 (4, 'img/titan.jpg', 'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 72, 1, 8, 1, 4444),
 (5, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs.', 6300, 'Ankara - Marte', '2020.10.25 12:00:00', 8, 2, 4, 2, 2222),
 (6, 'img/titan2.jpg', 'Vuelo desde Ankara hasta Titan en 72hs.', 11000, 'Ankara - Titan', '2020.10.27 12:00:00', 72, 2, 8, 1, 4444),
-(7, 'img/titan2.jpg', 'VUELO DE PRUEBA 1.', 11000, 'VUELO DE PRUEBA 1', '2019.11.20 17:49:00', 72, 2, 8, 1, 4444),
+(7, 'img/titan2.jpg', 'VUELO DE PRUEBA 1.', 11000, 'VUELO DE PRUEBA 1', '2019.11.19 23:15:00', 72, 2, 8, 1, 4444),
 (8, 'img/titan2.jpg', 'VUELO DE PRUEBA 2.', 11000, 'VUELO DE PRUEBA 2', '2019.11.18 19:25:00', 72, 2, 8, 1, 4444);
 
 

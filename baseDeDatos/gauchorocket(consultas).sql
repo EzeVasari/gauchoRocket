@@ -109,13 +109,19 @@ from itemReserva;
 select *
 from relacionClienteItemReserva;
 
-update itemReserva set pago = true where idItemReserva = 4390;
-update itemReserva set checkin = false where idItemReserva = 4390;
-update itemReserva set listaDeEspera = false where idItemReserva = 4390;
+update itemReserva set pago = true where idItemReserva = 5750;
+update itemReserva set checkin = false where idItemReserva = 5750;
+update itemReserva set listaDeEspera = false where idItemReserva = 5750;
 
+select distinct tv.descripcion as nombre, tv.codigo as codigo
+from viaje as v
+	inner join tipoDeViaje as tv on v.codigoTipoDeViaje = tv.codigo;
+select distinct tv.descripcion as nombre, tv.codigo as codigo from viaje as v inner join tipoDeViaje as tv on v.codigoTipoDeViaje = tv.codigo;
 
-
-
+select *
+from itemReserva
+where checkin = false and 
+;
 
 
 

@@ -48,23 +48,20 @@ echo                        "
                 
                 
                 <div class='form-row align-items-center'>
-                    <div class='col-md-3 mb-3'>
-                        <label class='font-weight-bold' for='validationTooltip03'><i class='fas fa-users'></i>  Pasajeros/as</label>
-                        <select class='custom-select' name='pasajeros'>
-                            <option value='1' selected>1</option>
-                            <option value='2'>2</option>
-                            <option value='3'>3</option>
-                            <option value='4'>4</option>
-                            <option value='5'>5</option>
-                        </select>
-                    </div>
               
-                    <div class='col-md-3 mb-3'>
+                    <div class='col-md-6 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip04'><i class='fas fa-layer-group'></i>  Nivel de vuelo</label>
                         <select class='custom-select' name='nivel'>
-                            <option value='1' selected>1</option>
-                            <option value='2'>2</option>
-                            <option value='3'>3</option>
+                            <option value='0' selected>Elija nivel de vuelo...</option>";
+                            
+                            $consulta = "select distinct tv.descripcion as nombre, tv.codigo as codigo
+                                        from viaje as v inner join tipoDeViaje as tv on v.codigoTipoDeViaje = tv.codigo;";
+                            $resultado = mysqli_query($conexion, $consulta);
+                            while($recorrer = mysqli_fetch_assoc($resultado)){
+                                echo "<option value='". $recorrer["codigo"] ."'>". $recorrer["nombre"] ."</option>";
+                            }
+                            
+echo "
                         </select>
                     </div>
               

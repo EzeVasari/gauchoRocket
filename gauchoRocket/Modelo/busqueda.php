@@ -6,7 +6,6 @@
         
         $origen = $_POST["origen"];
         $destino = $_POST["destino"];
-        $pasajeros = $_POST["pasajeros"];
         $nivel = $_POST["nivel"];
         
         $fecha = $_POST["fecha"]; //27-10-2019
@@ -39,6 +38,14 @@
                 $criterio = " where date(fecha) = '".$fechaAComparar."'";
             }else{
                 $criterio .= " and date(fecha) = '".$fechaAComparar."'";
+            }
+        }
+        
+        if(!empty($nivel) || $nivel=""){
+            if($criterio == ""){
+                $criterio = " where codigoTipoDeViaje = '".$nivel."'";
+            }else{
+                $criterio .= " and codigoTipoDeViaje = '".$nivel."'";
             }
         }
         
