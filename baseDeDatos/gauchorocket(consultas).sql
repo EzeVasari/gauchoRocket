@@ -147,7 +147,7 @@ select *
 from relacionClienteItemReserva;
 */
 
-select asientos
+select *
 from cabina
 
 
