@@ -103,29 +103,52 @@ select fechaTurnoMedico from turnomedico;
 SELECT DATE_SUB(fecha, INTERVAL 2 HOUR) as fl, DATE_SUB(fecha, INTERVAL 2 DAY) as fi, curtime()
 FROM viaje WHERE codigo = 1;
 
-select *
-from itemReserva;
-
-select *
-from relacionClienteItemReserva;
-
-update itemReserva set pago = true where idItemReserva = 5750;
-update itemReserva set checkin = false where idItemReserva = 5750;
-update itemReserva set listaDeEspera = false where idItemReserva = 5750;
-
 select distinct tv.descripcion as nombre, tv.codigo as codigo
 from viaje as v
 	inner join tipoDeViaje as tv on v.codigoTipoDeViaje = tv.codigo;
 select distinct tv.descripcion as nombre, tv.codigo as codigo from viaje as v inner join tipoDeViaje as tv on v.codigoTipoDeViaje = tv.codigo;
 
+
+
+/* ========================================================================================== */
+/* ========================================================================================== */
+/* ========================================================================================== */
+
+
+
+update itemReserva set pago = true where idItemReserva = 5407;
+update itemReserva set checkin = true where idItemReserva = 5407;
+update itemReserva set listaDeEspera = false where idItemReserva = 5407;
+
+update cliente set verifMedica = true where fkEmailUsuario like 'uno@gmail.com';
+
+select count(*) as cantidad
+from itemReserva as ir
+	inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
+where (now() > ir.fechaInicioDeCheckin and ir.pago = false)
+	or (now() > ir.fechaLimiteDeCheckin and ir.checkin = false)
+    and (listaDeEspera = false);
+
+/* 
 select *
-from itemReserva
-where checkin = false and 
-;
+from itemReserva as ir
+	inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
+where now() > ir.fechaInicioDeCheckin and ir.pago = false;
+			
+select *
+from itemReserva as ir
+	inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
+where now() > ir.fechaLimiteDeCheckin and ir.checkin = false;
 
+select *
+from itemReserva;
 
+select *
+from relacionClienteItemReserva;
+*/
 
-
+select asientos
+from cabina
 
 
 

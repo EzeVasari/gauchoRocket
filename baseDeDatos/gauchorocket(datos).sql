@@ -38,8 +38,12 @@ insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, duracion,
 (4, 'img/titan.jpg', 'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 72, 1, 8, 1, 4444),
 (5, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs.', 6300, 'Ankara - Marte', '2020.10.25 12:00:00', 8, 2, 4, 2, 2222),
 (6, 'img/titan2.jpg', 'Vuelo desde Ankara hasta Titan en 72hs.', 11000, 'Ankara - Titan', '2020.10.27 12:00:00', 72, 2, 8, 1, 4444),
-(7, 'img/titan2.jpg', 'VUELO DE PRUEBA 1.', 11000, 'VUELO DE PRUEBA 1', '2019.11.19 23:15:00', 72, 2, 8, 1, 4444),
-(8, 'img/titan2.jpg', 'VUELO DE PRUEBA 2.', 11000, 'VUELO DE PRUEBA 2', '2019.11.18 19:25:00', 72, 2, 8, 1, 4444);
+/* A LOS SIGUIENTES HAY QUE ESTABLECER 1 DÍA MÁS TARDE DESDE LA FECHA EN QUE SE DECIDA HACER LA PRIUEBA */
+(7, 'img/prueba.jpg', 'VUELO DE PRUEBA 1.', 11000, 'Se abonó a tiempo',      '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE y "pago" a TRUE*/
+(8, 'img/prueba.jpg', 'VUELO DE PRUEBA 2.', 11000, 'No se abonó a tiempo',   '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE*/
+(9, 'img/prueba.jpg', 'VUELO DE PRUEBA 3.', 11000, 'Se hizo el checkin',     '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE, "pago" a TRUE y "checkin" a TRUE*/
+/* AL SIGUIENTE HAY QUE PONER LA FECHA ACTUAL Y 2 HORAS MÁS (ES DECIR, SI SON LAS 20HS PONERLE 22HS) */
+(10, 'img/prueba.jpg', 'VUELO DE PRUEBA 4.', 11000, 'No se hizo el checkin', '2019.11.19 23:30:00', 72, 2, 8, 1, 4444);/*pasar "listaDeEspera" a FALSE y "pago" a TRUE*/
 
 
 insert into usuario (dni, rol, nombre, apellido, fechaDeNacimiento, email, active) values
@@ -106,6 +110,23 @@ begin
 end //
 delimiter ;
 
+/* ========== */
+
+delimiter //
+create event tareasDiarias on schedule every 1 minute
+starts '2019-01-01 00:00:00'
+do
+begin
+	select count(*) as cantidad
+	from itemReserva as ir
+		inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
+	where (now() > ir.fechaInicioDeCheckin and ir.pago = false)
+		or (now() > ir.fechaLimiteDeCheckin and ir.checkin = false)
+		and (listaDeEspera = false);
+	
+    update centroMedico set turnos -= cantidad where codigo = 1;
+end //
+delimiter ;
 
 /* DATOS CARGADOS "A LA FUERZA" PARA HACER PRUEBAS */
 /* Los comento sólo para poder ejecutar todo de arriba a abajo */

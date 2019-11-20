@@ -92,17 +92,6 @@ foreign key (codigoTipoDeViaje) references tipoDeViaje(codigo),
 foreign key (codigoEquipo) references equipo(matricula)
 );
 
-
-
-
-
-
-
-
-
-
-
-
 create table reserva(
 codigo varchar(6) primary key,
 codigoViaje int,
