@@ -1,6 +1,5 @@
 <?php
- session_start();
-
+    include("../Modelo/validarPaginasParaClientes.php");
     include("../Modelo/conexion.php");
     
     include('head.php');

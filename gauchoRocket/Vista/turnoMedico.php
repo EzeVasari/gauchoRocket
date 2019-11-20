@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
     <?php
-    if(!isset($_SESSION)){
-        session_start();
-    }
+    include("../Modelo/validarPaginasParaClientes.php");
 
     include("../Modelo/conexion.php");
     include('head.php');
     include('navbar.php');
-    include("../Modelo/validarPaginasParaClientes.php");
     ?>
     
     <body>

@@ -1,13 +1,11 @@
 <?php
- session_start();
-
+    include("../Modelo/validarPaginasParaClientes.php");
     include("../Modelo/conexion.php");
     
     include('head.php');
     include('navbar.php');
     include('../Modelo/iniciarSesion.php');
     include('iniciarSesion.php');
-    include("../Modelo/validarPaginasParaClientes.php");
 
 
 

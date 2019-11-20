@@ -1,4 +1,6 @@
 <?php
+include('conexion.php');
+session_start();
 $usuario = $_SESSION['user'];
 
 $consulta = "SELECT rol FROM usuario WHERE email like '".$usuario."'";

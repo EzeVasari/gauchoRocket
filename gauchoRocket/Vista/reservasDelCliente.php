@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
     <?php
-    session_start();
-
-    include("../Modelo/conexion.php");
     include("../Modelo/validarPaginasParaClientes.php");
+    include("../Modelo/conexion.php");
     
     include('head.php');
     include('navbar.php');
