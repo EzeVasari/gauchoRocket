@@ -42,9 +42,8 @@ insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, duracion,
 (7, 'img/prueba.jpg', 'VUELO DE PRUEBA 1.', 11000, 'Se abonó a tiempo',      '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE y "pago" a TRUE*/
 (8, 'img/prueba.jpg', 'VUELO DE PRUEBA 2.', 11000, 'No se abonó a tiempo',   '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE*/
 (9, 'img/prueba.jpg', 'VUELO DE PRUEBA 3.', 11000, 'Se hizo el checkin',     '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE, "pago" a TRUE y "checkin" a TRUE*/
-/* AL SIGUIENTE HAY QUE PONER LA FECHA ACTUAL Y 2 HORAS MÁS (ES DECIR, SI SON LAS 20HS PONERLE 22HS) */
 (10, 'img/prueba.jpg', 'VUELO DE PRUEBA 4.', 11000, 'No se hizo el checkin', '2019.11.19 23:30:00', 72, 2, 8, 1, 4444);/*pasar "listaDeEspera" a FALSE y "pago" a TRUE*/
-
+/* AL SIGUIENTE HAY QUE PONER LA FECHA ACTUAL Y 2 HORAS MÁS (ES DECIR, SI SON LAS 20HS PONERLE 22HS) */
 
 insert into usuario (dni, rol, nombre, apellido, fechaDeNacimiento, email, active) values
 (1234, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com', true),

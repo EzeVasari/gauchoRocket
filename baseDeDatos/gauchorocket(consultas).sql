@@ -147,11 +147,14 @@ select *
 from relacionClienteItemReserva;
 */
 
-select *
-from cabina
+select codigoTipoDeCabina, descripcion
+from tipoDeCabina;
 
+select codigoTipoDeServicio, descripcion
+from tipoDeServicio;
 
-
+select codigo, descripcion
+from tipoDeEquipo;
 
 
 
