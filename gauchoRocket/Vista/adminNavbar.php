@@ -10,24 +10,30 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-3">
                  <ul class="navbar-nav">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="#">Reportes<span class="sr-only">(current)</span></a>
-                  </li>
+                  
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Facturas</a>
+                    <a class="nav-link" href="adminReporte.php">Reportes</a>
                   </li>
                 </ul>
             </div>
-           <div class="col-md-4">
+            <div class="col-md-3">
+                 <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="adminGenerarFactura.php">Facturas</a>
+                  </li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                 <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="adminFacturacion.php">Facturación</a>
+                  </li>
+                </ul>
+            </div>
+            <div class="col-md-3">
                <ul class='navbar-nav'>
-                    <li class='nav-item'>
-                        <a class='nav-link' href='pago.php'>Opción 1</a>
-                    </li>
-                    <li class='nav-item'>
-                        <a class='nav-link' href='turnoMedico.php'>Opción 2</a>
-                    </li>
                     <li class='nav-item'>
                         <a class='nav-link text-right text-primary' href='cerrarSesion.php'>Cerrar sesión</a>
                     </li>
