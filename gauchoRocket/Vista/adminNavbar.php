@@ -21,7 +21,7 @@
             <div class="col-md-3">
                  <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="adminGenerarFactura.php">Facturas</a>
+                    <a class="nav-link" href="adminGenerarFacturaUno.php">Facturas</a>
                   </li>
                 </ul>
             </div>

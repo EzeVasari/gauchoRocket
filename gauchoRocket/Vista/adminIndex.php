@@ -27,7 +27,7 @@
                         <div class='card-body'>
                             <h5 class='card-title'>Generar facturas</h5>
                             <p class='card-text'>Si un cliente solicita una factura, puede generarlas a través de este medio</p>
-                            <a href='adminGenerarFactura.php' class='btn btn-primary'>Facturas</a>
+                            <a href='adminGenerarFacturaUno.php' class='btn btn-primary'>Facturas</a>
                          </div>
                     </div>
                 </div>

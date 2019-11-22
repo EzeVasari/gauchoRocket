@@ -48,7 +48,7 @@ insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, duracion,
 insert into usuario (dni, rol, nombre, apellido, fechaDeNacimiento, email, active) values
 (1234, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com', true),
 (2345, false, 'Cesar','Noso', '2000.01.01', 'dos@gmail.com', true),
-(10, false, 'Cesar','Noso', '1992.08.10', 'tres@gmail.com', true),
+(10, false, 'Micho','Tito', '1992.08.10', 'tres@gmail.com', true),
 (1, true, 'Ala','Cran', '1992.08.10', 'admin@gmail.com', true);
 
 insert into login (pass, fkEmailUsuario) values
