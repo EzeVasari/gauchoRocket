@@ -70,19 +70,19 @@
                                                             }
                                                     echo   "
                                                             <td>
-                                                                <form action='#' method='post'>
+                                                                <form action='pdf.php?cliente=".$cliente."' method='post'>
                                                                     <input type='hidden' name='' value=''>
                                                                     <div class='container'>
                                                                         <div class='row align-items-start'>";
                                                                             if($row['pago'] == true){
                                                                                 echo "
-                                                                                    <button type='submit' name='' class='col btn btn-primary'>
+                                             <button type='submit' name='' class='col btn btn-primary'>
                                                                                         Generar
                                                                                     </button>
                                                                                      ";
                                                                             }else{
-                                                                                echo "
-                                                                                    <button type='submit' name='' class='col btn btn-primary' disabled>
+                                                          echo "
+                                                <button type='submit' name='' class='col btn btn-primary' disabled>
                                                                                         Generar
                                                                                     </button>
                                                                                      ";
