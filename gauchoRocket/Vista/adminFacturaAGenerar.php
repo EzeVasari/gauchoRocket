@@ -13,9 +13,9 @@
         <div class='container buscador p-3 mb-3 border border-info'>
             
             <div class="row justify-content-center">
-                <div class="col-md-10 text-center mb-3">
+                <div class="col-md-12 text-center mb-3">
                     <h3 class="font-weight-bold">
-                        A continuación se muestran todas las reservas abonadas por el cliente seleccionado
+                        A continuación se muestran todas las reservas realizadas por el cliente:
                     </h3>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <div class="col-md-10 text-center mb-3">
                     <h4 class="text-muted">
                         <i class="fas fa-user"></i>
-                        Cliente: <?php echo $cliente; ?>
+                        <?php echo $cliente; ?>
                     </h4>
                 </div>
             </div>
@@ -42,34 +42,59 @@
                                                 <tr class="align-self-center">
                                                     <th>Viaje</th>
                                                     <th>Código de reserva</th>
+                                                    <th>Código de ítem</th>
                                                     <th>Pago</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    
-                                                    
-                                                    
-                                                    <td>VIAJE</td>
-                                                    <td>CODIGO</td>
-                                                    <td>SÍ</td>
-                                                    <td>
-                                                        <form action='#' method='post'>
-                                                            <input type='hidden' name='cliente".$usuario["dni"]."' value='".$usuario["user"]."'>
-                                                            <div class='container'>
-                                                                <div class='row align-items-start'>
-                                                                    <button type='submit' name='clienteEncontrado".$usuario["dni"]."' class='col btn btn-primary'>
-                                                                        Generar
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </td>
-                                                    
-                                                    
-                                                    
-                                                </tr>
+                                                
+                                                    <?php
+                                                    $query = "select v.nombre as viaje, i.fkCodigoReserva as reserva, i.idItemReserva as item, i.pago as pago
+                                                              from ItemReserva as i
+                                                                   inner join reserva as r on i.fkcodigoReserva = r.codigo
+	                                                               inner join viaje as v on r.codigoViaje = v.codigo
+                                                                   inner join relacionClienteItemReserva as rel on i.idItemReserva = rel.fkIdItemReserva
+                                                              where rel.fkEmailCliente like '".$cliente."';";
+                                                    $resultado = mysqli_query($conexion, $query);
+                                                    while($row = mysqli_fetch_assoc($resultado)){
+                                                        echo "
+                                                        <tr>
+                                                            <td>".$row['viaje']."</td>
+                                                            <td>".$row['reserva']."</td>
+                                                            <td>".$row['item']."</td>";
+                                                            if($row['pago'] == true){
+                                                                echo "<td>Sí</td>";
+                                                            }else{
+                                                                echo "<td>No</td>";
+                                                            }
+                                                    echo   "
+                                                            <td>
+                                                                <form action='#' method='post'>
+                                                                    <input type='hidden' name='' value=''>
+                                                                    <div class='container'>
+                                                                        <div class='row align-items-start'>";
+                                                                            if($row['pago'] == true){
+                                                                                echo "
+                                                                                    <button type='submit' name='' class='col btn btn-primary'>
+                                                                                        Generar
+                                                                                    </button>
+                                                                                     ";
+                                                                            }else{
+                                                                                echo "
+                                                                                    <button type='submit' name='' class='col btn btn-primary' disabled>
+                                                                                        Generar
+                                                                                    </button>
+                                                                                     ";
+                                                                            }
+                                                                  echo "</div>
+                                                                    </div>
+                                                                </form>
+                                                            </td>
+                                                        </tr>";
+                                                    }
+                                                    ?>
+                                                
                                             </tbody>
                                         </table>
                                     </div>

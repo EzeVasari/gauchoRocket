@@ -161,6 +161,14 @@ from cliente as c
 	inner join usuario as u on c.fkEmailUsuario = u.email
 where u.email like 'uno@gmail.com';
 
+select i.idItemReserva as item, i.fkCodigoReserva as reserva, i.pago as pago, v.nombre
+from ItemReserva as i
+	inner join reserva as r on i.fkcodigoReserva = r.codigo
+	inner join viaje as v on r.codigoViaje = v.codigo
+    inner join relacionClienteItemReserva as rel on i.idItemReserva = rel.fkIdItemReserva
+where rel.fkEmailCliente like 'uno@gmail.com'
+;
+
 
 
 
