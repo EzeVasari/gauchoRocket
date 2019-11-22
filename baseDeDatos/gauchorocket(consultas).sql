@@ -158,7 +158,8 @@ from tipoDeEquipo;
 
 select u.active as estado, u.nombre as nombre, u.apellido as apellido, u.email as user, c.verifMedica as medico, c.nivelVuelo as nivel, u.dni as dni
 from cliente as c
-	inner join usuario as u on c.fkEmailUsuario = u.email;
+	inner join usuario as u on c.fkEmailUsuario = u.email
+where u.email like 'uno@gmail.com';
 
 
 

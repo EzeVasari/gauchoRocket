@@ -21,7 +21,7 @@
                 </div>
             </div>
             
-            <form>
+            <form action="adminGenerarFacturaUno.php" method="post">
                 <div class="row">
                     <div class="col-md-11">
                         <input type="text" class="form-control" name="buscarCliente" placeholder="Buscar cliente">
@@ -31,11 +31,7 @@
                     </div>
                 </div>
             </form>
-            <div  class='row'>
-                
-                <?php
-                echo '
-                <div class="container">
+            <div  class='row'><div class="container">
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="cardList">
@@ -52,68 +48,10 @@
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                        <tbody>';
-                
-                $query = "select u.active as estado, u.nombre as nombre, u.apellido as apellido,
-                                u.email as user, c.verifMedica as medico, c.nivelVuelo as nivel, u.dni as dni
-                             from cliente as c
-	                           inner join usuario as u on c.fkEmailUsuario = u.email";            
-                $resultado = mysqli_query($conexion, $query);
-                
-                while($usuario = mysqli_fetch_assoc($resultado)){
-                    echo '
-                        <tr>
-                            <td><i class="fas fa-user"></i> '.$usuario["nombre"].' '.$usuario["apellido"].'</td>
-                                <td>'.$usuario["user"].'</td>';
-                                if ($usuario["estado"] == true){
-                                    echo '<td><span class="badge badge-boxed badge-soft-primary">Activo</span></td>';
-                                }else{
-                                    echo '<td><span class="badge badge-boxed badge-soft-warning">Inactivo</span></td>';
-                                }
-                                
-                                if ($usuario["medico"] == true){
-                                    echo '
-                                        <td>Si</td>
-                                        <td>'.$usuario["nivel"].'</td>';
-                                }else{
-                                    echo '
-                                        <td>No</td>
-                                        <td>-</td>';
-                                }
-                            echo "
-                                <td>
-                                    <form action='#' method='post'>
-                                        <input type='hidden' name='cliente".$usuario["dni"]."' value='".$usuario["user"]."'>
-                                        <div class='container'>
-                                            <div class='row align-items-start'>";
-                                            if($usuario["estado"] == true){
-                                                echo "<button type='submit' name='clienteEncontrado".$usuario["dni"]."' class='col btn btn-primary'>
-                                                        Seleccionar
-                                                      </button>";
-                                            }else{
-                                                echo "<button type='submit' name='clienteEncontrado".$usuario["dni"]."' class='col btn btn-primary' disabled>
-                                                        Seleccionar
-                                                      </button>";
-                                            }
-                                      echo "</div>
-                                        </div>
-                                    </form>
-                                </td>";
-                }
-                
-                echo '
-                    </tr>
-                    </tbody>
-                    </table>
-                    </div>
-                        <!--end table-responsive-->
-                    </div>
-                    </div>
-                    </div>
-                    </div>';
-            
+                                        <tbody>
+                <?php
+                include('../Modelo/adminBuscarClientes.php');
                 ?>
-            
             </div>
         </div>
     </body>
