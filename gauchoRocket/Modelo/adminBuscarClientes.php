@@ -37,4 +37,3 @@ if(isset($_POST["buscar"])){
         include('../Vista/adminGenerarFacturaDos.php');
         }
 ?>
-

@@ -23,16 +23,16 @@ while($usuario = mysqli_fetch_assoc($resultado)){
                                 }
                             echo "
                                 <td>
-                                    <form action='#' method='post'>
-                                        <input type='hidden' name='cliente".$usuario["dni"]."' value='".$usuario["user"]."'>
+                                    <form action='adminFacturaAGenerar.php' method='post'>
+                                        <input type='hidden' name='cliente' value='".$usuario["user"]."'>
                                         <div class='container'>
                                             <div class='row align-items-start'>";
                                             if($usuario["estado"] == true){
-                                                echo "<button type='submit' name='clienteEncontrado".$usuario["dni"]."' class='col btn btn-primary'>
+                                                echo "<button type='submit' name='clienteEncontrado' class='col btn btn-primary'>
                                                         Seleccionar
                                                       </button>";
                                             }else{
-                                                echo "<button type='submit' name='clienteEncontrado".$usuario["dni"]."' class='col btn btn-primary' disabled>
+                                                echo "<button type='submit' name='clienteEncontrado' class='col btn btn-primary' disabled>
                                                         Seleccionar
                                                       </button>";
                                             }
