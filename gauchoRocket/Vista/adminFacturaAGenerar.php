@@ -74,12 +74,15 @@
                                         <div class='container'>
                                       <div class='row align-items-start'>";
                                          if($row['pago'] == true){
-                                             echo "<button type='submit' name='' class='col btn btn-primary'>generar
-                                                 </button> ";
-                                                    }else{
-                                                 echo "
-                                         <button type='submit' name='' class='col btn btn-primary' disabled>
-                                             </button>";
+                                             echo "
+                                                <button type='submit' name='' class='col btn btn-primary'>generar
+                                                </button>
+                                                  ";
+                                        }else{
+                                             echo "
+                                                <button type='submit' name='' class='col btn btn-primary' disabled>generar
+                                                </button>
+                                                  ";
                                                                             }
                                  echo "</div>
                                      </div>
