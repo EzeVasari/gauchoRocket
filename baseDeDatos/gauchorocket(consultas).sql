@@ -171,6 +171,10 @@ where rel.fkEmailCliente like 'uno@gmail.com'
 
 
 
+select count(v.codigo) as contadorVuelo, count(i.fkCodigoServicio) as contadorServicio, count(i.fkCodigoCabina) as contadorCabina, count(t.codigo) as contadorEquipo 
+from itemReserva as i inner join reserva as r on r.codigo = i.fkcodigoReserva inner join viaje as v on
+    v.codigo= r.codigoViaje inner join equipo as e on e.matricula=v.codigoEquipo inner join tipodeequipo as t on t.codigo = e.codigoTipoDeEquipo
+where v.codigo=1;
 
 
 
