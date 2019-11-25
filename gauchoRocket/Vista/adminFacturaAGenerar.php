@@ -69,7 +69,7 @@
                                                 echo "<td>No</td>";
                                             }
                                          echo   "<td>
-                                         <form action='pdf.php?cliente=".$cliente."' method='post'>
+                                         <form action='pdf.php?reserva=".$row['item']."&cliente=".$cliente."' method='post'>
                                         <input type='hidden' name='enviar' value=''>
                                         <div class='container'>
                                       <div class='row align-items-start'>";

@@ -2,7 +2,10 @@
 require('../help/fpdf181/fpdf.php');
 
 include('../Modelo/conexion.php');
-    $cliente = $_GET['cliente'];
+    $reserva = $_GET['reserva'];
+     $cliente = $_GET['cliente'];
+    
+
 
      
 
@@ -28,7 +31,7 @@ function Header()
     $this->Ln(20);
 }
 
-function table($cliente)
+function table($reserva, $cliente)
 {
 
 include('../Modelo/conexion.php');
@@ -39,7 +42,7 @@ include('../Modelo/conexion.php');
                                                                    inner join reserva as r on i.fkcodigoReserva = r.codigo
 	                                                               inner join viaje as v on r.codigoViaje = v.codigo
                                                                    inner join relacionClienteItemReserva as rel on i.idItemReserva = rel.fkIdItemReserva
-                                                              where rel.fkEmailCliente like '".$cliente."';";
+                                                              where i.idItemReserva like '".$reserva."'and rel.fkEmailCliente='".$cliente."';";
                                  $resultado = mysqli_query($conexion, $query);
                                  while($row = mysqli_fetch_assoc($resultado)){
                                  	$this->cell(30,1,'Su destino:');
@@ -68,7 +71,7 @@ $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times','',12);
-$pdf->table($cliente);
+$pdf->table($reserva, $cliente);
 $pdf->Output();
 
 
