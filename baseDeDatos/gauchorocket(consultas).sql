@@ -176,7 +176,7 @@ from itemReserva as i inner join reserva as r on r.codigo = i.fkcodigoReserva in
     v.codigo= r.codigoViaje inner join equipo as e on e.matricula=v.codigoEquipo inner join tipodeequipo as t on t.codigo = e.codigoTipoDeEquipo
 where v.codigo=1;
 
-select fkIdItemReserva, fkEmailCliente
+select *
 from relacionClienteItemReserva
 /*where DATE_ADD(now(), INTERVAL 1 DAY)*/
 ;

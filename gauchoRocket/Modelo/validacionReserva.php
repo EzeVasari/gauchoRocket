@@ -75,7 +75,7 @@
             $resultadoEmail = mysqli_query($conexion, $queryUsuario);
             
             if(mysqli_fetch_assoc($resultadoEmail)){
-                $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente) VALUES (".$idItemReserva.", '".$e."')";
+                $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente, fecha) VALUES (".$idItemReserva.", '".$e."', now())";
                 
                 $registro = mysqli_query($conexion, $queryRelacion);
              
@@ -89,7 +89,7 @@
                 $insert = mysqli_query($conexion, $query);
                 $insertDos = mysqli_query($conexion, $queryDos);
                 
-                $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente) VALUES (".$idItemReserva.", '".$e."')";
+                $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente, fecha) VALUES (".$idItemReserva.", '".$e."', now())";
                 $registro = mysqli_query($conexion, $queryRelacion);
                 
                 /* == Envio de email == */
