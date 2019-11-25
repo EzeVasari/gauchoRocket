@@ -178,7 +178,7 @@ where v.codigo=1;
 
 select *
 from relacionClienteItemReserva
-/*where DATE_ADD(now(), INTERVAL 1 DAY)*/
+where fecha between DATE_SUB(now(), interval 1 year) and now()
 ;
 
 
