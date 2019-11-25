@@ -144,6 +144,7 @@ foreign key (fkCodigoCabina) references cabina(codigoCabina)
 create table relacionClienteItemReserva(
 fkIdItemReserva int,
 fkEmailCliente varchar(64),
+fecha datetime,
 primary key (fkIdItemReserva, fkEmailCliente),
 foreign key (fkIdItemReserva) references itemReserva (idItemReserva),
 foreign key (fkEmailCliente) references cliente (fkEmailUsuario)

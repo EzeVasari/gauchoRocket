@@ -110,7 +110,7 @@ end //
 delimiter ;
 
 /* ========== */
-
+/*
 delimiter //
 create event tareasDiarias on schedule every 1 minute
 starts '2019-01-01 00:00:00'
@@ -126,7 +126,7 @@ begin
     update centroMedico set turnos -= cantidad where codigo = 1;
 end //
 delimiter ;
-
+*/
 /* DATOS CARGADOS "A LA FUERZA" PARA HACER PRUEBAS */
 /* Los comento sólo para poder ejecutar todo de arriba a abajo */
 

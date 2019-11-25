@@ -21,7 +21,33 @@
                 </div>
             </div>
             
-            <form class='needs-validation' method='get' action='../Modelo/validacionFacturacionVuelo.php'>
+            <form class='needs-validation' method='post' action='../Modelo/validacionFacturacion.php'>
+                <div class='form-row'>
+                    
+                    <div class='col-md-12'>
+                        <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-money-check-alt"></i>  Total facturado</label>
+                    </div>
+
+                    <div class='col-md-6 mb-3'>
+                        <label class='font-weight-bold' for='validationTooltip01'><i class="far fa-calendar-alt"></i>  Período</label>
+                        <select class='custom-select' name='totalPeriodo'>
+                            <option selected value='0'>Seleccione período</option>
+                            <option value='1'>Días</option>
+                            <option value='2'>Semanas</option>
+                            <option value='3'>Meses</option>
+                            <option value='4'>Años</option>
+                        </select>
+                    </div>
+                    
+                    <div class='col-md-6 mb-3'>
+                        <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-calendar-alt"></i>  Antigüedad</label>
+                        <input class='custom-select' type="number" name="totalAntiguedad">
+                    </div>
+                    
+                </div>
+                    
+<!--=============--><div class='col-md-12 mb-5'></div><!--==============================================================================-->
+            
                 <div class='form-row'>
                     
                     <div class='col-md-6 mb-3'>
@@ -41,7 +67,7 @@
                         </select>
                     </div>
 
-  <div class='col-md-3 mb-3'>
+                    <div class='col-md-3 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip01'><i class="far fa-calendar-alt"></i>  Período</label>
                         <select class='custom-select' name='vueloPeriodo'>
                             <option selected value='0'>Seleccione período</option>
@@ -53,33 +79,15 @@
                     </div>
                     
                     <div class='col-md-3 mb-3'>
-                        <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-calendar-alt"></i>  Días de antigüedad</label>
-                        <select class='custom-select' name='vueloDias'>
-                            <option selected value='0'>Seleccione tiempo</option>
-                            <?php
-                            $i = 1;
-                            while($i <= 30){
-                                echo "
-                                    <option value='".$i."'> ".$i." </option>
-                                     ";
-                                $i++;
-                            }
-                            ?>
-                        </select>
+                        <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-calendar-alt"></i>  Antigüedad</label>
+                        <input class='custom-select' type="number" name="vueloAntiguedad">
                     </div>
-
-
-                     <div class='col-md-12 mt-3'>
-                        <button class='btn btn-primary w-100' type='submit' name='buscar'><i class='fas fa-search'></i>  Buscar</button>
-                    </div>
-              
-                </form>
                     
-                  
+                </div>
                     
 <!--=============--><div class='col-md-12 mb-5'></div><!--==============================================================================-->
-                     <form class='needs-validation' method='get' action='../Modelo/validacionFacturacionServicio.php'>
-                         <div class='form-row'>
+            
+                 <div class='form-row'>
                     <div class='col-md-6 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip02'><i class="fas fa-cocktail"></i>  Servicios</label>
                         <select class='custom-select' name='servicio'>
@@ -109,29 +117,15 @@
                     </div>
                     
                     <div class='col-md-3 mb-3'>
-                        <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-calendar-alt"></i>  Días de antigüedad</label>
-                        <select class='custom-select' name='servicioDias'>
-                            <option selected value='0'>Seleccione tiempo</option>
-                            <?php
-                            $i = 1;
-                            while($i <= 30){
-                                echo "
-                                    <option value='".$i."'> ".$i." </option>
-                                     ";
-                                $i++;
-                            }
-                            ?>
-                        </select>
+                        <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-calendar-alt"></i>  Antigüedad</label>
+                        <input class='custom-select' type="number" name="servicioAntiguedad">
                     </div>
-                     <div class='col-md-12 mt-3'>
-                        <button class='btn btn-primary w-100' type='submit' name='buscar'><i class='fas fa-search'></i>  Buscar</button>
-                    </div>
-                </form>
-
-                    
+                     
+                </div>
+            
 <!--=============--><div class='col-md-12 mb-5'></div><!--==============================================================================-->
-                     <form class='needs-validation' method='get' action='../Modelo/validacionFacturacionCabina.php'>
-                         <div class='form-row'>
+            
+                 <div class='form-row'>
                     <div class='col-md-6 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip03'><i class="fas fa-person-booth"></i>  Cabina</label>
                         <select class='custom-select' name='cabina'>
@@ -161,29 +155,16 @@
                     </div>
                     
                     <div class='col-md-3 mb-3'>
-                        <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-calendar-alt"></i>  Días de antigüedad</label>
-                        <select class='custom-select' name='cabinaDias'>
-                            <option selected value='0'>Seleccione tiempo</option>
-                            <?php
-                            $i = 1;
-                            while($i <= 30){
-                                echo "
-                                    <option value='".$i."'> ".$i." </option>
-                                     ";
-                                $i++;
-                            }
-                            ?>
-                        </select>
+                        <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-calendar-alt"></i>  Antigüedad</label>
+                        <input class='custom-select' type="number" name="cabinaAntiguedad">
                     </div>
+                     
                      <div class='col-md-12 mt-3'>
                         <button class='btn btn-primary w-100' type='submit' name='buscarCabina'><i class='fas fa-search'></i>  Buscar</button>
                     </div>
                 </div>
-                </form>
-                    
-<!--=============--><div class='col-md-12 mb-5'></div><!--==============================================================================-->
-                    
-                </div>
+            </form>
+        </div>
            
        
     </body>
