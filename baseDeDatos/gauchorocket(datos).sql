@@ -112,7 +112,7 @@ delimiter ;
 /* ========== */
 
 delimiter //
-create event tareasDiarias on schedule every 1 minute
+create event tareasDiarias2 on schedule every 1 minute
 starts '2019-01-01 00:00:00'
 do
 begin
@@ -123,7 +123,7 @@ begin
 		or (now() > ir.fechaLimiteDeCheckin and ir.checkin = false)
 		and (listaDeEspera = false);
 	
-    update centroMedico set turnos -= cantidad where codigo = 1;
+    update centroMedico set turnos = cantidad where codigo = 1;
 end //
 delimiter ;
 
