@@ -37,7 +37,7 @@ if(isset($_POST['medico'])){
     $codigoCentro = $_POST['codigoCentro'];
     
     /* Obtenemos la cantidad de turno que tiene el centro médico y restamos 1 */
-    $consultaUno = "select c.turnos as turnos, l.nombre as nombre
+    $consultaUno = "select c.turnos as turnos, l.nombre as nombre, l.codigo as codLug
                     from centroMedico as c
                         inner join lugar as l on c.codigoLugar = l.codigo
                     where c.codigo = ".$codigoCentro.";";
@@ -49,7 +49,7 @@ if(isset($_POST['medico'])){
         $queryDos = mysqli_query($conexion, $updateUno);
         
         $insertUno = "insert into turnoMedico (fkEmailCliente, fechaTurnoMedico, codigoLugar, nombreLugar) values
-                        ('".$usuario."', date_add(curtime(), interval 5 minute), ".$codigoCentro.", '".$cantidadDeTurnos['nombre']."');";
+                        ('".$usuario."', date_add(curtime(), interval 1 minute), ".$cantidadDeTurnos['codLug'].", '".$cantidadDeTurnos['nombre']."');";
         $queryTres = mysqli_query($conexion, $insertUno);
     }
     
