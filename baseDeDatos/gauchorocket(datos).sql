@@ -26,15 +26,12 @@ insert into tipoDeEquipo (codigo, descripcion) values
 (4, 'SubOrbitales');
 
 insert into equipo (matricula, modelo, capacidad, codigoTipoDeEquipo) values
-(1111, 'Calandria', 100, 4),
-(2222, 'Colibri', 200, 4),
-(3333, 'Modelo Uno', 300, 1),
-(4444, 'Guanaco', 400, 2);
+('O1', 'Calandria', 3, 3);
 
-insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, codigoEquipo) values
-(1, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2020.10.25 12:00:00', 2, 4, 2, 2222),
-(2, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2020.10.22 12:00:00', 1, 4, 2, 2222),
-(4, 'img/titan.jpg', 'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 1, 8, 1, 4444);
+insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, matriculaEquipo) values
+(1, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2020.10.25 12:00:00', 2, 4, 2, 'O1'),
+(2, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2020.10.22 12:00:00', 1, 4, 2, 'O1'),
+(4, 'img/titan.jpg', 'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 1, 8, 1, 'O1');
 /* A LOS SIGUIENTES HAY QUE ESTABLECER 1 DÍA MÁS TARDE DESDE LA FECHA EN QUE SE DECIDA HACER LA PRIUEBA 
 (7, 'img/prueba.jpg', 'VUELO DE PRUEBA 1.', 11000, 'Se abonó a tiempo',      '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE y "pago" a TRUE
 (8, 'img/prueba.jpg', 'VUELO DE PRUEBA 2.', 11000, 'No se abonó a tiempo',   '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE
@@ -127,9 +124,15 @@ insert into tipoDeCabina (codigoTipoDeCabina, descripcion, precio) values
 (3, 'Suite', 850);
 
 insert into cabina (codigoCabina, asientos, ubicacion, fkCodigoTipoDeCabina) values 
-(1, 80, null, 1),
-(2, 100, null, 2),
-(3, 30, null, 3);
+(1, 1, null, 1),
+(2, 1, null, 2),
+(3, 1, null, 3);
+
+insert into relacionCabinaEquipo (fkCodigoCabina, fkMatriculaEquipo) values 
+(1, 'O1'),
+(2, 'O1'),
+(3, 'O1');
+ 
 
 SET GLOBAL event_scheduler = ON;
 

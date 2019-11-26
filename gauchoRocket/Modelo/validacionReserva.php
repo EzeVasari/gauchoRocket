@@ -55,11 +55,33 @@
         $cabina = $_POST["cabina"];
         $origenTrayecto = $_POST["origenTrayecto"];
         $destinoTrayecto = $_POST["destinoTrayecto"];
+           
         
-        $queryTrayecto = "SELECT * FROM trayecto WHERE fkOrigenLugar = ".$origenTrayecto." and fkDestinoLugar =".$destinoTrayecto;
+        
+        $queryTrayecto = "SELECT * FROM trayecto WHERE fkCodigoLugarOrigen = ".$origenTrayecto." and fkCodigoLugarDestino =".$destinoTrayecto;
         $buscarTrayecto = mysqli_query($conexion, $queryTrayecto);
         
-        if ($buscarTrayecto) {
+        
+        if ($trayecto = mysqli_fetch_assoc($buscarTrayecto)) {
+        
+        for ($i = $origenTrayecto; $i < $destinoTrayecto; $i++){
+            
+        }    
+            
+        $queryAsientos = "SELECT c.asientos
+                        FROM tipoDeCabina as tc INNER JOIN cabina as c
+                            ON tc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
+                        INNER JOIN relacionCabinaEquipo as rec
+                            ON c.codigoCabina = rec.fkCodigoCabina
+                        INNER JOIN equipo as e
+                            ON rec.fkMatriculaEquipo = e.matricula
+                        INNER JOIN viaje as v
+                            ON e.matricula = v.matriculaEquipo
+                        INNER JOIN relacionViajeTrayecto as rvt
+                            ON v.codigo = rvt.fkCodigoViaje
+                        INNER JOIN trayecto as t
+                            ON rvt.fkIdTrayecto = t.idTrayecto
+                        WHERE v.codigo = ".$codigo." and c.codigoCabina =".$cabina." and ";
         
         $queryReserva = "INSERT INTO reserva (codigo) VALUES ('".$codigoReserva."')";
         $registroReserva = mysqli_query($conexion, $queryReserva);
@@ -75,6 +97,9 @@
         }
         
         $registro = mysqli_query($conexion, $queryItemReserva);
+            
+         
+        
         
         $i = 0;
         foreach($emails as $e) {
@@ -212,7 +237,15 @@
                     <span aria-hidden="true">&times;</span>
                 </div>';
     }
-        }
+    }else {
+        echo '<br><div class="alert alert-warning mt-5" role="alert">
+                    Trayecto inválido.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';  
+    
+    }
+        
     }else {
         echo '<br><div class="alert alert-warning mt-5" role="alert">
                     Hay campos vacíos!

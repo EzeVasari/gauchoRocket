@@ -67,7 +67,7 @@ descripcion varchar(30)
 );
 
 create table equipo(
-matricula int primary key,
+matricula varchar(15) primary key,
 modelo varchar(50),
 capacidad int,
 codigoTipoDeEquipo int,
@@ -84,11 +84,11 @@ fecha datetime,
 codigoLugarOrigen int,
 codigoLugarDestino int,
 codigoTipoDeViaje int,
-codigoEquipo int,
+matriculaEquipo varchar(15),
 foreign key (codigoLugarOrigen) references lugar(codigo),
 foreign key (codigoLugarDestino) references lugar(codigo),
 foreign key (codigoTipoDeViaje) references tipoDeViaje(codigo),
-foreign key (codigoEquipo) references equipo(matricula)
+foreign key (matriculaEquipo) references equipo(matricula)
 );
 
 create table reserva(
@@ -176,8 +176,8 @@ foreign key (fkEmailCliente) references cliente (fkEmailUsuario)
 
 create table relacionCabinaEquipo(
 fkCodigoCabina int,
-fkCodigoEquipo int,
-primary key (fkCodigoCabina, fkCodigoEquipo),
+fkMatriculaEquipo varchar(15),
+primary key (fkCodigoCabina, fkMatriculaEquipo),
 foreign key (fkCodigoCabina) references cabina(codigoCabina),
-foreign key (fkCodigoEquipo) references equipo(matricula)
+foreign key (fkMatriculaEquipo) references equipo(matricula)
 );

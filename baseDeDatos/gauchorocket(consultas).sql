@@ -187,11 +187,25 @@ FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
 	ON t.idTrayecto = rvt.fkIdTrayecto
 WHERE rvt.fkCodigoViaje = 1;
 
+SELECT * 
+FROM trayecto 
+WHERE fkCodigoLugarOrigen = 1 and fkCodigoLugarDestino = 3;
 
 
-
-
-
+SELECT c.asientos
+FROM tipoDeCabina as tc INNER JOIN cabina as c
+	ON tc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
+INNER JOIN relacionCabinaEquipo as rec
+	ON c.codigoCabina = rec.fkCodigoCabina
+INNER JOIN equipo as e
+	ON rec.fkMatriculaEquipo = e.matricula
+INNER JOIN viaje as v
+	ON e.matricula = v.matriculaEquipo
+INNER JOIN relacionViajeTrayecto as rvt
+	ON v.codigo = rvt.fkCodigoViaje
+INNER JOIN trayecto as t
+	ON rvt.fkIdTrayecto = t.idTrayecto
+WHERE v.codigo = 1 and c.codigoCabina = 1;
 
 
 
