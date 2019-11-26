@@ -29,6 +29,9 @@ while($verificar = mysqli_fetch_assoc($queryUno)){
                                 where fkEmailUsuario like '".$usuario."';";
             $actualizarDos = mysqli_query($conexion, $actualizarUno);
         }
+        
+        /*HACER EN ESTE PUNTO LA VALIDACION DEL NIVEL DE VUELO ASIGNADO Y EL VUELO RESERVADO*/
+        
     }
 }
 

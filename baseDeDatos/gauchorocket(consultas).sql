@@ -181,11 +181,16 @@ from relacionClienteItemReserva
 where fecha between DATE_SUB(now(), interval 1 year) and now()
 ;
 
+select t.fechaTurnoMedico as fecha, c.verifMedica as medico
+from turnoMedico as t
+                    inner join cliente as c on t.fkEmailCliente = c.fkEmailUsuario
+                where t.fkEmailCliente like '%uno%';
 
+update cliente set verifMedica = true, nivelVuelo = 1
+where fkEmailUsuario like 'uno@gmail.com';
 
-
-
-
+select *
+from turnoMedico
 
 
 
