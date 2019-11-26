@@ -1,4 +1,5 @@
 <?php
+include('conexion.php');
 $usuario = $_SESSION['user'];
 $fecha_actual = strtotime(date("d-m-Y H:i:00",time())); //Fecha-hora actuales
 
