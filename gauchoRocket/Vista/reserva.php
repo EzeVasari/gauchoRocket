@@ -29,9 +29,22 @@ include("../Modelo/validacionReserva.php");
                         <label>E-mail</label>
                         <input type="text" class="form-control" value="<?php echo $datos["email"];?>" name="emails[]"readonly>
                       </div>
-                      </div>
-                      
+                      </div>   
                    </div>
+                   <div class="col-md-5 bg-light p-3 border border-primary rounded-lg">
+                        <h4 class="font-weight-bold">Trayecto</h4>
+                        <p class="text-muted">Elija trayecto que va a realizar</p>
+                   
+                        <div class="form-row">
+                            <div class="form-group col">
+                                  <select class='custom-select' name="cabina">
+                                    <option selected value="1">General</option>
+                                    <option value="2">Familiar</option>
+                                    <option value="3">Suite</option>
+                                  </select>
+                            </div>  
+                        </div>
+                    </div>
                 </div>
                 <div class="btn btn-primary mt-2" id="btn-nuevaPersona"><i class='fas fa-plus'></i> Agregar persona</div>
             <div class="row mt-2">

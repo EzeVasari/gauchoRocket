@@ -2,7 +2,7 @@
 include('../Modelo/conexion.php');
 
 $consulta = "SELECT DISTINCT v.codigoLugarOrigen as codigo, l.nombre as nombre
-              FROM viaje as v inner join lugar as l on v.codigoLugarOrigen = l.codigo";
+              FROM viaje as v INNER JOIN lugar as l ON v.codigoLugarOrigen = l.codigo";
 $resultado = mysqli_query($conexion, $consulta);
 
 echo "
