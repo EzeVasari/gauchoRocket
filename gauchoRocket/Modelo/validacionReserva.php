@@ -53,8 +53,15 @@
         $emails = $_POST["emails"];
         $servicio = $_POST["servicio"];
         $cabina = $_POST["cabina"];
+        $origenTrayecto = $_POST["origenTrayecto"];
+        $destinoTrayecto = $_POST["destinoTrayecto"];
         
-        $queryReserva = "INSERT INTO reserva (codigo, codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
+        $queryTrayecto = "SELECT * FROM trayecto WHERE fkOrigenLugar = ".$origenTrayecto." and fkDestinoLugar =".$destinoTrayecto;
+        $buscarTrayecto = mysqli_query($conexion, $queryTrayecto);
+        
+        if ($buscarTrayecto) {
+        
+        $queryReserva = "INSERT INTO reserva (codigo) VALUES ('".$codigoReserva."')";
         $registroReserva = mysqli_query($conexion, $queryReserva);
         
         $idItemReserva = rand(1000,8000);
@@ -78,6 +85,10 @@
                 $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente, fecha) VALUES (".$idItemReserva.", '".$e."', now())";
                 
                 $registro = mysqli_query($conexion, $queryRelacion);
+                
+                if (!$registro) {
+                    echo "<br><br>lcONCHAAAA";
+                }
              
             }else {
                 $i++;
@@ -161,7 +172,7 @@
                 FROM relacionClienteItemReserva AS rcr
                     INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
                     INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
-                    INNER JOIN Viaje AS v ON r.codigoViaje = v.codigo
+                    INNER JOIN Viaje AS v ON v.codigo = ".$codigo."
                 WHERE ir.idItemReserva ='".$idItemReserva."'";
                 
         $resultadoReserva = mysqli_query($conexion, $query);
@@ -201,7 +212,7 @@
                     <span aria-hidden="true">&times;</span>
                 </div>';
     }
-        
+        }
     }else {
         echo '<br><div class="alert alert-warning mt-5" role="alert">
                     Hay campos vacíos!
@@ -209,7 +220,7 @@
                     <span aria-hidden="true">&times;</span>
                 </div>';
     }
-
+    
 }
     
 ?>

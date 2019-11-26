@@ -182,7 +182,10 @@ where fecha between DATE_SUB(now(), interval 1 year) and now()
 ;
 
 
-
+SELECT DISTINCT t.nombreTrayecto as trayecto
+FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt 
+	ON t.idTrayecto = rvt.fkIdTrayecto
+WHERE rvt.fkCodigoViaje = 1;
 
 
 
