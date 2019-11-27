@@ -205,15 +205,53 @@ INNER JOIN relacionViajeTrayecto as rvt
 	ON v.codigo = rvt.fkCodigoViaje
 INNER JOIN trayecto as t
 	ON rvt.fkIdTrayecto = t.idTrayecto
-WHERE v.codigo = 1 and c.codigoCabina = 1;
+WHERE v.codigo = 1 and c.codigoCabina = 1 and t.fkCodigoLugarOrigen = 2 and t.fkCodigoLugarDestino = 3;
 
 
+SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
+	v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
+	ir.pago as pago, ir.checkin as checki, ir.listaDeEspera as espera,
+	ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
+FROM relacionClienteItemReserva AS rcr
+INNER JOIN itemReserva AS ir 
+	ON rcr.fkIdItemReserva = ir.idItemReserva
+INNER JOIN Reserva AS r 
+	ON ir.fkCodigoReserva = r.codigo
+INNER JOIN relacionReservaTrayecto as rrt 
+	ON r.codigo = rrt.fkCodigoReserva
+INNER JOIN trayecto as t 
+	ON rrt.fkIdTrayecto = t.idTrayecto
+INNER JOIN relacionViajeTrayecto as rvt 
+	ON t.idTrayecto = rvt.fkIdTrayecto
+INNER JOIN viaje AS v 
+	ON rvt.fkCodigoViaje = v.codigo
+WHERE fkEmailCliente = 'uno@gmail.com';
 
 
+SELECT * 
+FROM trayecto as t
+INNER JOIN relacionViajeTrayecto as rvt
+	ON t.idTrayecto = rvt.fkIdTrayecto
+WHERE t.fkCodigoLugarOrigen = 2 and fkCodigoLugarDestino = 3 and fkCodigoViaje = 1;
 
 
+INSERT INTO relacionReservaTrayecto (fkCodigoReserva, fkIdTrayecto) VALUES 
+('0qgskx', 1);
 
-
+update tipoDeCabina as tc INNER JOIN cabina as c
+	ON tc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
+INNER JOIN relacionCabinaEquipo as rec
+	ON c.codigoCabina = rec.fkCodigoCabina
+INNER JOIN equipo as e
+	ON rec.fkMatriculaEquipo = e.matricula
+INNER JOIN viaje as v
+	ON e.matricula = v.matriculaEquipo
+INNER JOIN relacionViajeTrayecto as rvt
+	ON v.codigo = rvt.fkCodigoViaje
+INNER JOIN trayecto as t
+	ON rvt.fkIdTrayecto = t.idTrayecto
+SET c.asientos = c.asientos - 1
+WHERE v.codigo = 1 and c.codigoCabina = 1 and t.fkCodigoLugarOrigen = 2 and t.fkCodigoLugarDestino = 3;
 
 
 

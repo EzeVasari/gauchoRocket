@@ -17,7 +17,10 @@
                           FROM relacionClienteItemReserva AS rcr
                                 INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
                                 INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
-                                INNER JOIN Viaje AS v ON r.codigoViaje = v.codigo
+                                INNER JOIN relacionReservaTrayecto as rrt ON r.codigo = rrt.fkCodigoReserva
+                                INNER JOIN trayecto as t ON rrt.fkIdTrayecto = t.idTrayecto
+                                INNER JOIN relacionViajeTrayecto as rvt ON t.idTrayecto = rvt.fkIdTrayecto
+                                INNER JOIN viaje AS v ON rvt.fkCodigoViaje = v.codigo
                           WHERE fkEmailCliente ='".$email."'";
                 
                 $resultado = mysqli_query($conexion, $query);
