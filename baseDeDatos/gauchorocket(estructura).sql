@@ -69,7 +69,9 @@ descripcion varchar(30)
 create table equipo(
 matricula varchar(15) primary key,
 modelo varchar(50),
-capacidad int,
+capacidadSuit int,
+capacidadGeneral int,
+capacidadFamiliar int,
 codigoTipoDeEquipo int,
 foreign key (codigoTipoDeEquipo) references tipoDeEquipo(codigo)
 );
