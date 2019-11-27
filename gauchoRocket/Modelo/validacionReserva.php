@@ -64,7 +64,7 @@
         
         if ($trayecto = mysqli_fetch_assoc($buscarTrayecto)) {
             $auxDestino = $origenTrayecto;
-            $verifAsientos = false;
+            $verifAsientos = true;
             
             for ($i = $origenTrayecto; $i <= $destinoTrayecto; $i++){
             
@@ -98,6 +98,8 @@
                     
                     if($asientos["asientos"] >= count($emails)){
                         $verifAsientos = true;
+                    }else {
+                        $verifAsientos = false;
                     }
                 }
                 
