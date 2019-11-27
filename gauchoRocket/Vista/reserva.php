@@ -31,22 +31,65 @@ include("../Modelo/validacionReserva.php");
                       </div>
                       </div>   
                    </div>
-                   <div class="col-md-5 bg-light p-3 border border-primary rounded-lg">
-                        <h4 class="font-weight-bold">Trayecto</h4>
-                        <p class="text-muted">Elija trayecto que va a realizar</p>
-                   
-                        <div class="form-row">
-                            <div class="form-group col">
-                                  <select class='custom-select' name="cabina">
-                                    <option selected value="1">General</option>
-                                    <option value="2">Familiar</option>
-                                    <option value="3">Suite</option>
-                                  </select>
-                            </div>  
-                        </div>
-                    </div>
                 </div>
                 <div class="btn btn-primary mt-2" id="btn-nuevaPersona"><i class='fas fa-plus'></i> Agregar persona</div>
+            <div class="row mt-2">
+                <div class="col-md-7 mb-2 bg-light p-3 border border-primary rounded-lg">
+                    <h4 class="font-weight-bold">Trayecto</h4>
+                    <p class="text-muted">Elija trayecto que va a realizar</p>
+                   
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label class='font-weight-bold'>Origen</label>
+                          <select class='custom-select' name="origenTrayecto">
+                            <?php
+                                include('../Modelo/conexion.php');
+
+                                $consulta = "SELECT DISTINCT l.nombre as nombreLugar, l.codigo as codigo
+                                              FROM lugar as l INNER JOIN trayecto as t 
+                                                ON l.codigo = t.fkCodigoLugarOrigen
+                                              INNER JOIN relacionViajeTrayecto as rvt 
+                                                ON t.idTrayecto = rvt.fkIdTrayecto
+                                              WHERE rvt.fkCodigoViaje = ".$_GET['codigo']."";
+                                
+                                $resultado = mysqli_query($conexion, $consulta);
+                                    
+                                    while($recorrer = mysqli_fetch_assoc($resultado)){
+                                        echo "
+                                                <option value='". $recorrer["codigo"] ."'>". $recorrer['nombreLugar'] ."</option>
+                                             ";
+                            }
+                                    
+                            ?>
+                        </select>
+                    </div>
+                        <div class="form-group col-md-6">
+                          <label class="font-weight-bold">Destino</label>
+                          <select class="custom-select" name="destinoTrayecto">
+                            <?php
+                                include('../Modelo/conexion.php');
+
+                                $consulta = "SELECT DISTINCT l.nombre as nombreLugar, l.codigo as codigo
+                                              FROM lugar as l INNER JOIN trayecto as t 
+                                                ON l.codigo = t.fkCodigoLugarDestino
+                                              INNER JOIN relacionViajeTrayecto as rvt 
+                                                ON t.idTrayecto = rvt.fkIdTrayecto
+                                              WHERE rvt.fkCodigoViaje = ".$_GET['codigo']."";
+                                
+                                $resultado = mysqli_query($conexion, $consulta);
+                                    
+                                    while($recorrer = mysqli_fetch_assoc($resultado)){
+                                        echo "
+                                                <option value='". $recorrer['codigo'] ."'>". $recorrer['nombreLugar'] ."</option>
+                                             ";
+                            }
+                                    
+                            ?>
+                        </select>
+                        </div>
+                        </div>
+                     </div>
+            </div>
             <div class="row mt-2">
                 <div class="col-md-7 bg-light p-3 border border-primary rounded-lg">
                     <h4 class="font-weight-bold">Ubicación y Servicio</h4>

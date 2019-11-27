@@ -53,8 +53,37 @@
         $emails = $_POST["emails"];
         $servicio = $_POST["servicio"];
         $cabina = $_POST["cabina"];
+        $origenTrayecto = $_POST["origenTrayecto"];
+        $destinoTrayecto = $_POST["destinoTrayecto"];
+           
         
-        $queryReserva = "INSERT INTO reserva (codigo, codigoViaje) VALUES ('".$codigoReserva."',".$codigo.")";
+        
+        $queryTrayecto = "SELECT * FROM trayecto WHERE fkCodigoLugarOrigen = ".$origenTrayecto." and fkCodigoLugarDestino =".$destinoTrayecto;
+        $buscarTrayecto = mysqli_query($conexion, $queryTrayecto);
+        
+        
+        if ($trayecto = mysqli_fetch_assoc($buscarTrayecto)) {
+        
+        for ($i = $origenTrayecto; $i < $destinoTrayecto; $i++){
+            
+        }    
+            
+        $queryAsientos = "SELECT c.asientos
+                        FROM tipoDeCabina as tc INNER JOIN cabina as c
+                            ON tc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
+                        INNER JOIN relacionCabinaEquipo as rec
+                            ON c.codigoCabina = rec.fkCodigoCabina
+                        INNER JOIN equipo as e
+                            ON rec.fkMatriculaEquipo = e.matricula
+                        INNER JOIN viaje as v
+                            ON e.matricula = v.matriculaEquipo
+                        INNER JOIN relacionViajeTrayecto as rvt
+                            ON v.codigo = rvt.fkCodigoViaje
+                        INNER JOIN trayecto as t
+                            ON rvt.fkIdTrayecto = t.idTrayecto
+                        WHERE v.codigo = ".$codigo." and c.codigoCabina =".$cabina." and ";
+        
+        $queryReserva = "INSERT INTO reserva (codigo) VALUES ('".$codigoReserva."')";
         $registroReserva = mysqli_query($conexion, $queryReserva);
         
         $idItemReserva = rand(1000,8000);
@@ -68,6 +97,9 @@
         }
         
         $registro = mysqli_query($conexion, $queryItemReserva);
+            
+         
+        
         
         $i = 0;
         foreach($emails as $e) {
@@ -78,6 +110,10 @@
                 $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente, fecha) VALUES (".$idItemReserva.", '".$e."', now())";
                 
                 $registro = mysqli_query($conexion, $queryRelacion);
+                
+                if (!$registro) {
+                    echo "<br><br>lcONCHAAAA";
+                }
              
             }else {
                 $i++;
@@ -161,7 +197,7 @@
                 FROM relacionClienteItemReserva AS rcr
                     INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
                     INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
-                    INNER JOIN Viaje AS v ON r.codigoViaje = v.codigo
+                    INNER JOIN Viaje AS v ON v.codigo = ".$codigo."
                 WHERE ir.idItemReserva ='".$idItemReserva."'";
                 
         $resultadoReserva = mysqli_query($conexion, $query);
@@ -201,6 +237,14 @@
                     <span aria-hidden="true">&times;</span>
                 </div>';
     }
+    }else {
+        echo '<br><div class="alert alert-warning mt-5" role="alert">
+                    Trayecto inválido.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';  
+    
+    }
         
     }else {
         echo '<br><div class="alert alert-warning mt-5" role="alert">
@@ -209,7 +253,7 @@
                     <span aria-hidden="true">&times;</span>
                 </div>';
     }
-
+    
 }
     
 ?>

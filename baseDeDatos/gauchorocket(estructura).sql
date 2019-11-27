@@ -67,7 +67,7 @@ descripcion varchar(30)
 );
 
 create table equipo(
-matricula int primary key,
+matricula varchar(15) primary key,
 modelo varchar(50),
 capacidad int,
 codigoTipoDeEquipo int,
@@ -81,21 +81,45 @@ descripcion varchar(100),
 precio int,
 nombre varchar(50),
 fecha datetime,
-duracion int,
 codigoLugarOrigen int,
 codigoLugarDestino int,
 codigoTipoDeViaje int,
-codigoEquipo int,
+matriculaEquipo varchar(15),
 foreign key (codigoLugarOrigen) references lugar(codigo),
 foreign key (codigoLugarDestino) references lugar(codigo),
 foreign key (codigoTipoDeViaje) references tipoDeViaje(codigo),
-foreign key (codigoEquipo) references equipo(matricula)
+foreign key (matriculaEquipo) references equipo(matricula)
 );
 
 create table reserva(
-codigo varchar(6) primary key,
-codigoViaje int,
-foreign key (codigoViaje) references viaje(codigo)
+codigo varchar(6) primary key
+);
+
+create table trayecto(
+idTrayecto int primary key,
+nombreTrayecto varchar(50),
+precio int,
+duracion int,
+fkCodigoLugarOrigen int,
+fkCodigoLugarDestino int,
+foreign key (fkCodigoLugarOrigen) references lugar(codigo),
+foreign key (fkCodigoLugarDestino) references lugar(codigo)
+);
+
+create table relacionReservaTrayecto(
+fkCodigoReserva varchar(6),
+fkIdTrayecto int,
+primary key (fkCodigoReserva, fkIdTrayecto),
+foreign key (fkCodigoReserva) references reserva(codigo),
+foreign key (fkIdTrayecto) references trayecto(idTrayecto)
+);
+
+create table relacionViajeTrayecto(
+fkIdTrayecto int,
+fkCodigoViaje int,
+primary key (fkIdTrayecto, fkCodigoViaje),
+foreign key (fkIdTrayecto) references trayecto(idTrayecto),
+foreign key (fkCodigoViaje) references viaje(codigo)
 );
 
 create table tipoDeServicio(
@@ -152,8 +176,8 @@ foreign key (fkEmailCliente) references cliente (fkEmailUsuario)
 
 create table relacionCabinaEquipo(
 fkCodigoCabina int,
-fkCodigoEquipo int,
-primary key (fkCodigoCabina, fkCodigoEquipo),
+fkMatriculaEquipo varchar(15),
+primary key (fkCodigoCabina, fkMatriculaEquipo),
 foreign key (fkCodigoCabina) references cabina(codigoCabina),
-foreign key (fkCodigoEquipo) references equipo(matricula)
+foreign key (fkMatriculaEquipo) references equipo(matricula)
 );
