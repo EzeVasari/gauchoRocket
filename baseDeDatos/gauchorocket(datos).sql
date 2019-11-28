@@ -25,7 +25,7 @@ insert into tipoDeEquipo (codigo, descripcion) values
 (3, 'Orbitales'),
 (4, 'SubOrbitales');
 
-insert into equipo (matricula, modelo, capacidadEquipo, codigoTipoDeEquipo) values
+insert into equipo (matricula, modelo, capacidadEquipo, fkcodigoTipoDeEquipo) values
 ('AA1', 'Aguila', 300, 2),
 ('AA5', 'Aguila', 300, 2),
 ('AA9', 'Aguila', 300, 2),
@@ -58,7 +58,7 @@ insert into equipo (matricula, modelo, capacidadEquipo, codigoTipoDeEquipo) valu
 ('AA6', 'Condor', 350, 2),
 ('AA10', 'Condor', 350, 2),
 ('AA14', 'Condor', 350, 2),
-('AA18', 'Condor', 40, 300, 10, 2),
+('AA18', 'Condor', 350, 2),
 ('AA4', 'Guanaco', 100, 2),
 ('AA8', 'Guanaco', 100, 2),
 ('AA12', 'Guanaco', 100, 2),
@@ -70,7 +70,7 @@ insert into equipo (matricula, modelo, capacidadEquipo, codigoTipoDeEquipo) valu
 ('AA19', 'Halcon', 200, 2),
 ('BA1', 'Zorzal', 100, 1),
 ('BA2', 'Zorzal', 100, 1),
-('BA3', 'Zorzal', 100, 1);
+('BA3', 'Zorzal', 100, 1); 
 
 insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, matriculaEquipo) values
 (1, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2020.10.25 12:00:00', 2, 4, 2, 'O1'),

@@ -70,7 +70,8 @@ create table equipo(
 matricula varchar(15) primary key,
 modelo varchar(50),
 capacidadEquipo int,
-foreign key (codigoTipoDeEquipo) references tipoDeEquipo(codigo)
+fkcodigoTipoDeEquipo int,
+foreign key (fkcodigoTipoDeEquipo) references tipoDeEquipo(codigo)
 );
 
 create table viaje(
@@ -105,6 +106,11 @@ foreign key (fkCodigoLugarOrigen) references lugar(codigo),
 foreign key (fkCodigoLugarDestino) references lugar(codigo)
 );
 
+create table ubicacion(
+idUbicacion varchar(2),
+estado boolean
+);
+
 create table relacionReservaTrayecto(
 fkCodigoReserva varchar(6),
 fkIdTrayecto int,
@@ -113,12 +119,12 @@ foreign key (fkCodigoReserva) references reserva(codigo),
 foreign key (fkIdTrayecto) references trayecto(idTrayecto)
 );
 
-create table relacionViajeTrayecto(
+create table relacionViajeTrayectoUbicacion(
 fkIdTrayecto int,
 fkCodigoViaje int,
-primary key (fkIdTrayecto, fkCodigoViaje),
 foreign key (fkIdTrayecto) references trayecto(idTrayecto),
-foreign key (fkCodigoViaje) references viaje(codigo)
+foreign key (fkCodigoViaje) references viaje(codigo),
+primary key (fkIdTrayecto, fkCodigoViaje)
 );
 
 create table tipoDeServicio(
@@ -143,13 +149,6 @@ create table cabina(
 codigoCabina int primary key,
 fkCodigoTipoDeCabina int,
 foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
-);
-
-create table ubicacion(
-rowId varchar(1),
-columnId int, 
-estado boolean,
-primary key (rowId,columnId)
 );
 
 create table itemReserva(
@@ -177,6 +176,14 @@ primary key (fkIdItemReserva, fkEmailCliente),
 foreign key (fkIdItemReserva) references itemReserva (idItemReserva),
 foreign key (fkEmailCliente) references cliente (fkEmailUsuario)
 );
+
+/*create table relacionItemReservaUbicacion(
+fkIdUbicacion varchar(2),
+fkidItemReserva varchar(6),
+foreign key (fkIdUbicacion) references ubicacion(idUbicacion),
+foreign key (fkidItemReserva) references itemReserva(idItemReserva),
+primary key (fkIdUbicacion, fkidItemReserva)
+);*/
 
 create table relacionCabinaEquipo(
 fkCodigoCabina int,
