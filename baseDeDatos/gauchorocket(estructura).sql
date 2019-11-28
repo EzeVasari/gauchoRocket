@@ -122,8 +122,10 @@ foreign key (fkIdTrayecto) references trayecto(idTrayecto)
 create table relacionViajeTrayectoUbicacion(
 fkIdTrayecto int,
 fkCodigoViaje int,
+fkIdUbicacion int,
 foreign key (fkIdTrayecto) references trayecto(idTrayecto),
 foreign key (fkCodigoViaje) references viaje(codigo),
+foreign key (fkIdUbicacion) REFERENCES ubicacion(idUbicacion),
 primary key (fkIdTrayecto, fkCodigoViaje)
 );
 
