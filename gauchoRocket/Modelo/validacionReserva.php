@@ -24,18 +24,18 @@
     
     if(isset($_GET["codigo"])) {
     
-    $codigo = $_GET["codigo"];
-    $usuario = $_SESSION['user'];
-    //Busqueda Viaje
-    $reserva = "SELECT * FROM viaje WHERE codigo = " . $codigo ."";
-    $resultado = mysqli_query($conexion, $reserva);
-    $viaje = mysqli_fetch_assoc($resultado);
-    }
-    
-    //Busqueda Usuario
-    $busquedaUsuario = "SELECT * FROM usuario WHERE email ='" .$_SESSION['user']. "'";
-    $resultadoUsuario = mysqli_query($conexion, $busquedaUsuario);
-    $datos = mysqli_fetch_assoc($resultadoUsuario);
+        $codigo = $_GET["codigo"];
+        $usuario = $_SESSION['user'];
+        //Busqueda Viaje
+        $reserva = "SELECT * FROM viaje WHERE codigo = " . $codigo ."";
+        $resultado = mysqli_query($conexion, $reserva);
+        $viaje = mysqli_fetch_assoc($resultado);
+        }
+
+        //Busqueda Usuario
+        $busquedaUsuario = "SELECT * FROM usuario WHERE email ='" .$_SESSION['user']. "'";
+        $resultadoUsuario = mysqli_query($conexion, $busquedaUsuario);
+        $datos = mysqli_fetch_assoc($resultadoUsuario);
     
     if(isset($_POST["confirmarReserva"])){
     //Obtener fecha y hora de inicio y límite de check-in

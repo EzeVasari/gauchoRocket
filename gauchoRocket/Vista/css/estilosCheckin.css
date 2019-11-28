@@ -1,0 +1,53 @@
+.seat,
+.row-label,
+.column-label{
+  margin: 4px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+input[type="checkbox"]{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: none;
+}
+.seat label{
+  width: 23px;
+  height: 23px;
+  border-radius: 2px;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  display: block;
+  position: relative;
+:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    transform: scale(0);
+    transition: all 150ms ease;
+  }
+}
+.seat input[type="checkbox"]:disabled + label{
+  border-color: darken(pink, 10%);
+  background: pink;
+  opacity: 0.66;
+  cursor: not-allowed;
+}
+.seat input[type="checkbox"]:checked + label{
+  // background: limegreen;
+  border-color: green;
+  &:after{
+    background-color: limegreen; 
+    transform-origin: 50% 50%;
+    transform: scale(1);
+  }
+}

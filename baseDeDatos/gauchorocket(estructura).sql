@@ -69,10 +69,7 @@ descripcion varchar(30)
 create table equipo(
 matricula varchar(15) primary key,
 modelo varchar(50),
-capacidadSuit int,
-capacidadGeneral int,
-capacidadFamiliar int,
-codigoTipoDeEquipo int,
+capacidadEquipo int,
 foreign key (codigoTipoDeEquipo) references tipoDeEquipo(codigo)
 );
 
@@ -144,10 +141,15 @@ precio int
 
 create table cabina(
 codigoCabina int primary key,
-asientos int,
-ubicacion varchar(10),
 fkCodigoTipoDeCabina int,
 foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
+);
+
+create table ubicacion(
+rowId varchar(1),
+columnId int, 
+estado boolean,
+primary key (rowId,columnId)
 );
 
 create table itemReserva(
