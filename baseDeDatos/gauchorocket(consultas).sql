@@ -260,7 +260,12 @@ FROM ubicacion as u INNER JOIN trayecto as t
 WHERE estado = false and fkCodigoCabina = 1 and fkCodigoViaje = 1 and t.fkCodigoLugarOrigen =2 and t.fkCodigoLugarDestino =3;
 
 
-
+SELECT t.fkCodigoLugarOrigen AS origen, t.fkCodigoLugarDestino AS destino
+FROM reserva AS r INNER JOIN relacionReservaTrayecto AS rrt
+	ON r.codigo = rrt.fkCodigoReserva
+INNER JOIN trayecto AS t
+	ON rrt.fkIdTrayecto = t.idTrayecto
+WHERE r.codigo = 'bsu5wj';
 
 
 

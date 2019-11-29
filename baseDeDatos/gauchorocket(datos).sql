@@ -121,25 +121,6 @@ insert into relacionViajeTrayecto (fkCodigoViaje, fkIdTrayecto) values
 (2, 13),
 (2, 14);
 
-insert into ubicacion(filaUbicacion,columnaUbicacion, estado, fkIdTrayecto, fkCodigoViaje, fkCodigoCabina) values
-('A', 1, false, 1, 1, 1),
-('A', 2, true, 1, 1, 1),
-('A', 3, true, 1, 1, 1),
-('A', 4, true, 1, 1, 1),
-('A', 5, true, 1, 1, 1),
-('A', 6, true, 1, 1, 1),
-('A', 7, true, 1, 1, 1),
-('A', 8, true, 1, 1, 1),
-('A', 9, true, 1, 1, 1),
-('A', 10, true, 1, 1, 1),
-('B', 1, true, 3, 1, 1),
-('B', 2, true, 3, 1, 1),
-('B', 3, true, 3, 1, 1),
-('B', 4, true, 3, 1, 1),
-('B', 5, true, 3, 1, 1),
-('B', 6, true, 3, 1, 1);
- 
-
 insert into usuario (dni, rol, nombre, apellido, fechaDeNacimiento, email, active) values
 (1234, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com', true),
 (2345, false, 'Cesar','Noso', '2000.01.01', 'dos@gmail.com', true),
@@ -196,6 +177,23 @@ insert into relacionCabinaEquipo (fkCodigoCabina, fkMatriculaEquipo) values
 (2, 'O1'),
 (3, 'O1');
  
+insert into ubicacion(filaUbicacion,columnaUbicacion, estado, fkIdTrayecto, fkCodigoViaje, fkCodigoCabina) values
+('A', 1, false, 1, 1, 1),
+('A', 2, true, 1, 1, 1),
+('A', 3, true, 1, 1, 1),
+('A', 4, true, 1, 1, 1),
+('A', 5, true, 1, 1, 1),
+('A', 6, true, 1, 1, 1),
+('A', 7, true, 1, 1, 1),
+('A', 8, true, 1, 1, 1),
+('A', 9, true, 1, 1, 1),
+('A', 10, true, 1, 1, 1),
+('B', 1, true, 3, 1, 1),
+('B', 2, true, 3, 1, 1),
+('B', 3, true, 3, 1, 1),
+('B', 4, true, 3, 1, 1),
+('B', 5, true, 3, 1, 1),
+('B', 6, true, 3, 1, 1);
 
 SET GLOBAL event_scheduler = ON;
 

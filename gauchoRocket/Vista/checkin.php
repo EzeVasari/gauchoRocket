@@ -4,8 +4,9 @@
     include('head.php');
     include('navbar.php');
     include('../Modelo/iniciarSesion.php');
-
-    echo'';
+    include('iniciarSesion.php');
+    include('../Modelo/registroUsuarios.php');
+    include('registroUsuarios.php');
 
     $codigoVuelo = $_GET["vuelo"];
     $origen = $_GET["origen"];
@@ -17,7 +18,7 @@
                             ON u.fkIdTrayecto = t.idTrayecto
                         WHERE fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigoVuelo." and t.fkCodigoLugarOrigen =".$origen." and t.fkCodigoLugarDestino =".$destino."";
 
-    $buscarCabina = "SELECT tdc.descripcion
+    $buscarCabina = "SELECT tdc.descripcion as descripcion
                     FROM viaje as v INNER JOIN equipo as e
                         ON v.matriculaEquipo = e.matricula
                     INNER JOIN relacionCabinaEquipo as rce
@@ -36,6 +37,9 @@
 
 
 <body>
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+   
+   <script type="text/javascript" src="js/checkbox.js"></script>
     <link rel="stylesheet" href="css/estilosCheckin.css">
    <div class="container" style="margin-top: 5rem;">
            <h3 class="font-weight-bold text-center" >Check-in</h3>
@@ -44,7 +48,7 @@
                     <h4 class="font-weight-bold">Seleccion de ubicacion</h4>
                     <p class="text-muted">Seleccione los asientos que desea ocupar</p>
                     <h4 class="font-weight-bold text-center"><?php $cabinaArray["descripcion"]?></h4>
-                    <form id="contenedor" action="validacionCheckin.php" method="post">
+                    <form id="contenedor" action="../Modelo/validacionCheckin.php" method="post">
                     
                         
                     <?php 
@@ -56,12 +60,12 @@
                             
                             if($asientos["estado"] == false){
                                 echo '<div class="seat">';
-                                echo '<input type="checkbox" value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" name="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" disabled />';
+                                echo '<input type="checkbox" value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" name="ubicaciones[]" id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" disabled />';
                                 echo '<label class="text-center" for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
                                 echo '</div>';
                             }else {
                                 echo '<div class="seat">';
-                                echo '<input type="checkbox" value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" name="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"/>';
+                                echo '<input type="checkbox" value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" name="ubicaciones[]" id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"/>';
                                 echo '<label class="text-center"for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
                                 echo '</div>';
                             }

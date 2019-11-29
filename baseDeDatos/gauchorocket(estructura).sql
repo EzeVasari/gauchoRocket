@@ -108,6 +108,18 @@ foreign key (fkCodigoLugarOrigen) references lugar(codigo),
 foreign key (fkCodigoLugarDestino) references lugar(codigo)
 );
 
+create table tipoDeCabina(
+codigoTipoDeCabina int primary key,
+descripcion varchar(50),
+precio int
+);
+
+create table cabina(
+codigoCabina int primary key,
+fkCodigoTipoDeCabina int,
+foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
+);
+
 create table ubicacion(
 filaUbicacion varchar(1),
 columnaUbicacion int,
@@ -120,8 +132,6 @@ foreign key (fkIdTrayecto) references trayecto(idTrayecto),
 foreign key (fkCodigoViaje) references viaje(codigo),
 foreign key (fkCodigoCabina) references cabina(codigoCabina)
 );
-
-
 
 create table relacionReservaTrayecto(
 fkCodigoReserva varchar(6),
@@ -149,18 +159,6 @@ create table servicio(
 codigoServicio int primary key,
 fkcodigoTipoDeServicio int,
 foreign key (fkcodigoTipoDeServicio) references tipoDeServicio(codigoTipoDeServicio)
-);
-
-create table tipoDeCabina(
-codigoTipoDeCabina int primary key,
-descripcion varchar(50),
-precio int
-);
-
-create table cabina(
-codigoCabina int primary key,
-fkCodigoTipoDeCabina int,
-foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
 );
 
 create table itemReserva(
