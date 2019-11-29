@@ -69,7 +69,9 @@ descripcion varchar(30)
 create table equipo(
 matricula varchar(15) primary key,
 modelo varchar(50),
-capacidadEquipo int,
+capacidadSuit int,
+capacidadGeneral int,
+capacidadFamiliar int,
 fkcodigoTipoDeEquipo int,
 foreign key (fkcodigoTipoDeEquipo) references tipoDeEquipo(codigo)
 );
@@ -107,9 +109,17 @@ foreign key (fkCodigoLugarDestino) references lugar(codigo)
 );
 
 create table ubicacion(
-idUbicacion varchar(2),
-estado boolean
+filaUbicacion varchar(1),
+columnaUbicacion int,
+estado boolean,
+fkIdTrayecto int,
+fkCodigoViaje int,
+primary key (filaUbicacion, columnaUbicacion),
+foreign key (fkIdTrayecto) references trayecto(idTrayecto),
+foreign key (fkCodigoViaje) references viaje(codigo)
 );
+
+ALTER TABLE ubicacion ADD fkCodigoCabina int;
 
 create table relacionReservaTrayecto(
 fkCodigoReserva varchar(6),
@@ -119,14 +129,12 @@ foreign key (fkCodigoReserva) references reserva(codigo),
 foreign key (fkIdTrayecto) references trayecto(idTrayecto)
 );
 
-create table relacionViajeTrayectoUbicacion(
+create table relacionViajeTrayecto(
 fkIdTrayecto int,
 fkCodigoViaje int,
-fkIdUbicacion int,
+primary key (fkIdTrayecto, fkCodigoViaje),
 foreign key (fkIdTrayecto) references trayecto(idTrayecto),
-foreign key (fkCodigoViaje) references viaje(codigo),
-foreign key (fkIdUbicacion) REFERENCES ubicacion(idUbicacion),
-primary key (fkIdTrayecto, fkCodigoViaje)
+foreign key (fkCodigoViaje) references viaje(codigo)
 );
 
 create table tipoDeServicio(

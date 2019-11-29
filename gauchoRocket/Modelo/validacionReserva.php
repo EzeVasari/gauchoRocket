@@ -78,25 +78,15 @@
                 $resultadoTrayecto = mysqli_query($conexion, $queryTrayecto);
             
                 if($trayecto = mysqli_fetch_assoc($resultadoTrayecto)) {
-                    $queryAsientos = "SELECT c.asientos as asientos
-                        FROM tipoDeCabina as tc INNER JOIN cabina as c
-                            ON tc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
-                        INNER JOIN relacionCabinaEquipo as rec
-                            ON c.codigoCabina = rec.fkCodigoCabina
-                        INNER JOIN equipo as e
-                            ON rec.fkMatriculaEquipo = e.matricula
-                        INNER JOIN viaje as v
-                            ON e.matricula = v.matriculaEquipo
-                        INNER JOIN relacionViajeTrayecto as rvt
-                            ON v.codigo = rvt.fkCodigoViaje
-                        INNER JOIN trayecto as t
-                            ON rvt.fkIdTrayecto = t.idTrayecto
-                        WHERE v.codigo = ".$codigo." and c.codigoCabina =".$cabina." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
+                    $queryAsientos = "SELECT count(filaUbicacion) as disponibles
+                                      FROM ubicacion as u INNER JOIN trayecto as t
+	                                   ON u.fkIdTrayecto = t.idTrayecto
+                                      WHERE estado = true and fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigo." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
                     
                     $resultadoAsientos = mysqli_query($conexion, $queryAsientos);
                     $asientos = mysqli_fetch_assoc($resultadoAsientos);
                     
-                    if($asientos["asientos"] >= count($emails)){
+                    if($asientos["disponibles"] >= count($emails)){
                         $verifAsientos = true;
                     }else {
                         $verifAsientos = false;
