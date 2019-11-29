@@ -114,12 +114,14 @@ columnaUbicacion int,
 estado boolean,
 fkIdTrayecto int,
 fkCodigoViaje int,
+fkCodigoCabina int,
 primary key (filaUbicacion, columnaUbicacion),
 foreign key (fkIdTrayecto) references trayecto(idTrayecto),
-foreign key (fkCodigoViaje) references viaje(codigo)
+foreign key (fkCodigoViaje) references viaje(codigo),
+foreign key (fkCodigoCabina) references cabina(codigoCabina)
 );
 
-ALTER TABLE ubicacion ADD fkCodigoCabina int;
+
 
 create table relacionReservaTrayecto(
 fkCodigoReserva varchar(6),
