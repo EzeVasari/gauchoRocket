@@ -11,6 +11,27 @@
     $origen = $_GET["origen"];
     $destino = $_GET["destino"];
     $cabina = $_GET["cabina"];
+    
+    $buscarUbicacion = "SELECT * 
+                        FROM ubicacion as u INNER JOIN trayecto as t
+                            ON u.fkIdTrayecto = t.idTrayecto
+                        WHERE fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigoVuelo." and t.fkCodigoLugarOrigen =".$origen." and t.fkCodigoLugarDestino =".$destino."";
+
+    $buscarCabina = "SELECT tdc.descripcion
+                    FROM viaje as v INNER JOIN equipo as e
+                        ON v.matriculaEquipo = e.matricula
+                    INNER JOIN relacionCabinaEquipo as rce
+                        ON e.matricula = rce.fkMatriculaEquipo
+                    INNER JOIN cabina as c
+                        ON rce.fkCodigoCabina = c.codigoCabina
+                    INNER JOIN tipoDeCabina as tdc
+                        ON tdc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
+                    WHERE c.codigoCabina = ".$cabina." and v.codigo =".$codigoVuelo."";
+                        
+    $resultadoUbicacion = mysqli_query($conexion, $buscarUbicacion);
+    $resultadoCabina = mysqli_query($conexion, $buscarCabina);
+
+    $cabinaArray = mysqli_fetch_assoc($resultadoCabina);
 ?>
 
 
@@ -22,18 +43,13 @@
                 <div class="col-md-7 bg-light p-3 border border-primary rounded-lg" >
                     <h4 class="font-weight-bold">Seleccion de ubicacion</h4>
                     <p class="text-muted">Seleccione los asientos que desea ocupar</p>
-                    <h4 class="font-weight-bold text-center">General</h4>
+                    <h4 class="font-weight-bold text-center"><?php $cabinaArray["descripcion"]?></h4>
                     <form id="contenedor" action="validacionCheckin.php" method="post">
                     
                         
                     <?php 
     
-                        $buscarUbicacion = "SELECT * 
-                                          FROM ubicacion as u INNER JOIN trayecto as t
-	                                        ON u.fkIdTrayecto = t.idTrayecto
-                                          WHERE fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigoVuelo." and t.fkCodigoLugarOrigen =".$origen." and t.fkCodigoLugarDestino =".$destino."";
                         
-                        $resultadoUbicacion = mysqli_query($conexion, $buscarUbicacion);
                         
                         echo "<div class='row justify-content-center'>";
                         while($asientos = mysqli_fetch_assoc($resultadoUbicacion)){
