@@ -11,23 +11,17 @@
         $codigoReserva = $_GET["reserva"];
     }
 
-       $query="SELECT v.descripcion,v.imagen as img, v.nombre, tdc.descripcion as nombreCabina, COUNT(rci.fkIdItemReserva) AS personas, tipoSer.precio AS precioServicio, v.precio AS precioViaje, tdc.precio AS precioCabina 
-            FROM viaje AS v 
-            INNER JOIN reserva AS r 
-                ON v.codigo = r.codigoViaje 
-            INNER JOIN itemreserva AS i 
-                ON i.fkCodigoReserva = r.codigo 
-            INNER JOIN servicio AS s 
-                ON s.codigoServicio= i.fkCodigoServicio
-            INNER JOIN tipoDeServicio AS tipoSer
-                ON s.fkcodigoTipoDeServicio = tipoSer.codigoTipoDeServicio
-            INNER JOIN relacionclienteitemreserva AS rci 
-                ON i.idItemReserva = rci.fkIdItemReserva 
-            INNER JOIN cabina AS c 
-                ON i.fkCodigoCabina = c.codigoCabina 
-            INNER JOIN tipodecabina AS tdc 
-                ON c.fkCodigoTipoDeCabina = tdc.codigoTipoDeCabina 
-            WHERE i.fkCodigoReserva='".$codigoReserva."'";
+       $query="SELECT v.descripcion, v.imagen as img, t.nombre, tdc.descripcion as nombreCabina, count(rci.fkIdItemReserva) AS personas, tdc.precio AS precioServicio, t.precio AS precioViaje, tdc.precio AS precioCabina 
+           from viaje as v inner join relacionViajeTrayecto as rvt on
+v.codigo= rvt.fkCodigoViaje inner join trayecto as t on 
+t.idTrayecto = rvt.fkIdTrayecto inner join relacionReservaTrayecto
+as rrt on rrt.fkIdTrayecto =t.idTrayecto inner join reserva as r
+on r.codigo = rrt.fkCodigoReserva inner join  itemReserva as ir on
+ir.fkcodigoReserva= r.codigo inner join tipoDeServicio as tds on
+ ir.fkCodigoServicio = tds.codigoTipoDeServicio inner join tipoDeCabina 
+ as tdc on tdc.codigoTipoDeCabina= ir.fkCodigoCabina
+ inner join relacionClienteItemReserva as rci on rci.fkIdItemReserva = ir.idItemReserva
+            WHERE ir.fkCodigoReserva='".$codigoReserva."'";
 
  $precio = mysqli_query($conexion, $query);
  $datos = mysqli_fetch_assoc($precio);
