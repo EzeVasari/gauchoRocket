@@ -46,7 +46,7 @@
                        <h3 class="font-weight-bold text-center" >Check-in</h3>
                         <div class="row justify-content-center" id="tabla">
                             <div class="col-md-7 bg-light p-3 border border-primary rounded-lg" >
-                                <h4 class="font-weight-bold">Seleccion de ubicacion</h4>
+                                <h4 class="font-weight-bold">Selección de ubicación</h4>
                                 <p class="text-muted">Seleccione los asientos que desea ocupar</p>
                                 <h4 class="font-weight-bold text-center">'.$cabinaArray["descripcion"].'</h4>
                                 <form id="contenedor" action="checkin.php" method="post">
@@ -69,13 +69,14 @@
                             echo '</div>
   
                                </div>
-                            </div>
-                        <div class="row mt-2 justify-content-center">
-                          <div class="col-md-6 mt-2 mb-3">
-                           <button class="btn btn-primary w-100 text-white mt-3" type="submit" name="confirmarCheckin">Confirmar reserva</button>
+                               <div class="col-md-6 mt-2 mb-3">
+                           <button class="btn btn-primary w-100 text-white mt-3" type="submit" name="confirmarCheckin">Confirmar check-in</button>
                            </div>
                         </form>
-                        </div>
+                            </div>
+                        
+                          
+                        
 
                 </div>
 

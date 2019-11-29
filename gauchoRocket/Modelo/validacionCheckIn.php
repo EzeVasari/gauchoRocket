@@ -6,7 +6,7 @@
 
         if(isset($_GET['reserva']) && isset($_POST['ubicaciones'])){
 
-            $codigReserva = $_GET['reserva'];
+            $codigoReserva = $_GET['reserva'];
             $ubicaciones = $_POST['ubicaciones'];
 
 
@@ -17,7 +17,7 @@
                                 ON rrt.fkIdTrayecto = t.idTrayecto
                             INNER JOIN relacionViajeTrayecto AS rvt
                                 ON t.idTrayecto = rvt.fkIdTrayecto
-                            WHERE r.codigo = '".$codigReserva."'";
+                            WHERE r.codigo = '".$codigoReserva."'";
 
             $resultadoTrayecto = mysqli_query($conexion, $queryTrayecto);
 
