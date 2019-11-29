@@ -25,7 +25,7 @@ insert into tipoDeEquipo (codigo, descripcion) values
 (3, 'Orbitales'),
 (4, 'SubOrbitales');
 
-insert into equipo (matricula, modelo, capacidadSuit, capacidadGeneral, capacidadFamiliar, codigoTipoDeEquipo) values
+insert into equipo (matricula, modelo, capacidadSuit, capacidadGeneral, capacidadFamiliar, fkCodigoTipoDeEquipo) values
 ('AA1', 'Aguila', 25, 200, 75, 2),
 ('AA5', 'Aguila', 25, 200, 75, 2),
 ('AA9', 'Aguila', 25, 200, 75, 2),
@@ -70,7 +70,7 @@ insert into equipo (matricula, modelo, capacidadSuit, capacidadGeneral, capacida
 ('AA19', 'Halcon', 25, 150, 25, 2),
 ('BA1', 'Zorzal', 0, 50, 50, 1),
 ('BA2', 'Zorzal', 0, 50, 50, 1),
-('BA3', 'Zorzal', 0, 50, 50, 1);
+('BA3', 'Zorzal', 0, 50, 50, 1); 
 
 insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, matriculaEquipo) values
 (1, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2020.10.25 12:00:00', 2, 4, 2, 'O1'),
@@ -167,16 +167,33 @@ insert into tipoDeCabina (codigoTipoDeCabina, descripcion, precio) values
 (2, 'Familiar', 550),
 (3, 'Suite', 850);
 
-insert into cabina (codigoCabina, asientos, ubicacion, fkCodigoTipoDeCabina) values 
-(1, 1, null, 1),
-(2, 1, null, 2),
-(3, 1, null, 3);
+insert into cabina (codigoCabina, fkCodigoTipoDeCabina) values 
+(1, 1),
+(2, 2),
+(3, 3);
 
 insert into relacionCabinaEquipo (fkCodigoCabina, fkMatriculaEquipo) values 
 (1, 'O1'),
 (2, 'O1'),
 (3, 'O1');
  
+insert into ubicacion(filaUbicacion,columnaUbicacion, estado, fkIdTrayecto, fkCodigoViaje, fkCodigoCabina) values
+('A', 1, false, 1, 1, 1),
+('A', 2, true, 1, 1, 1),
+('A', 3, true, 1, 1, 1),
+('A', 4, true, 1, 1, 1),
+('A', 5, true, 1, 1, 1),
+('A', 6, true, 1, 1, 1),
+('A', 7, true, 1, 1, 1),
+('A', 8, true, 1, 1, 1),
+('A', 9, true, 1, 1, 1),
+('A', 10, true, 1, 1, 1),
+('B', 1, true, 3, 1, 1),
+('B', 2, true, 3, 1, 1),
+('B', 3, true, 3, 1, 1),
+('B', 4, true, 3, 1, 1),
+('B', 5, true, 3, 1, 1),
+('B', 6, true, 3, 1, 1);
 
 SET GLOBAL event_scheduler = ON;
 
