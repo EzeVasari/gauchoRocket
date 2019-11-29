@@ -7,6 +7,7 @@
     include('iniciarSesion.php');
     include('../Modelo/registroUsuarios.php');
     include('registroUsuarios.php');
+    include('../Modelo/validacionCheckin.php');
 
     $codigoVuelo = $_GET["vuelo"];
     $origen = $_GET["origen"];
@@ -48,7 +49,7 @@
                     <h4 class="font-weight-bold">Seleccion de ubicacion</h4>
                     <p class="text-muted">Seleccione los asientos que desea ocupar</p>
                     <h4 class="font-weight-bold text-center"><?php $cabinaArray["descripcion"]?></h4>
-                    <form id="contenedor" action="../Modelo/validacionCheckin.php" method="post">
+                    <form id="contenedor" action="checkin.php" method="post">
                     
                         
                     <?php 
@@ -78,7 +79,7 @@
                 </div>
             <div class="row mt-2 justify-content-center">
               <div class="col-md-6 mt-2 mb-3">
-               <button class='btn btn-primary w-100 text-white mt-3' type='submit' name='confirmarReserva'>Confirmar reserva</button>
+               <button class='btn btn-primary w-100 text-white mt-3' type='submit' name='confirmarCheckin'>Confirmar reserva</button>
                </div>
             </form>
             </div>
