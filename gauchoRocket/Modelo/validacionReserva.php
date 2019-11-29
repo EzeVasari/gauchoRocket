@@ -100,37 +100,6 @@
             }
             
             if($verifAsientos) {
-                for ($i = $origenTrayecto; $i <= $destinoTrayecto; $i++){
-            
-                    $auxDestino++;
-
-                    $buscarTrayecto = "SELECT * 
-                                       FROM trayecto as t
-                                       INNER JOIN relacionViajeTrayecto as rvt
-                                            ON t.idTrayecto = rvt.fkIdTrayecto
-                                       WHERE t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino." and fkCodigoViaje =".$codigo."";
-                    $resultadoTrayecto = mysqli_query($conexion, $queryTrayecto);
-
-                    if($trayecto = mysqli_fetch_assoc($resultadoTrayecto)) {
-                        $queryAsientos = "UPDATE tipoDeCabina as tc INNER JOIN cabina as c
-                            ON tc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
-                        INNER JOIN relacionCabinaEquipo as rec
-                            ON c.codigoCabina = rec.fkCodigoCabina
-                        INNER JOIN equipo as e
-                            ON rec.fkMatriculaEquipo = e.matricula
-                        INNER JOIN viaje as v
-                            ON e.matricula = v.matriculaEquipo
-                        INNER JOIN relacionViajeTrayecto as rvt
-                            ON v.codigo = rvt.fkCodigoViaje
-                        INNER JOIN trayecto as t
-                            ON rvt.fkIdTrayecto = t.idTrayecto
-                        SET c.asientos = c.asientos - ".count($emails)."
-                        WHERE v.codigo = ".$codigo." and c.codigoCabina =".$cabina." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
-                    
-                        $resultadoAsientos = mysqli_query($conexion, $queryAsientos);
-                    }
-                
-                }
                 
                 $queryReserva = "INSERT INTO reserva (codigo) VALUES ('".$codigoReserva."')";
                 $registroReserva = mysqli_query($conexion, $queryReserva);

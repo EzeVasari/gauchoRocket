@@ -122,7 +122,7 @@ insert into relacionViajeTrayecto (fkCodigoViaje, fkIdTrayecto) values
 (2, 14);
 
 insert into ubicacion(filaUbicacion,columnaUbicacion, estado, fkIdTrayecto, fkCodigoViaje, fkCodigoCabina) values
-('A', 1, true, 1, 1, 1),
+('A', 1, false, 1, 1, 1),
 ('A', 2, true, 1, 1, 1),
 ('A', 3, true, 1, 1, 1),
 ('A', 4, true, 1, 1, 1),

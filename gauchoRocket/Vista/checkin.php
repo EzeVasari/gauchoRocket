@@ -1,61 +1,69 @@
 <?php
     include("../Modelo/validarPaginasParaClientes.php");
     include("../Modelo/conexion.php");
-    
     include('head.php');
     include('navbar.php');
     include('../Modelo/iniciarSesion.php');
 
-    echo'<body><br><br>
-            <div class="container mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-7 text-center mb-3">
-                        <h2 class="font-weight-bold">Check-in</h2>
-                        <p class="text-muted">Seleccione los asientos que desea ocupar</p>
-                        <h4 class="font-weight-bold">General</h4>
-                    </div>
-                </div>
-      <div class="row justify-content-center">
-        <div class="seat">  
-          <input type="checkbox" value="None" id="seat1" name="check" />
-          <label for="seat1"></label>
-        </div>
-        <div class="seat">  
-          <input type="checkbox" value="None" id="seat2" name="check"/>
-          <label for="seat2"></label>
-        </div>
-        <div class="seat">  
-          <input type="checkbox" value="None" id="seat3" name="check" />
-          <label for="seat3"></label>
-        </div>
-        <div class="seat">  
-          <input type="checkbox" value="None" id="seat4" name="check" />
-          <label for="seat4"></label>
-        </div>
-        <div class="seat">  
-          <input type="checkbox" value="None" id="seat5" name="check" />
-          <label for="seat5"></label>
-        </div>
-        <div class="seat">  
-          <input type="checkbox" value="None" id="seat6" name="check" />
-          <label for="seat6"></label>
-        </div>
-        <div class="seat">  
-          <input type="checkbox" value="None" id="seat7" name="check" />
-          <label for="seat7"></label>
-        </div>
-        <div class="seat">  
-          <input type="checkbox" value="None" id="seat8" name="check" />
-          <label for="seat8"></label>
-        </div><div class="seat">  
-          <input type="checkbox" value="None" id="seat9" name="check" />
-          <label for="seat9"></label>
-        </div>
-        <div class="seat">  
-          <input type="checkbox" value="None" id="seat10" name="check" disabled/>
-          <label for="seat10"></label>
-        </div>
-      </div>
-<link rel="stylesheet" href="css/estilosCheckin.css">
-        </body>';
+    echo'';
+
+    $codigoVuelo = $_GET["vuelo"];
+    $origen = $_GET["origen"];
+    $destino = $_GET["destino"];
+    $cabina = $_GET["cabina"];
 ?>
+
+
+<body>
+    <link rel="stylesheet" href="css/estilosCheckin.css">
+   <div class="container" style="margin-top: 5rem;">
+           <h3 class="font-weight-bold text-center" >Check-in</h3>
+            <div class="row justify-content-center" id="tabla">
+                <div class="col-md-7 bg-light p-3 border border-primary rounded-lg" >
+                    <h4 class="font-weight-bold">Seleccion de ubicacion</h4>
+                    <p class="text-muted">Seleccione los asientos que desea ocupar</p>
+                    <h4 class="font-weight-bold text-center">General</h4>
+                    <form id="contenedor" action="validacionCheckin.php" method="post">
+                    
+                        
+                    <?php 
+    
+                        $buscarUbicacion = "SELECT * 
+                                          FROM ubicacion as u INNER JOIN trayecto as t
+	                                        ON u.fkIdTrayecto = t.idTrayecto
+                                          WHERE fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigoVuelo." and t.fkCodigoLugarOrigen =".$origen." and t.fkCodigoLugarDestino =".$destino."";
+                        
+                        $resultadoUbicacion = mysqli_query($conexion, $buscarUbicacion);
+                        
+                        echo "<div class='row justify-content-center'>";
+                        while($asientos = mysqli_fetch_assoc($resultadoUbicacion)){
+                            
+                            if($asientos["estado"] == false){
+                                echo '<div class="seat">';
+                                echo '<input type="checkbox" value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" name="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" disabled />';
+                                echo '<label class="text-center" for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
+                                echo '</div>';
+                            }else {
+                                echo '<div class="seat">';
+                                echo '<input type="checkbox" value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" name="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"/>';
+                                echo '<label class="text-center"for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
+                                echo '</div>';
+                            }
+                        }
+                        
+                        echo "</div>";
+                          
+                    ?>   
+                   </div>
+                </div>
+            <div class="row mt-2 justify-content-center">
+              <div class="col-md-6 mt-2 mb-3">
+               <button class='btn btn-primary w-100 text-white mt-3' type='submit' name='confirmarReserva'>Confirmar reserva</button>
+               </div>
+            </form>
+            </div>
+                
+    </div>
+      
+    
+</body>
