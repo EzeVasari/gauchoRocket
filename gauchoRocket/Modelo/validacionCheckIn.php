@@ -8,7 +8,12 @@
 
             $codigoReserva = $_GET['reserva'];
             $ubicaciones = $_POST['ubicaciones'];
-
+            
+            
+            foreach($ubicaciones as $u){
+            
+             echo $u;
+            }
 
             $queryTrayecto = "SELECT t.fkCodigoLugarOrigen AS origen, t.fkCodigoLugarDestino AS destino, rvt.fkCodigoViaje AS codigoViaje
                             FROM reserva AS r INNER JOIN relacionReservaTrayecto AS rrt
