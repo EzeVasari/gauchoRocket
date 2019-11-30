@@ -99,14 +99,13 @@
             
             }
             
-            if($verifAsientos) {
                 
                 $queryReserva = "INSERT INTO reserva (codigo) VALUES ('".$codigoReserva."')";
                 $registroReserva = mysqli_query($conexion, $queryReserva);
 
                 $idItemReserva = rand(1000,8000);
 
-                if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi']){
+                if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi'] || $verifAsientos == false){
                     $queryItemReserva = "INSERT INTO itemReserva (idItemReserva, fkCodigoReserva, fkCodigoServicio, fkCodigoCabina, checkin, pago, fechaLimiteDeCheckin, fechaInicioDeCheckin, fechaConfirmacion, fechaQuePidioReserva, listaDeEspera) VALUES
                     (".$idItemReserva.",'".$codigoReserva."', ". $servicio .", ". $cabina .", false, false, '".$fechaDeCheckin['fl']."', '".$fechaDeCheckin['fi']."', null, '".$fechaDeCheckin['ahora']."', true);";
                 }else{
@@ -255,13 +254,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </div>';
                 }
-                }else {
-                    echo '<br><div class="alert alert-warning mt-5" role="alert">
-                                Acá hay que mandar la reserva a la lista de espera.
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </div>';  
-                }
+                
         
                 }else {
                     echo '<br><div class="alert alert-warning mt-5" role="alert">

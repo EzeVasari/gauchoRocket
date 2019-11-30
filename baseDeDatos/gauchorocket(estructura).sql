@@ -121,13 +121,11 @@ foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
 );
 
 create table ubicacion(
-filaUbicacion varchar(1),
-columnaUbicacion int,
+idUbicacion int primary key,
 estado boolean,
 fkIdTrayecto int,
 fkCodigoViaje int,
 fkCodigoCabina int,
-primary key (filaUbicacion, columnaUbicacion),
 foreign key (fkIdTrayecto) references trayecto(idTrayecto),
 foreign key (fkCodigoViaje) references viaje(codigo),
 foreign key (fkCodigoCabina) references cabina(codigoCabina)
@@ -186,14 +184,6 @@ primary key (fkIdItemReserva, fkEmailCliente),
 foreign key (fkIdItemReserva) references itemReserva (idItemReserva),
 foreign key (fkEmailCliente) references cliente (fkEmailUsuario)
 );
-
-/*create table relacionItemReservaUbicacion(
-fkIdUbicacion varchar(2),
-fkidItemReserva varchar(6),
-foreign key (fkIdUbicacion) references ubicacion(idUbicacion),
-foreign key (fkidItemReserva) references itemReserva(idItemReserva),
-primary key (fkIdUbicacion, fkidItemReserva)
-);*/
 
 create table relacionCabinaEquipo(
 fkCodigoCabina int,

@@ -177,23 +177,23 @@ insert into relacionCabinaEquipo (fkCodigoCabina, fkMatriculaEquipo) values
 (2, 'O1'),
 (3, 'O1');
  
-insert into ubicacion(filaUbicacion,columnaUbicacion, estado, fkIdTrayecto, fkCodigoViaje, fkCodigoCabina) values
-('A', 1, false, 1, 1, 1),
-('A', 2, true, 1, 1, 1),
-('A', 3, true, 1, 1, 1),
-('A', 4, true, 1, 1, 1),
-('A', 5, true, 1, 1, 1),
-('A', 6, true, 1, 1, 1),
-('A', 7, true, 1, 1, 1),
-('A', 8, true, 1, 1, 1),
-('A', 9, true, 1, 1, 1),
-('A', 10, true, 1, 1, 1),
-('B', 1, true, 3, 1, 1),
-('B', 2, true, 3, 1, 1),
-('B', 3, true, 3, 1, 1),
-('B', 4, true, 3, 1, 1),
-('B', 5, true, 3, 1, 1),
-('B', 6, true, 3, 1, 1);
+insert into ubicacion(idUbicacion, estado, fkIdTrayecto, fkCodigoViaje, fkCodigoCabina) values
+(1, false, 1, 1, 1),
+(2, true, 1, 1, 1),
+(3, true, 1, 1, 1),
+(4, true, 1, 1, 1),
+(5, true, 1, 1, 1),
+(6, true, 1, 1, 1),
+(7, true, 1, 1, 1),
+(8, true, 1, 1, 1),
+(9, true, 1, 1, 1),
+(10, true, 1, 1, 1),
+(11, true, 3, 1, 1),
+(12, true, 3, 1, 1),
+(13, true, 3, 1, 1),
+(14, true, 3, 1, 1),
+(15, true, 3, 1, 1),
+(16, true, 3, 1, 1);
 
 SET GLOBAL event_scheduler = ON;
 
