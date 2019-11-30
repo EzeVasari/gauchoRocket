@@ -1,4 +1,5 @@
 use gauchorocket;
+/*Vista/checkin.php?vuelo=1&cabina=1&origen=2&destino=3*/
 
 select distinct l.nombre as nombre, v.codigoLugarOrigen as codigo
 from viaje as v inner join lugar as l on v.codigoLugarOrigen = l.codigo;
@@ -286,6 +287,96 @@ WHERE CONCAT(u.filaUbicacion, u.columnaUbicacion) = 'A2';
 SELECT CONCAT(u.filaUbicacion, u.columnaUbicacion) as id
 FROM ubicacion as u
 WHERE CONCAT(u.filaUbicacion, u.columnaUbicacion) = 'A2';
+
+select v.nombre as viaje, t.fkCodigoLugarOrigen as tOrigen, t.fkCodigoLugarDestino as tDestino, t.nombreTrayecto as tNombre,
+	i.fkCodigoReserva as reserva, i.idItemReserva as item, i.pago as pago
+from ItemReserva as i
+	inner join reserva as r on i.fkcodigoReserva = r.codigo
+	inner join relacionReservaTrayecto as rela on r.codigo = rela.fkCodigoReserva
+    inner join trayecto as t on rela.fkIdTrayecto = t.idTrayecto
+    inner join relacionViajeTrayecto as rvt on t.idTrayecto = rvt.fkIdTrayecto
+    inner join viaje as v on rvt.fkCodigoViaje = v.codigo
+    inner join lugar as l on l.codigo = t.fkCodigoLugarOrigen
+    inner join relacionClienteItemReserva as rel on i.idItemReserva = rel.fkIdItemReserva
+where rel.fkEmailCliente like 'dos@gmail.com';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
