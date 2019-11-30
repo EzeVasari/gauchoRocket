@@ -9,8 +9,7 @@
     ?>
 
     <body>
-        <br><br><br><br><br><br><br>
-        <div class='container buscador p-2 mb-2 border border-info'>
+        <div class='container buscador p-2 mb-2 mt-5 border border-info'>
             
             <div class="row justify-content-center">
                 <div class="col-md-9 text-center mb-3">
@@ -141,7 +140,7 @@
 <!--=============--><div class='col-md-12 mb-5'></div><!--==============================================================================-->
                     
                     <div class='col-md-12 mt-3'>
-                        <button class='btn btn-primary w-100' type='submit' name='buscar'><i class='fas fa-search'></i>  Buscar</button>
+                        <button class='btn btn-primary w-100' type='submit' name='buscar'><i class="fas fa-flag"></i>  Generar reporte</button>
                     </div>
                     
                 </div>

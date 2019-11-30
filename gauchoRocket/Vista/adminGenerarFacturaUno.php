@@ -9,8 +9,7 @@
 ?>
 
     <body>
-        <br><br><br><br><br><br><br>
-        <div class='container buscador p-3 mb-3 border border-info'>
+        <div class='container buscador p-3 mb-3 mt-5 border border-info'>
             
             <div class="row justify-content-center">
                 <div class="col-md-7 text-center mb-3">
@@ -23,11 +22,11 @@
             
             <form action="adminGenerarFacturaUno.php" method="post">
                 <div class="row">
-                    <div class="col-md-11">
-                        <input type="text" class="form-control" name="buscarCliente" placeholder="Buscar cliente">
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="buscarCliente" placeholder="Buscar cliente por e-mail">
                     </div>
-                    <div class="col-md-1">
-                        <button type="submit" name="buscar" class="btn btn-primary">Buscar</button>
+                    <div class="col-md-3">
+                        <button type="submit" name="buscar" class="col btn btn-primary">Buscar</button>
                     </div>
                 </div>
             </form>
