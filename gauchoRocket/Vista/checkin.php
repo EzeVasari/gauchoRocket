@@ -3,19 +3,15 @@
     include("../Modelo/conexion.php");
     include('head.php');
     include('navbar.php');
-    include('../Modelo/iniciarSesion.php');
-    include('iniciarSesion.php');
-    include('../Modelo/registroUsuarios.php');
-    include('registroUsuarios.php');
     include('../Modelo/validacionCheckin.php');
     
     if(!isset($_POST['confirmarCheckin'])) {
         
+        $reserva = $_GET["reserva"];
         $codigoVuelo = $_GET["vuelo"];
         $origen = $_GET["origen"];
         $destino = $_GET["destino"];
         $cabina = $_GET["cabina"];
-        $reserva = $_GET["reserva"];
 
         $buscarUbicacion = "SELECT * 
                             FROM ubicacion as u INNER JOIN trayecto as t
