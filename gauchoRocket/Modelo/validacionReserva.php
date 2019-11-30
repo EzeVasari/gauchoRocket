@@ -27,7 +27,8 @@
         $codigo = $_GET["codigo"];
         $usuario = $_SESSION['user'];
         //Busqueda Viaje
-        $reserva = "SELECT * FROM viaje WHERE codigo = " . $codigo ."";
+        $reserva = "SELECT * FROM viaje as v inner join equipo as e on v.matriculaEquipo = e.matricula WHERE v.codigo = ". $codigo ."";
+        
         $resultado = mysqli_query($conexion, $reserva);
         $viaje = mysqli_fetch_assoc($resultado);
         }
@@ -66,7 +67,7 @@
             $auxDestino = $origenTrayecto;
             $verifAsientos = true;
             
-            for ($i = $origenTrayecto; $i <= $destinoTrayecto; $i++){
+            for ($i = $origenTrayecto; $i < $destinoTrayecto; $i++){
             
                 $auxDestino++;
 
@@ -81,7 +82,8 @@
                     $queryAsientos = "SELECT count(idUbicacion) as asientosReservados
                                       FROM ubicacion as u INNER JOIN trayecto as t
 	                                   ON u.fkIdTrayecto = t.idTrayecto
-                                      WHERE fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigo." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
+                                      WHERE fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigo." and t.fkCodigoLugarOrigen =".$i."
+                                        and t.fkCodigoLugarDestino =".$auxDestino."";
                     
                     $resultadoAsientos = mysqli_query($conexion, $queryAsientos);
                     $asientos = mysqli_fetch_assoc($resultadoAsientos);
@@ -119,9 +121,9 @@
                     $queryItemReserva = "INSERT INTO itemReserva (idItemReserva, fkCodigoReserva, fkCodigoServicio, fkCodigoCabina, checkin, pago, fechaLimiteDeCheckin, fechaInicioDeCheckin, fechaConfirmacion, fechaQuePidioReserva, listaDeEspera) VALUES
                     (".$idItemReserva.",'".$codigoReserva."', ". $servicio .", ". $cabina .", false, false, '".$fechaDeCheckin['fl']."', '".$fechaDeCheckin['fi']."', null, '".$fechaDeCheckin['ahora']."', false);";
                     
-                    for($i= 0; $i <= count($emails); $i++){
-                        $guardarUbicacion = "INSERT INTO ubicacion (estado,fkCodigoVuelo, fkIdTrayecto, fkCodigoCabina, fkCodigoReserva) VALUES
-                        (false, ".$codigo.", ".$trayecto['idTrayecto'].", ".$cabina.", $codigoReserva)";
+                    for($i= 0; $i < count($emails); $i++){
+                        $guardarUbicacion = "INSERT INTO ubicacion (estado, fkCodigoViaje, fkIdTrayecto, fkCodigoCabina, fkCodigoReserva) VALUES
+                        (false, ".$codigo.", ".$trayecto['idTrayecto'].", ".$cabina.", '".$codigoReserva."')";
                         $resultadoGuardar = mysqli_query($conexion, $guardarUbicacion);   
                     }
                 }

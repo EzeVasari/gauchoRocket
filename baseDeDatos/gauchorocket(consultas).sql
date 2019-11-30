@@ -275,6 +275,88 @@ SELECT CONCAT(u.filaUbicacion, u.columnaUbicacion) as id, u.estado
 FROM ubicacion as u
 WHERE CONCAT(u.filaUbicacion, u.columnaUbicacion) = 'A2';
 
+SELECT count(idUbicacion) as asientosReservados
+FROM ubicacion as u
+	INNER JOIN trayecto as t ON u.fkIdTrayecto = t.idTrayecto
+WHERE fkCodigoCabina = 1 and fkCodigoViaje = 1 and t.fkCodigoLugarOrigen = 2 and t.fkCodigoLugarDestino = 3;
+
+SELECT * 
+FROM trayecto as t
+	INNER JOIN relacionViajeTrayecto as rvt ON t.idTrayecto = rvt.fkIdTrayecto
+WHERE t.fkCodigoLugarOrigen = 2 and t.fkCodigoLugarDestino = 3 and fkCodigoViaje = 1;
+
+SELECT *
+FROM viaje as v
+	inner join equipo as e on v.matriculaEquipo = e.matricula
+WHERE v.codigo = 1;
+
+select *
+from ubicacion;
+
+INSERT INTO ubicacion (estado, fkCodigoViaje, fkIdTrayecto, fkCodigoCabina, fkCodigoReserva) VALUES
+(false, 1, 1, 1, 'o5modu');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
