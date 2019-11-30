@@ -88,7 +88,7 @@ $query3 = " UPDATE viaje SET codigoLugarDestino='".$destino."'
 
     if($insert1 == TRUE && $insert2==TRUE && $insert3==true && $insert4==true
     && $insert5 == true &&  $insert6==true ){
-      header('Location: ../Vista/ingresarTrayectos.php');
+      header('Location: ../Vista/ingresarTrayectos.php?viaje='.$codigoVuelo.'');
     }else {
         echo "error";
       
