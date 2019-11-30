@@ -342,11 +342,11 @@ from reserva as r
 	inner join ubicacion as u on u.fkCodigoReserva = r.codigo
     inner join viaje as v on u.fkCodigoViaje = v.codigo
     inner join equipo as e on v.matriculaEquipo = e.matricula
-where r.codigo like 'jdy0cf'
-;
+where r.codigo like 'jdy0cf';
+/* ================ */
 
-
-
+select *
+from relacionClienteItemReserva;
 
 
 

@@ -49,24 +49,59 @@
         
         echo'<body>
               <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-
-               <script type="text/javascript" src="js/checkbox.js"></script>
-                <link rel="stylesheet" href="css/estilosCheckin.css">
-               <div class="container" style="margin-top: 5rem;">
+              <script>
+                    $(document).ready(function(){
+	                    $("input[type=checkbox]").change(function(){
+                            var elemento=this;
+                            var contador=0;
+                        
+                            $("input[type=checkbox]").each(function(){
+                                if($(this).is(":checked"))
+                                contador++;
+		                    });
+        
+		                    var cantidadMaxima=parseInt($("#cantidad").val()) || 0;
+        
+		                    if(contador>cantidadMaxima){
+                                $(elemento).prop("checked", false);
+                                contador--;
+		                    }
+                        });
+                    });
+              </script>
+              <link rel="stylesheet" href="css/estilosCheckin.css">
+              
+                    <div class="container" style="margin-top: 5rem;">
                        <h3 class="font-weight-bold">Check-in</h3>
                         <div class="row" id="tabla">
                             <div class="col-md-7 bg-light p-3 border border-primary rounded-lg" >
                                 <h4 class="font-weight-bold">Selección de ubicación</h4>
                                 <p class="text-muted">Seleccione los asientos que desea ocupar</p>
                                 <h4 class="font-weight-bold text-center">'.$cabinaArray["descripcion"].'</h4>
-                                <form id="contenedor" action="checkin.php?reserva='.$reserva.'" method="post">
-                                    <div class="row">';
+                                <form name="ordenamiento" id="contenedor" action="checkin.php?reserva='.$reserva.'" method="post">
+                                <input type="hidden" id="cantidad" value="3">
+                                    ';
+        
                                         while($result = mysqli_fetch_assoc($resultadoAsientos)){
                                             for($i = 1; $i < $result['asientosTotales']; $i++){
-                                                echo "<div class='seat'>
-                                                        <input type='checkbox' value='1' name='ubicaciones[]' id='1'>
-                                                        <label class='text-center' for='1'> ".$i." </label>
+                                                if ((($i-1) % 10) == 0){
+                                                    echo "<div class='row'>";
+                                                }
+                                                
+                                                echo "<div class='col seat'>
+                                                        <input type='checkbox' id='".$i."' value='".$i."' name='registro[]'>
+                                                        <label class='text-center' for='".$i."'> ".$i." </label>
                                                       </div>";
+                                                /*
+                                                <div class='col seat'>
+                                                    <input type='checkbox' id='".$i."' value='".$i."' name='registro[]' onclick='seleccionados()'>
+                                                    <label class='text-center' for='".$i."'> ".$i." </label>
+                                                </div>
+                                                */
+                                                
+                                                if ((($i) % 10) == 0){
+                                                    echo "</div>";
+                                                }
                                                 /*
                                                 if($asientos["estado"] == false){
                                                     echo '<div class="seat">';
