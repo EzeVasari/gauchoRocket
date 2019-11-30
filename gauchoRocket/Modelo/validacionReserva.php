@@ -24,18 +24,18 @@
     
     if(isset($_GET["codigo"])) {
     
-    $codigo = $_GET["codigo"];
-    $usuario = $_SESSION['user'];
-    //Busqueda Viaje
-    $reserva = "SELECT * FROM viaje WHERE codigo = " . $codigo ."";
-    $resultado = mysqli_query($conexion, $reserva);
-    $viaje = mysqli_fetch_assoc($resultado);
-    }
-    
-    //Busqueda Usuario
-    $busquedaUsuario = "SELECT * FROM usuario WHERE email ='" .$_SESSION['user']. "'";
-    $resultadoUsuario = mysqli_query($conexion, $busquedaUsuario);
-    $datos = mysqli_fetch_assoc($resultadoUsuario);
+        $codigo = $_GET["codigo"];
+        $usuario = $_SESSION['user'];
+        //Busqueda Viaje
+        $reserva = "SELECT * FROM viaje WHERE codigo = " . $codigo ."";
+        $resultado = mysqli_query($conexion, $reserva);
+        $viaje = mysqli_fetch_assoc($resultado);
+        }
+
+        //Busqueda Usuario
+        $busquedaUsuario = "SELECT * FROM usuario WHERE email ='" .$_SESSION['user']. "'";
+        $resultadoUsuario = mysqli_query($conexion, $busquedaUsuario);
+        $datos = mysqli_fetch_assoc($resultadoUsuario);
     
     if(isset($_POST["confirmarReserva"])){
     //Obtener fecha y hora de inicio y límite de check-in
@@ -64,7 +64,7 @@
         
         if ($trayecto = mysqli_fetch_assoc($buscarTrayecto)) {
             $auxDestino = $origenTrayecto;
-            $verifAsientos = false;
+            $verifAsientos = true;
             
             for ($i = $origenTrayecto; $i <= $destinoTrayecto; $i++){
             
@@ -78,26 +78,18 @@
                 $resultadoTrayecto = mysqli_query($conexion, $queryTrayecto);
             
                 if($trayecto = mysqli_fetch_assoc($resultadoTrayecto)) {
-                    $queryAsientos = "SELECT c.asientos as asientos
-                        FROM tipoDeCabina as tc INNER JOIN cabina as c
-                            ON tc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
-                        INNER JOIN relacionCabinaEquipo as rec
-                            ON c.codigoCabina = rec.fkCodigoCabina
-                        INNER JOIN equipo as e
-                            ON rec.fkMatriculaEquipo = e.matricula
-                        INNER JOIN viaje as v
-                            ON e.matricula = v.matriculaEquipo
-                        INNER JOIN relacionViajeTrayecto as rvt
-                            ON v.codigo = rvt.fkCodigoViaje
-                        INNER JOIN trayecto as t
-                            ON rvt.fkIdTrayecto = t.idTrayecto
-                        WHERE v.codigo = ".$codigo." and c.codigoCabina =".$cabina." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
+                    $queryAsientos = "SELECT count(filaUbicacion) as disponibles
+                                      FROM ubicacion as u INNER JOIN trayecto as t
+	                                   ON u.fkIdTrayecto = t.idTrayecto
+                                      WHERE estado = true and fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigo." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
                     
                     $resultadoAsientos = mysqli_query($conexion, $queryAsientos);
                     $asientos = mysqli_fetch_assoc($resultadoAsientos);
                     
-                    if($asientos["asientos"] >= count($emails)){
+                    if($asientos["disponibles"] >= count($emails)){
                         $verifAsientos = true;
+                    }else {
+                        $verifAsientos = false;
                     }
                 }
                 
@@ -108,37 +100,6 @@
             }
             
             if($verifAsientos) {
-                for ($i = $origenTrayecto; $i <= $destinoTrayecto; $i++){
-            
-                    $auxDestino++;
-
-                    $buscarTrayecto = "SELECT * 
-                                       FROM trayecto as t
-                                       INNER JOIN relacionViajeTrayecto as rvt
-                                            ON t.idTrayecto = rvt.fkIdTrayecto
-                                       WHERE t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino." and fkCodigoViaje =".$codigo."";
-                    $resultadoTrayecto = mysqli_query($conexion, $queryTrayecto);
-
-                    if($trayecto = mysqli_fetch_assoc($resultadoTrayecto)) {
-                        $queryAsientos = "UPDATE tipoDeCabina as tc INNER JOIN cabina as c
-                            ON tc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
-                        INNER JOIN relacionCabinaEquipo as rec
-                            ON c.codigoCabina = rec.fkCodigoCabina
-                        INNER JOIN equipo as e
-                            ON rec.fkMatriculaEquipo = e.matricula
-                        INNER JOIN viaje as v
-                            ON e.matricula = v.matriculaEquipo
-                        INNER JOIN relacionViajeTrayecto as rvt
-                            ON v.codigo = rvt.fkCodigoViaje
-                        INNER JOIN trayecto as t
-                            ON rvt.fkIdTrayecto = t.idTrayecto
-                        SET c.asientos = c.asientos - ".count($emails)."
-                        WHERE v.codigo = ".$codigo." and c.codigoCabina =".$cabina." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
-                    
-                        $resultadoAsientos = mysqli_query($conexion, $queryAsientos);
-                    }
-                
-                }
                 
                 $queryReserva = "INSERT INTO reserva (codigo) VALUES ('".$codigoReserva."')";
                 $registroReserva = mysqli_query($conexion, $queryReserva);

@@ -266,7 +266,10 @@ SET c.asientos = c.asientos - 1
 WHERE v.codigo = 1 and c.codigoCabina = 1 and t.fkCodigoLugarOrigen = 2 and t.fkCodigoLugarDestino = 3;
 
 
-
+SELECT *
+FROM ubicacion as u INNER JOIN trayecto as t
+	ON u.fkIdTrayecto = t.idTrayecto
+WHERE estado = false and fkCodigoCabina = 1 and fkCodigoViaje = 1 and t.fkCodigoLugarOrigen =2 and t.fkCodigoLugarDestino =3;
 
 
 

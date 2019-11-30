@@ -72,8 +72,8 @@ modelo varchar(50),
 capacidadSuit int,
 capacidadGeneral int,
 capacidadFamiliar int,
-codigoTipoDeEquipo int,
-foreign key (codigoTipoDeEquipo) references tipoDeEquipo(codigo)
+fkcodigoTipoDeEquipo int,
+foreign key (fkcodigoTipoDeEquipo) references tipoDeEquipo(codigo)
 );
 
 create table viaje(
@@ -107,6 +107,21 @@ fkCodigoLugarDestino int,
 foreign key (fkCodigoLugarOrigen) references lugar(codigo),
 foreign key (fkCodigoLugarDestino) references lugar(codigo)
 );
+
+create table ubicacion(
+filaUbicacion varchar(1),
+columnaUbicacion int,
+estado boolean,
+fkIdTrayecto int,
+fkCodigoViaje int,
+fkCodigoCabina int,
+primary key (filaUbicacion, columnaUbicacion),
+foreign key (fkIdTrayecto) references trayecto(idTrayecto),
+foreign key (fkCodigoViaje) references viaje(codigo),
+foreign key (fkCodigoCabina) references cabina(codigoCabina)
+);
+
+
 
 create table relacionReservaTrayecto(
 fkCodigoReserva varchar(6),
@@ -144,8 +159,6 @@ precio int
 
 create table cabina(
 codigoCabina int primary key,
-asientos int,
-ubicacion varchar(10),
 fkCodigoTipoDeCabina int,
 foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
 );
@@ -175,6 +188,14 @@ primary key (fkIdItemReserva, fkEmailCliente),
 foreign key (fkIdItemReserva) references itemReserva (idItemReserva),
 foreign key (fkEmailCliente) references cliente (fkEmailUsuario)
 );
+
+/*create table relacionItemReservaUbicacion(
+fkIdUbicacion varchar(2),
+fkidItemReserva varchar(6),
+foreign key (fkIdUbicacion) references ubicacion(idUbicacion),
+foreign key (fkidItemReserva) references itemReserva(idItemReserva),
+primary key (fkIdUbicacion, fkidItemReserva)
+);*/
 
 create table relacionCabinaEquipo(
 fkCodigoCabina int,
