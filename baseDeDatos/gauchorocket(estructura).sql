@@ -126,9 +126,11 @@ estado boolean,
 fkIdTrayecto int,
 fkCodigoViaje int,
 fkCodigoCabina int,
+fkCodigoReserva varchar (6),
 foreign key (fkIdTrayecto) references trayecto(idTrayecto),
 foreign key (fkCodigoViaje) references viaje(codigo),
-foreign key (fkCodigoCabina) references cabina(codigoCabina)
+foreign key (fkCodigoCabina) references cabina(codigoCabina),
+foreign key (fkCodigoReserva) references reserva(codigo)
 );
 
 create table relacionReservaTrayecto(

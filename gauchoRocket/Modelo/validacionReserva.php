@@ -78,15 +78,23 @@
                 $resultadoTrayecto = mysqli_query($conexion, $queryTrayecto);
             
                 if($trayecto = mysqli_fetch_assoc($resultadoTrayecto)) {
-                    $queryAsientos = "SELECT count(filaUbicacion) as disponibles
+                    $queryAsientos = "SELECT count(idUbicacion) as asientosReservados
                                       FROM ubicacion as u INNER JOIN trayecto as t
 	                                   ON u.fkIdTrayecto = t.idTrayecto
-                                      WHERE estado = true and fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigo." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
+                                      WHERE fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigo." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
                     
                     $resultadoAsientos = mysqli_query($conexion, $queryAsientos);
                     $asientos = mysqli_fetch_assoc($resultadoAsientos);
                     
-                    if($asientos["disponibles"] >= count($emails)){
+                    if($cabina ==  1){
+                        $asientosCabina = $viaje["capacidadGeneral"];
+                    }elseif ($cabina ==  2){
+                        $asientosCabina = $viaje["capacidadFamiliar"];
+                    }else {
+                        $asientosCabina = $viaje["capacidadSuit"];
+                    }
+                    
+                    if(($asientosCabina - $asientos["asientosReservados"]) >= count($emails)){
                         $verifAsientos = true;
                     }else {
                         $verifAsientos = false;
@@ -99,18 +107,23 @@
             
             }
             
-                
                 $queryReserva = "INSERT INTO reserva (codigo) VALUES ('".$codigoReserva."')";
                 $registroReserva = mysqli_query($conexion, $queryReserva);
 
                 $idItemReserva = rand(1000,8000);
 
-                if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi'] || $verifAsientos == false){
+                if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi'] || !$verifAsientos){
                     $queryItemReserva = "INSERT INTO itemReserva (idItemReserva, fkCodigoReserva, fkCodigoServicio, fkCodigoCabina, checkin, pago, fechaLimiteDeCheckin, fechaInicioDeCheckin, fechaConfirmacion, fechaQuePidioReserva, listaDeEspera) VALUES
                     (".$idItemReserva.",'".$codigoReserva."', ". $servicio .", ". $cabina .", false, false, '".$fechaDeCheckin['fl']."', '".$fechaDeCheckin['fi']."', null, '".$fechaDeCheckin['ahora']."', true);";
                 }else{
                     $queryItemReserva = "INSERT INTO itemReserva (idItemReserva, fkCodigoReserva, fkCodigoServicio, fkCodigoCabina, checkin, pago, fechaLimiteDeCheckin, fechaInicioDeCheckin, fechaConfirmacion, fechaQuePidioReserva, listaDeEspera) VALUES
                     (".$idItemReserva.",'".$codigoReserva."', ". $servicio .", ". $cabina .", false, false, '".$fechaDeCheckin['fl']."', '".$fechaDeCheckin['fi']."', null, '".$fechaDeCheckin['ahora']."', false);";
+                    
+                    for($i= 0; $i <= count($emails); $i++){
+                        $guardarUbicacion = "INSERT INTO ubicacion (estado,fkCodigoVuelo, fkIdTrayecto, fkCodigoCabina, fkCodigoReserva) VALUES
+                        (false, ".$codigo.", ".$trayecto['idTrayecto'].", ".$cabina.", $codigoReserva)";
+                        $resultadoGuardar = mysqli_query($conexion, $guardarUbicacion);   
+                    }
                 }
 
                 $registro = mysqli_query($conexion, $queryItemReserva);
@@ -192,7 +205,7 @@
                     }  
                 }
                 if($registro){
-                    if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi']){
+                    if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi'] || !$verifAsientos){
                         echo '<br><div class="alert alert-success mt-5" role="alert">
                                 Usted se encuentra en lista de espera. Será informado...
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -254,8 +267,6 @@
                                 <span aria-hidden="true">&times;</span>
                             </div>';
                 }
-                
-        
                 }else {
                     echo '<br><div class="alert alert-warning mt-5" role="alert">
                                 Trayecto inválido.

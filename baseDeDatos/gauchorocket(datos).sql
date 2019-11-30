@@ -177,7 +177,7 @@ insert into relacionCabinaEquipo (fkCodigoCabina, fkMatriculaEquipo) values
 (2, 'O1'),
 (3, 'O1');
  
-insert into ubicacion(idUbicacion, estado, fkIdTrayecto, fkCodigoViaje, fkCodigoCabina) values
+insert into ubicacion(idUbicacion, estado,fkCodigoVuelo, fkIdTrayecto, fkCodigoCabina) values
 (1, false, 1, 1, 1),
 (2, true, 1, 1, 1),
 (3, true, 1, 1, 1),
