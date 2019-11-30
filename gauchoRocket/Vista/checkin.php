@@ -47,6 +47,17 @@
 
         $cabinaArray = mysqli_fetch_assoc($resultadoCabina);
         
+        $queryLimite = "select count(*) as resultado
+                        from relacionClienteItemReserva as rel
+	                       inner join itemReserva as ir on rel.fkIdItemReserva = ir.idItemReserva
+	                       inner join reserva as r on ir.fkcodigoReserva = r.codigo
+                        where r.codigo like '".$reserva."';";
+        $resultadoLimite = mysqli_query($conexion, $queryLimite);
+        $limite = 0;
+        while($rowLimite = mysqli_fetch_assoc($resultadoLimite)){
+            $limite = $rowLimite['resultado'];
+        }
+        
         echo'<body>
               <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
               <script>
@@ -79,7 +90,7 @@
                                 <p class="text-muted">Seleccione los asientos que desea ocupar</p>
                                 <h4 class="font-weight-bold text-center">'.$cabinaArray["descripcion"].'</h4>
                                 <form name="ordenamiento" id="contenedor" action="checkin.php?reserva='.$reserva.'" method="post">
-                                <input type="hidden" id="cantidad" value="3">
+                                <input type="hidden" id="cantidad" value='.$limite.'>
                                     ';
         
                                         while($result = mysqli_fetch_assoc($resultadoAsientos)){

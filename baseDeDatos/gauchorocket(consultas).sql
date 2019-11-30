@@ -346,11 +346,26 @@ where r.codigo like 'jdy0cf';
 /* ================ */
 
 select *
+from itemReserva;
+
+select *
+from ubicacion;
+
+select *
 from relacionClienteItemReserva;
 
+select *
+from relacionReservaTrayecto;
 
+insert into relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente, fecha) values
+(5450, 'tres@gmail.com', '2019-11-30 19:57:50');
 
-
+/* ========================================================================================== */
+select count(*) as resultado
+from relacionClienteItemReserva as rel
+	inner join itemReserva as ir on rel.fkIdItemReserva = ir.idItemReserva
+	inner join reserva as r on ir.fkcodigoReserva = r.codigo
+where r.codigo like '7rvxbj';
 
 
 
