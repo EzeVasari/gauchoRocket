@@ -106,5 +106,8 @@
                 </div>
             </form>
         </div>
+        <?php
+        include('../Modelo/adminValidarReporte.php');
+        ?>
     </body>
 </html>

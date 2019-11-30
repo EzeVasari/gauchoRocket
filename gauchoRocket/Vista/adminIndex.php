@@ -17,7 +17,7 @@
                         <div class='card-body'>
                             <h5 class='card-title'>Generar reportes</h5>
                             <p class='card-text'>Puede generar reportes tales ver las cabinas más vendidas, vuelos más solicitados, entre otros</p>
-                            <a href='adminReporte.php' class='btn btn-primary'>Reportes</a>
+                            <a href='adminReporteUno.php' class='btn btn-primary'>Reportes</a>
                          </div>
                     </div>
                 </div>
