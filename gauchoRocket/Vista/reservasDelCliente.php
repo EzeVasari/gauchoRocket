@@ -11,17 +11,20 @@
                 $email = $_SESSION['user']; //Usuario logueado
                 
                 $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
-                                v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
-                                ir.pago as pago, ir.checkin as checki, ir.listaDeEspera as espera,
-                                ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
-                          FROM relacionClienteItemReserva AS rcr
-                                INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
-                                INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
-                                INNER JOIN relacionReservaTrayecto as rrt ON r.codigo = rrt.fkCodigoReserva
-                                INNER JOIN trayecto as t ON rrt.fkIdTrayecto = t.idTrayecto
-                                INNER JOIN relacionViajeTrayecto as rvt ON t.idTrayecto = rvt.fkIdTrayecto
-                                INNER JOIN viaje AS v ON rvt.fkCodigoViaje = v.codigo
-                          WHERE fkEmailCliente ='".$email."'";
+                            v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
+                            ir.pago as pago, ir.checkin as checki, ir.listaDeEspera as espera, v.codigo as codViaje, 
+                            c.codigoCabina as cabina, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino,
+                            ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
+                        FROM relacionClienteItemReserva AS rcr
+                            INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
+                            INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
+                            INNER JOIN relacionReservaTrayecto as rrt ON r.codigo = rrt.fkCodigoReserva
+                            INNER JOIN trayecto as t ON rrt.fkIdTrayecto = t.idTrayecto
+                            INNER JOIN relacionViajeTrayecto as rvt ON t.idTrayecto = rvt.fkIdTrayecto
+                            INNER JOIN viaje AS v ON rvt.fkCodigoViaje = v.codigo
+                            INNER JOIN ubicacion as u on u.fkCodigoReserva = r.codigo
+                            INNER JOIN cabina as c on c.codigoCabina = u.fkCodigoCabina
+                        WHERE fkEmailCliente = '".$email."'";
                 
                 $resultado = mysqli_query($conexion, $query);
                 
@@ -143,7 +146,8 @@
                                                             if($centro['pago'] == true){
                                                                 if($centro['checki'] == false){
                                                                 echo "<div class='row justify-content-end mr-2'>
-                                                                        <a href='checkin.php?reserva=".$centro['codigo']."' class='btn btn-primary' >
+                                                                        <a href='checkin.php?reserva=".$centro['codigo']."&vuelo=".$centro['codViaje']."&cabina=".$centro['cabina']."&origen=".$centro['origen']."&destino=".$centro['destino']."'
+                                                                        class='btn btn-primary'>
                                                                             Confirmar check-in
                                                                         </a>
                                                                       </div>

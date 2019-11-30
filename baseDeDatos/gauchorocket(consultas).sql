@@ -311,17 +311,39 @@ from ubicacion;
 select *
 from itemReserva;
 
+SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
+	v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
+	ir.pago as pago, ir.checkin as checki, ir.listaDeEspera as espera, v.codigo as codViaje, 
+    c.codigoCabina as cabina, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino,
+	ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
+FROM relacionClienteItemReserva AS rcr
+	INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
+	INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
+	INNER JOIN relacionReservaTrayecto as rrt ON r.codigo = rrt.fkCodigoReserva
+	INNER JOIN trayecto as t ON rrt.fkIdTrayecto = t.idTrayecto
+	INNER JOIN relacionViajeTrayecto as rvt ON t.idTrayecto = rvt.fkIdTrayecto
+	INNER JOIN viaje AS v ON rvt.fkCodigoViaje = v.codigo
+    INNER JOIN ubicacion as u on u.fkCodigoReserva = r.codigo
+    INNER JOIN cabina as c on c.codigoCabina = u.fkCodigoCabina
+WHERE fkEmailCliente = 'dos@gmail.com';
 
+SELECT * 
+FROM ubicacion as u
+	INNER JOIN trayecto as t ON u.fkIdTrayecto = t.idTrayecto
+WHERE fkCodigoCabina = 1
+	and fkCodigoViaje = 1
+    and t.fkCodigoLugarOrigen = 2
+    and t.fkCodigoLugarDestino = 3
+    and u.fkCodigoReserva like 'jdy0cf';
 
-
-
-
-
-
-
-
-
-
+/* CAPACIDAD MÁXIMA */
+select (e.capacidadSuit + e.capacidadGeneral + e.capacidadFamiliar + 1) as asientosTotales
+from reserva as r
+	inner join ubicacion as u on u.fkCodigoReserva = r.codigo
+    inner join viaje as v on u.fkCodigoViaje = v.codigo
+    inner join equipo as e on v.matriculaEquipo = e.matricula
+where r.codigo like 'jdy0cf'
+;
 
 
 
