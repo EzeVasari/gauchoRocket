@@ -268,10 +268,10 @@ INNER JOIN trayecto AS t
 WHERE r.codigo = 'bsu5wj';
 
 UPDATE ubicacion as u
-SET estado = true
+SET estado = false
 WHERE CONCAT(u.filaUbicacion, u.columnaUbicacion) = 'A2';
 
-SELECT CONCAT(u.filaUbicacion, u.columnaUbicacion) as id
+SELECT CONCAT(u.filaUbicacion, u.columnaUbicacion) as id, u.estado
 FROM ubicacion as u
 WHERE CONCAT(u.filaUbicacion, u.columnaUbicacion) = 'A2';
 
