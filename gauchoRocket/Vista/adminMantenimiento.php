@@ -35,8 +35,8 @@
                         <select class='custom-select' name='origen'>
                             <option selected value='0'>Seleccione origen</option>
                             <?php
-$consulta="SELECT DISTINCT v.codigoLugarOrigen as codigo, l.nombre as nombre
-              FROM viaje as v INNER JOIN lugar as l ON v.codigoLugarOrigen = l.codigo";
+$consulta="SELECT DISTINCT l.codigo as codigo, l.nombre as nombre
+              FROM lugar as l ";
                             $resultado = mysqli_query($conexion, $consulta);
                             
                             while($recorrer = mysqli_fetch_assoc($resultado)){
@@ -55,8 +55,8 @@ $consulta="SELECT DISTINCT v.codigoLugarOrigen as codigo, l.nombre as nombre
                             <option selected value='0'>Seleccione destino</option>
                             <?php
                             
-                            $consulta = "SELECT DISTINCT l.nombre as nombre, v.codigoLugarDestino as codigo
-                                          FROM viaje as v inner join lugar as l on v.codigoLugarDestino = l.codigo";
+                            $consulta = "SELECT  l.nombre as nombre, l.codigo as codigo
+                                          FROM  lugar as l ";
                             $resultado = mysqli_query($conexion, $consulta);
                             while($recorrer = mysqli_fetch_assoc($resultado)){
                                 echo "<option value='". $recorrer["codigo"] ."'>". $recorrer["nombre"] ."</option>";
