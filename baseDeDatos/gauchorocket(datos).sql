@@ -22,8 +22,8 @@ insert into tipoDeViaje (codigo, descripcion) values
 insert into tipoDeEquipo (codigo, descripcion) values
 (1, 'Baja aceleracion'),
 (2, 'Alta aceleracion'),
-(3, 'Orbitales'),
-(4, 'SubOrbitales');
+(3, 'Orbitales')/*,
+(4, 'SubOrbitales')*/;
 
 insert into equipo (matricula, modelo, capacidadSuit, capacidadGeneral, capacidadFamiliar, fkCodigoTipoDeEquipo) values
 ('AA1', 'Aguila', 25, 200, 75, 2),
