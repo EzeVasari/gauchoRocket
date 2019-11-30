@@ -9,8 +9,8 @@ $duracion= $_POST["duracion"];
 $origen= $_POST["origen"];
 $destino= $_POST["destino"];
 
-$query1 = "insert into trayecto (idTrayecto, nombreTrayecto, precio, duracion)
-        values('".$idTrayecto."', '".$nombreTrayecto."', '".$precio."', '".$duracion."')";
+$query1 = "insert into trayecto (idTrayecto, nombreTrayecto, precio, duracion, fkCodigoLugarOrigen, fkCodigoLugarDestino)
+        values('".$idTrayecto."', '".$nombreTrayecto."', '".$precio."', '".$duracion."', null, null)";
 
 
 $insert1 = mysqli_query($conexion, $query1);
@@ -24,11 +24,19 @@ $query2 = "UPDATE trayecto SET fkcodigoLugarOrigen='".$origen."'
 $query3 = " UPDATE trayecto SET fkcodigoLugarDestino='".$destino."' 
         where idTrayecto='".$idTrayecto."'";
     
-        $insert3 = mysqli_query($conexion, $query3);   
+        $insert3 = mysqli_query($conexion, $query3);
 
- if($insert1 == TRUE)
+
+         
+
+
+      
+
+ if($insert1 == TRUE )
  {
- 	echo "";
+ 	    $query4 ="insert into relacionviajetrayecto (fkIdTrayecto,fkCodigoViaje)
+        values('".$idTrayecto."','".$codigoVuelo."')";
+          $insert4 = mysqli_query($conexion, $query4);
  }else
  {
  	echo "no salio";

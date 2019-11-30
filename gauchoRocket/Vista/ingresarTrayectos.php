@@ -28,7 +28,7 @@
             </div>
 <?php
 
-$vuelo= $_GET["vuelo"];
+$vuelo= $_GET["viaje"];
 
 echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method="post">';
 ?>
