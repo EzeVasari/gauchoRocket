@@ -121,7 +121,7 @@ foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
 );
 
 create table ubicacion(
-idUbicacion int primary key,
+idUbicacion int auto_increment primary key,
 estado boolean,
 fkIdTrayecto int,
 fkCodigoViaje int,

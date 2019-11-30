@@ -176,7 +176,8 @@ insert into relacionCabinaEquipo (fkCodigoCabina, fkMatriculaEquipo) values
 (1, 'O1'),
 (2, 'O1'),
 (3, 'O1');
- 
+
+/*
 insert into ubicacion(idUbicacion, estado,fkCodigoVuelo, fkIdTrayecto, fkCodigoCabina) values
 (1, false, 1, 1, 1),
 (2, true, 1, 1, 1),
@@ -194,6 +195,7 @@ insert into ubicacion(idUbicacion, estado,fkCodigoVuelo, fkIdTrayecto, fkCodigoC
 (14, true, 3, 1, 1),
 (15, true, 3, 1, 1),
 (16, true, 3, 1, 1);
+*/
 
 SET GLOBAL event_scheduler = ON;
 

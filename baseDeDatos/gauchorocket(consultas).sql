@@ -300,8 +300,16 @@ from ItemReserva as i
     inner join relacionClienteItemReserva as rel on i.idItemReserva = rel.fkIdItemReserva
 where rel.fkEmailCliente like 'dos@gmail.com';
 
+select *
+from viaje as v
+	inner join equipo as e on v.matriculaEquipo = e.matricula
+where v.codigo = 1;
 
+select *
+from ubicacion;
 
+select *
+from itemReserva;
 
 
 
