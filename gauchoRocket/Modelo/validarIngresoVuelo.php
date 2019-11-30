@@ -6,8 +6,10 @@ include("conexion.php");
 $nombreVuelo = $_POST["nombreVuelo"];
 $codigoVuelo= $_POST["codigoVuelo"];
 $descripcion = $_POST["descripcion"];
-$precio = $_POST["fecha"];
-$fecha = $_POST["fecha"];
+$precio = $_POST["precio"];
+
+
+
 $origen = $_POST["origen"];
 $destino = $_POST["destino"];
 $nivel = $_POST["nivel"];
@@ -42,22 +44,46 @@ $img =  $_FILES['img']['name'];
                             move_uploaded_file($_FILES["img"]["tmp_name"],
                             "../Vista/img/" . $_FILES["img"]["name"]);
                             echo "Almacenado en: " . "../Vista/img/" . $_FILES["img"]["name"];
-                            $directorio = "../Vista/img/" . $_FILES["img"]["name"];
                             }
                 }
 
+                 $directorio = "img/".$_FILES["img"]["name"];
 
-        $query = "insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, matriculaEquipo)
-                    ('".$codigoVuelo."', '".$directorio."', '".$descripcion."',
-                    '".$precio."', '".$nombreVuelo."', '".$fecha."', '".$origen."','".$destino."', '".$nivel."', '".$nave."')";
+
+
+            
+
+
+        $query1 = "insert into viaje (codigo, imagen, descripcion, precio, nombre)
+        values('".$codigoVuelo."', '".$directorio."', '".$descripcion."',
+                    '".$precio."', '".$nombreVuelo."')";
     
-        $insert = mysqli_query($conexion, $query);
-    if($insert == TRUE){
+        $insert1 = mysqli_query($conexion, $query1);
+
+$query2 = "insert into viaje (codigoLugarOrigen)
+        values('".$origen."')
+        where codigo='".$codigoVuelo."'";
+    
+        $insert2 = mysqli_query($conexion, $query2);
+
+$query3 = "insert into viaje (codigoLugarDestino)
+        values('".$destino."')
+        where codigo='".$codigoVuelo."'";
+    
+        $insert3 = mysqli_query($conexion, $query3);        
+
+
+    if($insert1 == TRUE && $insert2=TRUE && $insert3){
         echo 'ingreso valido';
+      echo  $directorio;
     }else {
-        echo "mal";
+        echo "error";
+      
+echo $directorio;
+
         }
     }
+    
     
 
 

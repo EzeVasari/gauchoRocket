@@ -119,8 +119,8 @@ $consulta="SELECT DISTINCT v.codigoLugarOrigen as codigo, l.nombre as nombre
                <select class='custom-select' name='origen'>
                             <option selected value='0'>Seleccione origen</option>
                             <?php
-$consulta="SELECT DISTINCT v.codigoLugarOrigen as codigo, l.nombre as nombre
-              FROM viaje as v INNER JOIN lugar as l ON v.codigoLugarOrigen = l.codigo";
+$consulta="SELECT DISTINCT l.codigo as codigo, l.nombre as nombre
+              FROM  lugar as l ";
                             $resultado = mysqli_query($conexion, $consulta);
                             
                             while($recorrer = mysqli_fetch_assoc($resultado)){
@@ -140,8 +140,8 @@ $consulta="SELECT DISTINCT v.codigoLugarOrigen as codigo, l.nombre as nombre
                             <option selected value='0'>Seleccione destino</option>
                             <?php
                             
-                            $consulta = "SELECT DISTINCT l.nombre as nombre, v.codigoLugarDestino as codigo
-                                          FROM viaje as v inner join lugar as l on v.codigoLugarDestino = l.codigo";
+                            $consulta = "SELECT DISTINCT l.nombre as nombre, l.codigo as codigo
+                                          FROM  lugar as l ";
                             $resultado = mysqli_query($conexion, $consulta);
                             while($recorrer = mysqli_fetch_assoc($resultado)){
                                 echo "<option value='". $recorrer["codigo"] ."'>". $recorrer["nombre"] ."</option>";
@@ -159,7 +159,7 @@ $consulta="SELECT DISTINCT v.codigoLugarOrigen as codigo, l.nombre as nombre
                             <option value='0' selected>Elija nivel de vuelo...</option>";
                             <?php
                             $consulta = "select distinct tv.descripcion as nombre, tv.codigo as codigo
-                                        from viaje as v inner join tipoDeViaje as tv on v.codigoTipoDeViaje = tv.codigo;";
+                                        from  tipoDeViaje as tv ;";
                             $resultado = mysqli_query($conexion, $consulta);
                             while($recorrer = mysqli_fetch_assoc($resultado)){
                                 echo "<option value='". $recorrer["codigo"] ."'>". $recorrer["nombre"] ."</option>";
@@ -175,8 +175,7 @@ $consulta="SELECT DISTINCT v.codigoLugarOrigen as codigo, l.nombre as nombre
                             <option value='0' selected>Elija tipo de nave...</option>";
                             <?php
                             $consulta = "select e.modelo as nombre,e.matricula as codigo
-                            from viaje as v inner join equipo as e on 
-                            e.matricula = v.matriculaEquipo;";
+                            from  equipo as e ;";
                             $resultado = mysqli_query($conexion, $consulta);
                             while($recorrer = mysqli_fetch_assoc($resultado)){
                                 echo "<option value='". $recorrer["codigo"] ."'>". $recorrer["nombre"] ."</option>";
