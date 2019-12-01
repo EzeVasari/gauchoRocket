@@ -386,9 +386,7 @@ from viaje as v
     inner join reserva as r on reld.fkCodigoReserva = r.codigo
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
 where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1
-;/*7*/
-
-
+;
 
 /* ========== Cabina más solicitada en este viaje ========== */
 select count(c.codigoCabina) as cantidad, t.descripcion as tipoCabina
@@ -542,20 +540,20 @@ where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
 
 
 
-select count(v.matriculaEquipo) as cantidad, e.modelo as modelo, v.nombre as vuelo,
-	e.capacidadSuit as suit, e.capacidadGeneral as gral, e.capacidadFamiliar as familiar,
-	te.descripcion as servi, te.descripcion as desEquipo
-from equipo as e
-	inner join tipoDeEquipo as te on e.fkcodigoTipoDeEquipo = te.codigo
-    inner join viaje as v on e.matricula = v.matriculaEquipo
-    inner join ubicacion as u on v.codigo = u.fkCodigoViaje
-    inner join reserva as r on u.fkCodigoReserva = r.codigo
-    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
-where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now()
-	and e.fkcodigoTipoDeEquipo = 3
-group by e.matricula
-order by cantidad desc
-LIMIT 1;
+select count(ir.fkCodigoServicio) as cantidad, ts.descripcion as tipoServicio
+                       from viaje as v
+                            inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
+                            inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
+                            inner join relacionReservaTrayecto as reld on t.idTrayecto = reld.fkIdTrayecto
+                            inner join reserva as r on reld.fkCodigoReserva = r.codigo
+                            inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+                            inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
+                            inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
+                       where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now()
+                            and v.codigo = 1
+                       group by ir.fkCodigoServicio
+                       order by cantidad desc
+                       LIMIT 1
 
 
 

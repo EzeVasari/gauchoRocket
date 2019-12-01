@@ -41,7 +41,7 @@ $resultadoEquipoUno = mysqli_query($conexion, $queryEquipoUno); /* EQUIPO: Cuant
         ?>
         
         <?php /* === REPORTE VUELVO === */
-        if(mysqli_num_rows($resultadoVueloUno) != 0 and mysqli_num_rows($resultadoVueloDos) != 0 and mysqli_num_rows($resultadoVueloTres) != 0){
+        $cierre = "NO";
             while($rowVueloUno = mysqli_fetch_assoc($resultadoVueloUno)){
                 echo "
                     <div class='col-md-6 text-center mb-3'>
@@ -67,96 +67,98 @@ $resultadoEquipoUno = mysqli_query($conexion, $queryEquipoUno); /* EQUIPO: Cuant
                         </p>
                      ";
                 echo "</div>";
+                $cierre = "SI";
             }
+        if($cierre == "NO"){
+            echo "</div>";
         }
         ?>
         
         <?php /* === REPORTE SERVICIO === */
-        while($rowServicioUno = mysqli_fetch_assoc($resultadoServicioUno)){
-            echo "
-                <div class='col-md-6 text-center mb-3'>
-                    <img src='img/admin/reporteServicio.jpg' class='card-img-top'>
-                    <h4 class='font-weight-bold'>Reporte del servicio ".$rowServicioUno['tipoServicio']."</h4>
-                    
-                    <p class='text-muted'>
-                        El servicio fue elegido un total de ".$rowServicioUno['cantidad']." veces.
-                    </p>
-                    <p class='text-muted'>
-                        Este servicio fue solicitado mayormente en el vuelo ".$rowServicioUno['vuelo'].".
-                    </p>
-                    <p class='text-muted'>
-                        Las cabinas que más se vinculan con este servicio es '".$rowServicioUno['tipoCabina']."'.
-                    </p>
-                    <p class='text-muted'>
-                        Los equipos de tipo '".$rowServicioUno['equipoTipo']."' son donde más se solicitó el mismo, siendo los de modelo ".$rowServicioUno['equipoModelo']." donde más se registra este servicio.
-                    </p>
-                </div>
-                 ";
-        }
+            while($rowServicioUno = mysqli_fetch_assoc($resultadoServicioUno)){
+                echo "
+                    <div class='col-md-6 text-center mb-3'>
+                        <img src='img/admin/reporteServicio.jpg' class='card-img-top'>
+                        <h4 class='font-weight-bold'>Reporte del servicio ".$rowServicioUno['tipoServicio']."</h4>
+
+                        <p class='text-muted'>
+                            El servicio fue elegido un total de ".$rowServicioUno['cantidad']." veces.
+                        </p>
+                        <p class='text-muted'>
+                            Este servicio fue solicitado mayormente en el vuelo ".$rowServicioUno['vuelo'].".
+                        </p>
+                        <p class='text-muted'>
+                            Las cabinas que más se vinculan con este servicio es '".$rowServicioUno['tipoCabina']."'.
+                        </p>
+                        <p class='text-muted'>
+                            Los equipos de tipo '".$rowServicioUno['equipoTipo']."' son donde más se solicitó el mismo, siendo los de modelo ".$rowServicioUno['equipoModelo']." donde más se registra este servicio.
+                        </p>
+                    </div>
+                     ";
+            }
         ?>
         
         <?php /* === REPORTE CABINA === */
-        while($rowCabinaUno = mysqli_fetch_assoc($resultadoCabinaUno)){
-            echo "
-                    <div class='col-md-6 text-center mb-3'>
-                    <img src='img/admin/reporteCabina.jpg' class='card-img-top'>
-                    <h4 class='font-weight-bold'>Reporte de la cabina ".$rowCabinaUno['tipoCabina']."</h4>
-                    
-                    <p class='text-muted'>
-                        La cabina fue elegida un total de ".$rowServicioUno['cantidad']." veces.
-                    </p>
-                 ";
-        }
-        while($rowCabinaDos = mysqli_fetch_assoc($resultadoCabinaDos)){
-            echo "
-                    <p class='text-muted'>
-                        Esta cabina se encuentra mayormente en el vuelo de ".$rowCabinaDos['nombre'].", siendo elegido ".$rowCabinaDos['cantidad']." veces.
-                    </p>
-                 ";
-        }
-        while($rowCabinaTres = mysqli_fetch_assoc($resultadoCabinaTres)){
-            echo "
-                    <p class='text-muted'>
-                        Para este tipo de cabina, los clientes solicitaron, por lo general, el servicio '".$rowCabinaTres['nombre']."', siendo elegido en ".$rowCabinaTres['cantidad']." reservas.
-                    </p>
-                 ";
-        }
-        while($rowCabinaCuatro = mysqli_fetch_assoc($resultadoCabinaCuatro)){
-            echo "
-                    <p class='text-muted'>
-                        La cabina en cuestión, tiene una mayor presencia en los equipos '".$rowCabinaCuatro['nombre']."', teniendo presencia en ".$rowCabinaCuatro['cantidad']." de ellos.
-                    </p>
-                </div>
-                 ";
-        }
+            while($rowCabinaUno = mysqli_fetch_assoc($resultadoCabinaUno)){
+                echo "
+                        <div class='col-md-6 text-center mb-3'>
+                        <img src='img/admin/reporteCabina.jpg' class='card-img-top'>
+                        <h4 class='font-weight-bold'>Reporte de la cabina ".$rowCabinaUno['tipoCabina']."</h4>
+
+                        <p class='text-muted'>
+                            La cabina fue elegida un total de ".$rowServicioUno['cantidad']." veces.
+                        </p>
+                     ";
+            }
+            while($rowCabinaDos = mysqli_fetch_assoc($resultadoCabinaDos)){
+                echo "
+                        <p class='text-muted'>
+                            Esta cabina se encuentra mayormente en el vuelo de ".$rowCabinaDos['nombre'].", siendo elegido ".$rowCabinaDos['cantidad']." veces.
+                        </p>
+                     ";
+            }
+            while($rowCabinaTres = mysqli_fetch_assoc($resultadoCabinaTres)){
+                echo "
+                        <p class='text-muted'>
+                            Para este tipo de cabina, los clientes solicitaron, por lo general, el servicio '".$rowCabinaTres['nombre']."', siendo elegido en ".$rowCabinaTres['cantidad']." reservas.
+                        </p>
+                     ";
+            }
+            while($rowCabinaCuatro = mysqli_fetch_assoc($resultadoCabinaCuatro)){
+                echo "
+                        <p class='text-muted'>
+                            La cabina en cuestión, tiene una mayor presencia en los equipos '".$rowCabinaCuatro['nombre']."', teniendo presencia en ".$rowCabinaCuatro['cantidad']." de ellos.
+                        </p>
+                    </div>
+                     ";
+            }
         ?>
         
         <?php /* === REPORTE EQUIPO === */
-        while($rowEquipoUno = mysqli_fetch_assoc($resultadoEquipoUno)){
-            echo "
-                    <div class='col-md-6 text-center mb-3'>
-                    <img src='img/admin/reporteEquipo.jpg' class='card-img-top'>
-                    <h4 class='font-weight-bold'>Reporte de equipos ".$rowEquipoUno['desEquipo']."</h4>
-                    <p class='text-muted'>
-                        Los equipo de tipo '".$rowEquipoUno['desEquipo']."' fue utilizado en reservas ".$rowEquipoUno['cantidad'].", siendo que tiene mayor presencia en los de modelo '".$rowEquipoUno['desEquipo']."'.
-                    </p>
-                    <p class='text-muted'>
-                        Estos tienen mayor presencia en los vuelos '".$rowEquipoUno['vuelo']."'.
-                    </p>
-                    <p class='text-muted'>
-                        Por lo general, estos equipos cuentan con ".$rowEquipoUno['suit']." asientos suite, ".$rowEquipoUno['familiar']." asientos familiares y ".$rowEquipoUno['gral']." asientos de tipo general.
-                    </p>
-                    <p class='text-muted'>
-                        En estos tipo de equipos, se suelen solicitar los servicios ".$rowEquipoUno['servi'].".
-                    </p>
-                </div>
-                 ";
-        }
+            while($rowEquipoUno = mysqli_fetch_assoc($resultadoEquipoUno)){
+                echo "
+                        <div class='col-md-6 text-center mb-3'>
+                        <img src='img/admin/reporteEquipo.jpg' class='card-img-top'>
+                        <h4 class='font-weight-bold'>Reporte de equipos ".$rowEquipoUno['desEquipo']."</h4>
+                        <p class='text-muted'>
+                            Los equipo de tipo '".$rowEquipoUno['desEquipo']."' fue utilizado en reservas ".$rowEquipoUno['cantidad'].", siendo que tiene mayor presencia en los de modelo '".$rowEquipoUno['desEquipo']."'.
+                        </p>
+                        <p class='text-muted'>
+                            Estos tienen mayor presencia en los vuelos '".$rowEquipoUno['vuelo']."'.
+                        </p>
+                        <p class='text-muted'>
+                            Por lo general, estos equipos cuentan con ".$rowEquipoUno['suit']." asientos suite, ".$rowEquipoUno['familiar']." asientos familiares y ".$rowEquipoUno['gral']." asientos de tipo general.
+                        </p>
+                        <p class='text-muted'>
+                            En estos tipo de equipos, se suelen solicitar los servicios ".$rowEquipoUno['servi'].".
+                        </p>
+                    </div>
+                     ";
+            }
         ?>
         
     </div>
 </div>
-
 
 
 
