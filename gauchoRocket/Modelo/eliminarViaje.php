@@ -18,10 +18,10 @@ $eliminar2= mysqli_query($conexion, $eliminarViaje);
 
 
 if ($eliminar1== true && $eliminar2==true) {
-	echo "bien";
+	header('location: ../Vista/viajeEliminado.php');
 }else
 {
-	echo "mal";
+	header('location: ../Vista/adminBusquedaMantenimiento.php');
 }
 
 
