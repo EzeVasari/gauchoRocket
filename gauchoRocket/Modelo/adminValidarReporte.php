@@ -104,12 +104,13 @@ if(isset($_POST["buscar"])){
 /* ======================================== CABINAS ======================================= */
 /* ======================================================================================== */
 /* CANTIDAD DE VECES QUE FUE SOLICITADO */
-    $queryCabinaUno = "select count(c.fkCodigoTipoDeCabina) as cantidad
+    $queryCabinaUno = "select count(c.fkCodigoTipoDeCabina) as cantidad, tc.descripcion as tipoCabina
                        from cabina as c
                             inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
                             inner join ubicacion as u on c.codigoCabina = u.fkCodigoCabina
                             inner join reserva as r on u.fkCodigoReserva = r.codigo
                             inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+                            inner join viaje as v on u.fkCodigoViaje = v.codigo
                        where ir.fechaQuePidioReserva between date_sub(now(), interval ".$antiguedad." ".$periodo.") and now()
                             and c.fkCodigoTipoDeCabina = ".$cabina."
                        group by c.fkCodigoTipoDeCabina;";
@@ -181,7 +182,7 @@ if(isset($_POST["buscar"])){
     /* Servicio más utilizado*/
     $queryEquipoUno = "select count(v.matriculaEquipo) as cantidad, e.modelo as modelo, v.nombre as vuelo,
                             e.capacidadSuit as suit, e.capacidadGeneral as gral, e.capacidadFamiliar as familiar,
-                            ts.descripcion as servi
+                            te.descripcion as servi, te.descripcion as desEquipo
                        from equipo as e
                             inner join tipoDeEquipo as te on e.fkcodigoTipoDeEquipo = te.codigo
                             inner join viaje as v on e.matricula = v.matriculaEquipo
