@@ -28,7 +28,7 @@
                     </p>
                 </div>
             </div>
-            <form class='needs-validation' method='post' action='../Modelo/adminBusquedaMantenimiento.php'>
+            <form class='needs-validation' method='post' action='adminBusquedaMantenimiento.php'>
                 <div class='form-row'>
                     <div class='col-md-6 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip01'><i class='fas fa-plane-departure'></i>  Origen</label>

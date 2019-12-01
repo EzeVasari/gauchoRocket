@@ -18,7 +18,7 @@
    <div class="row justify-content-center">
                 <div class="col-md-7 text-center mb-3">
                     <h2 class="font-weight-bold">su viaje "'.$codigoVuelo.'" y
-                    trayecto"'.$idTrayecto.'" fue ingresado satifactoriamente
+                    trayecto "'.$idTrayecto.'" fue ingresado satifactoriamente
                     </h2>
                     <p class="text-muted">
                         Puede seguir ingresando trayectos apretando el boton siguiente, si desea salir cancelar
