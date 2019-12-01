@@ -26,10 +26,14 @@ include('../Modelo/validarPaginasParaAdministradores.php');
  <div class="card m-auto" style="width: 19rem;">
   <img src="<?php echo $fila['imagen']?>" class="card-img-top m-auto" style="width: 11rem;">
   <div class="card-body">
-    <form action="validaModificarViaje.php?numero=<?php echo $codigoVuelo?>" method="post">
+    <form action="../Modelo/validaModificarViaje.php?codigo=<?php echo $codigoVuelo?>" method="post">
           <div class="form-group">
             <label class="col-form-label">Nombre:</label>
             <input type="text" class="form-control" name="nombre" value="<?php echo $fila['nombre'];?>">
+          </div>
+           <div class="form-group">
+            <label class="col-form-label">Descripcion:</label>
+            <input type="text" class="form-control" name="descripcion" value="<?php echo $fila['descripcion'];?>">
           </div>
           <div class="row">
               <div class="col-sm-5">
@@ -72,7 +76,7 @@ $consulta="SELECT DISTINCT l.codigo as codigo, l.nombre as nombre
               </div>
             </div>
             <div class="mt-4 text-center">
-                <a href="indexSesion.php" type="button" class="btn btn-secondary" >Cancelar</a>
+                <a href="adminIndex.php" type="button" class="btn btn-secondary" >Cancelar</a>
                 <button type="submit" name="modificar" class="btn btn-danger">Modificar</button>
             </div>
         </form>
