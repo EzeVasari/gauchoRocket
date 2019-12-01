@@ -20,7 +20,7 @@
                 </div>
             </div>
             
-            <form class='needs-validation' method='post' action='../Modelo/adminValidarReporte.php'>
+            <form class='needs-validation' method='post' action='adminReporteUno.php'>
                 <div class='form-row'>
                     
                     <div class='col-md-12 mb-3'>
@@ -103,10 +103,10 @@
                         <label class='font-weight-bold' for='validationTooltip01'><i class="far fa-calendar-alt"></i>  Período</label>
                         <select class='custom-select' name='periodo'>
                             <option selected value='0'>Seleccione período</option>
-                            <option value='1'>Días</option>
-                            <option value='2'>Semanas</option>
-                            <option value='3'>Meses</option>
-                            <option value='4'>Años</option>
+                            <option value='day'>Días</option>
+                            <option value='week'>Semanas</option>
+                            <option value='month'>Meses</option>
+                            <option value='year'>Años</option>
                         </select>
                     </div>
                     

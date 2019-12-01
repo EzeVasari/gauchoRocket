@@ -378,24 +378,28 @@ where r.codigo like '7rvxbj';
 
 /* ================================================== VUELOS ================================================== */
 /* ========== Cantidad de veces que fue reservado ========== */
-select count(v.codigo)
+select count(v.codigo) as cantidad
 from viaje as v
 	inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
 	inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
     inner join relacionReservaTrayecto as reld on t.idTrayecto = reld.fkIdTrayecto
     inner join reserva as r on reld.fkCodigoReserva = r.codigo
-where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+where ir.fechaQuePidioReserva between date_sub(now(), interval 1 day) and now() and v.codigo = 1
 ;
-
+select * from itemReserva;
 /* ========== Cabina más solicitada en este viaje ========== */
 select count(c.codigoCabina) as cantidad, t.descripcion as tipoCabina
 from viaje as v
 	inner join ubicacion as u on v.codigo = u.fkCodigoViaje
     inner join cabina as c on u.fkCodigoCabina = c.codigoCabina
     inner join tipoDeCabina as t on c.fkCodigoTipoDeCabina = t.codigoTipoDeCabina
-where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+where ir.fechaQuePidioReserva between date_sub(now(), interval 1 day) and now() and v.codigo = 1
 group by c.codigoCabina
 order by cantidad desc
+LIMIT 1
 ;
 
 /* ========== Servicio más solicitado en este viaje ========== */
@@ -408,13 +412,17 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
+where ir.fechaQuePidioReserva between date_sub(now(), interval 1 day) and now() and v.codigo = 1
 group by ir.fkCodigoServicio
 order by cantidad desc
+LIMIT 1
 ;
 
 select *
 from itemReserva;
+
+/* ================================================== CABINAS ================================================= */
+/* ========== Cantidad de veces que fue reservado ========== */
 
 
 
