@@ -366,8 +366,78 @@ from relacionClienteItemReserva as rel
 	inner join itemReserva as ir on rel.fkIdItemReserva = ir.idItemReserva
 	inner join reserva as r on ir.fkcodigoReserva = r.codigo
 where r.codigo like '7rvxbj';
+/* ========================================================================================== */
 
 
+
+
+
+/* ===================================================================================================================================== */
+/* ============================================================= REPORTES ============================================================== */
+/* ===================================================================================================================================== */
+
+/* ================================================== VUELOS ================================================== */
+/* ========== Cantidad de veces que fue reservado ========== */
+select count(v.codigo)
+from viaje as v
+	inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
+	inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
+    inner join relacionReservaTrayecto as reld on t.idTrayecto = reld.fkIdTrayecto
+    inner join reserva as r on reld.fkCodigoReserva = r.codigo
+where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
+;
+
+/* ========== Cabina más solicitada en este viaje ========== */
+select count(c.codigoCabina) as cantidad, t.descripcion as tipoCabina
+from viaje as v
+	inner join ubicacion as u on v.codigo = u.fkCodigoViaje
+    inner join cabina as c on u.fkCodigoCabina = c.codigoCabina
+    inner join tipoDeCabina as t on c.fkCodigoTipoDeCabina = t.codigoTipoDeCabina
+where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
+group by c.codigoCabina
+order by cantidad desc
+;
+
+/* ========== Servicio más solicitado en este viaje ========== */
+select count(ir.fkCodigoServicio) as cantidad, ts.descripcion as tipoServicio
+from viaje as v
+	inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
+	inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
+    inner join relacionReservaTrayecto as reld on t.idTrayecto = reld.fkIdTrayecto
+    inner join reserva as r on reld.fkCodigoReserva = r.codigo
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
+    inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
+where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
+group by ir.fkCodigoServicio
+order by cantidad desc
+;
+
+select *
+from itemReserva;
+
+
+
+
+
+
+
+
+
+
+/* ===================================================================================================================================== */
+/* ============================================================ FACTURACIÓN ============================================================ */
+/* ===================================================================================================================================== */
+
+/* Cantidad de veces que fue reservado */
+select count(v.codigo), v.nombre
+from viaje as v
+	inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
+	inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
+    inner join relacionReservaTrayecto as reld on t.idTrayecto = reld.fkIdTrayecto
+    inner join reserva as r on reld.fkCodigoReserva = r.codigo
+where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
+;
 
 
 

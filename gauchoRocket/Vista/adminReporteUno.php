@@ -20,7 +20,7 @@
                 </div>
             </div>
             
-            <form class='needs-validation' method='post' action='adminReporte.php'>
+            <form class='needs-validation' method='post' action='../Modelo/adminValidarReporte.php'>
                 <div class='form-row'>
                     
                     <div class='col-md-12 mb-3'>
@@ -98,6 +98,22 @@
                     </div>
                     
 <!--=============--><div class='col-md-12 mb-5'></div><!--==============================================================================-->
+                    
+                    <div class='col-md-6 mb-3'>
+                        <label class='font-weight-bold' for='validationTooltip01'><i class="far fa-calendar-alt"></i>  Período</label>
+                        <select class='custom-select' name='periodo'>
+                            <option selected value='0'>Seleccione período</option>
+                            <option value='1'>Días</option>
+                            <option value='2'>Semanas</option>
+                            <option value='3'>Meses</option>
+                            <option value='4'>Años</option>
+                        </select>
+                    </div>
+                    
+                    <div class='col-md-6 mb-3'>
+                        <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-calendar-alt"></i>  Antigüedad</label>
+                        <input class='custom-select' type="number" name="antiguedad">
+                    </div>
                     
                     <div class='col-md-12 mt-3'>
                         <button class='btn btn-primary w-100' type='submit' name='buscar'><i class="fas fa-flag"></i>  Generar reporte</button>
