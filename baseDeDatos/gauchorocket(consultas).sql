@@ -385,7 +385,7 @@ from viaje as v
     inner join relacionReservaTrayecto as reld on t.idTrayecto = reld.fkIdTrayecto
     inner join reserva as r on reld.fkCodigoReserva = r.codigo
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
-where ir.fechaQuePidioReserva between date_sub(now(), interval 1 day) and now() and v.codigo = 1
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1
 ;
 select * from itemReserva;
 /* ========== Cabina más solicitada en este viaje ========== */
@@ -396,7 +396,7 @@ from viaje as v
     inner join tipoDeCabina as t on c.fkCodigoTipoDeCabina = t.codigoTipoDeCabina
     inner join reserva as r on u.fkCodigoReserva = r.codigo
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
-where ir.fechaQuePidioReserva between date_sub(now(), interval 1 day) and now() and v.codigo = 1
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1
 group by c.codigoCabina
 order by cantidad desc
 LIMIT 1
@@ -412,7 +412,7 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where ir.fechaQuePidioReserva between date_sub(now(), interval 1 day) and now() and v.codigo = 1
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1
 group by ir.fkCodigoServicio
 order by cantidad desc
 LIMIT 1
@@ -421,11 +421,100 @@ LIMIT 1
 select *
 from itemReserva;
 
+/* ================================================= SERVICIO ================================================= */
+/* Cuantas veces se solicitó */
+/* Que vuelo más lo solicitó */
+/* En qué cabinas más se solicitó */
+/* En que equipos más se solicitó */
+select s.codigoServicio, count(s.fkcodigoTipoDeServicio) as cantidad, v.nombre as vuelo,
+	tc.descripcion as tipoCabina, te.descripcion as equipoTipo, e.modelo as equipoModelo
+from servicio as s
+	inner join itemReserva as ir on s.codigoServicio = ir.fkCodigoServicio
+    inner join reserva as r on ir.fkcodigoReserva = r.codigo
+    inner join ubicacion as u on r.codigo = u.fkCodigoReserva
+    inner join viaje as v on u.fkCodigoViaje = v.codigo
+    inner join cabina as c on u.fkCodigoCabina = c.codigoCabina
+    inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+    inner join equipo as e on v.matriculaEquipo = e.matricula
+    inner join tipoDeEquipo as te on e.fkcodigoTipoDeEquipo = te.codigo
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and s.fkcodigoTipoDeServicio = 1
+group by s.fkcodigoTipoDeServicio
+order by cantidad desc
+LIMIT 1;
+
 /* ================================================== CABINAS ================================================= */
-/* ========== Cantidad de veces que fue reservado ========== */
+/* ========== Cantidad de veces que fue solicitado ========== */
+select count(c.fkCodigoTipoDeCabina) as cantidad
+from cabina as c
+	inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+	inner join ubicacion as u on c.codigoCabina = u.fkCodigoCabina
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1
+group by c.fkCodigoTipoDeCabina;
 
+/* ========== Vuelos que más solicitaron la cabina ========== */
+select count(v.codigo) as cantidad, v.nombre as nombre
+from cabina as c
+	inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+	inner join ubicacion as u on c.codigoCabina = u.fkCodigoCabina
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join viaje as v on u.fkCodigoViaje = v.codigo
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1
+group by v.codigo
+order by cantidad desc
+LIMIT 1;
 
+/* ========== Servicio más solicitado para esta cabina ========== */
+select count(s.codigoServicio) as cantidad, ts.descripcion as nombre
+from cabina as c
+	inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+	inner join ubicacion as u on c.codigoCabina = u.fkCodigoCabina
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
+    inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1
+group by s.codigoServicio
+order by cantidad desc
+LIMIT 1;
 
+/* ========== Equipo en el que más se encuentra la cabina ========== */
+select count(e.fkcodigoTipoDeEquipo) as cantidad, te.descripcion as nombre
+from cabina as c
+	inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+	inner join ubicacion as u on c.codigoCabina = u.fkCodigoCabina
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join viaje as v on u.fkCodigoViaje = v.codigo
+    inner join equipo as e on v.matriculaEquipo = e.matricula
+    inner join tipoDeEquipo as te on e.fkcodigoTipoDeEquipo = te.codigo
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1
+group by e.fkcodigoTipoDeEquipo
+order by cantidad desc
+LIMIT 1;
+
+/* ================================================== EQUIPOS ================================================= */
+/* Cuantoas veces fue utilizado el tipo de equipo */
+/* En que vuelos más se encuentra*/
+/* Con cuántos asientos cuenta*/
+/* Servicio más utilizado*/
+select count(v.matriculaEquipo) as cantidad, e.modelo as modelo, v.nombre as vuelo,
+	e.capacidadSuit as suit, e.capacidadGeneral as gral, e.capacidadFamiliar as familiar,
+	ts.descripcion as servi
+from equipo as e
+	inner join tipoDeEquipo as te on e.fkcodigoTipoDeEquipo = te.codigo
+    inner join viaje as v on e.matricula = v.matriculaEquipo
+    inner join ubicacion as u on v.codigo = u.fkCodigoViaje
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
+    inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and e.fkcodigoTipoDeEquipo = 3
+group by e.matricula
+order by cantidad desc
+LIMIT 1;
 
 
 
