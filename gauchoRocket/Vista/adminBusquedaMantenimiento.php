@@ -57,7 +57,7 @@ include('../Modelo/validarPaginasParaAdministradores.php');
         $resultado = mysqli_query($conexion, $query);
         
         if(mysqli_num_rows($resultado) >= 1) {
-            include("../Vista/adminMantenimiento2.php");
+            include("adminMantenimiento2.php");
         }else{
             echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
                     No se encontró ningún viaje!
@@ -67,12 +67,12 @@ include('../Modelo/validarPaginasParaAdministradores.php');
             $query = "SELECT * FROM viaje GROUP BY nombre";
             
             $resultado = mysqli_query($conexion, $query);
-        include("../Vista/adminMantenimiento2.php");
+        include("../Vista/adminMantenimientoDos.php");
         }
     }else{
         $query = "SELECT * FROM viaje GROUP BY nombre";
         
         $resultado = mysqli_query($conexion, $query);
-        include("../Vista/admiMantenimiento2.php");
+        include("../Vista/adminMantenimientoDos.php");
     }
 ?>

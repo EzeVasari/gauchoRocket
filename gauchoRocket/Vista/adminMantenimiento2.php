@@ -16,8 +16,8 @@
                             <h5 class='card-title'> ". $viaje['nombre'] ."</h5>
                             <p class='card-text'> ". $viaje['descripcion'] . "</p>
                             <h5 class='text-center'>Desde: U$ ". $viaje['precio'] ."</h5>
-                            <a href='reserva.php?codigo=" . $viaje['codigo'] . "' class='btn btn-primary'>modificar</a>
-                            <a href='reserva.php?codigo=" . $viaje['codigo'] . "' class='btn btn-primary'>eliminar</a>
+                            <a href='modificarViaje.php?codigo=" . $viaje['codigo'] . "' class='btn btn-primary'>modificar</a>
+                            <a href='../Modelo/eliminarViaje.php?codigo=" . $viaje['codigo'] . "' class='btn btn-primary'>eliminar</a>
                           </div>
                     </div>
                 </div>
