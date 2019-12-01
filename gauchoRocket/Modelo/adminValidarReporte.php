@@ -9,17 +9,11 @@ if(isset($_POST["buscar"])){
     $periodo = $_POST["periodo"];
     $antiguedad = $_POST["antiguedad"];
     
-    
-    
-/* ========================================================================================================================================================= */
-    
-    
-    
 /* ======================================================================================== */
 /* ======================================== VUELOS ======================================== */
 /* ======================================================================================== */
-/* CANTIDAD DE VECES QUE SE RESERVÓ */
-    $queryVueloUno = "select count(v.codigo) as cantidad
+    /* Cantidad de veces que se reservó */
+    $queryVueloUno = "select count(v.codigo) as cantidad, v.nombre as nombre
                       from viaje as v
                         inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
                         inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
@@ -28,9 +22,9 @@ if(isset($_POST["buscar"])){
                         inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
                       where ir.fechaQuePidioReserva between date_sub(now(), interval ".$antiguedad." ".$periodo.") and now()
                         and v.codigo = ".$vuelo.";";
-    $resultadoVueloUno = mysqli_query($conexion, $queryVueloUno);
+    /*$resultadoVueloUno = mysqli_query($conexion, $queryVueloUno);*/
     
-/* CABINA MÁS SAOLICITADA DEL VUELO */
+    /* Cabina más solicitada del vuelo */
     $queryVueloDos = "select count(c.codigoCabina) as cantidad, t.descripcion as tipoCabina
                       from viaje as v
                         inner join ubicacion as u on v.codigo = u.fkCodigoViaje
@@ -43,9 +37,9 @@ if(isset($_POST["buscar"])){
                       group by c.codigoCabina
                       order by cantidad desc
                       LIMIT 1";
-    $resultadoVueloDos = mysqli_query($conexion, $queryVueloDos);
+    /*$resultadoVueloDos = mysqli_query($conexion, $queryVueloDos);*/
     
-/* CANTIDAD DE VECES QUE SE RESERVÓ */
+    /* Servicio más solicitado */
     $queryVueloTres = "select count(ir.fkCodigoServicio) as cantidad, ts.descripcion as tipoServicio
                        from viaje as v
                             inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
@@ -60,7 +54,7 @@ if(isset($_POST["buscar"])){
                        group by ir.fkCodigoServicio
                        order by cantidad desc
                        LIMIT 1";
-    $resultadoVueloTres = mysqli_query($conexion, $queryVueloTres);
+    /*$resultadoVueloTres = mysqli_query($conexion, $queryVueloTres);*/
 /* ======================================================================================== */
 /* ======================================== VUELOS ======================================== */
 /* ======================================================================================== */
@@ -78,8 +72,8 @@ if(isset($_POST["buscar"])){
     /* Que vuelo más lo solicitó */
     /* En qué cabinas más se solicitó */
     /* En que equipos más se solicitó */
-    $queryServicioUno = "select s.codigoServicio, count(s.fkcodigoTipoDeServicio) as cantidad, v.nombre as vuelo,
-	                        tc.descripcion as tipoCabina, te.descripcion as equipoTipo, e.modelo as equipoModelo
+    $queryServicioUno = "select count(s.fkcodigoTipoDeServicio) as cantidad, v.nombre as vuelo, tc.descripcion as tipoCabina,
+	                        te.descripcion as equipoTipo, e.modelo as equipoModelo, ts.descripcion as tipoServicio
                          from servicio as s
                             inner join itemReserva as ir on s.codigoServicio = ir.fkCodigoServicio
                             inner join reserva as r on ir.fkcodigoReserva = r.codigo
@@ -89,12 +83,13 @@ if(isset($_POST["buscar"])){
                             inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
                             inner join equipo as e on v.matriculaEquipo = e.matricula
                             inner join tipoDeEquipo as te on e.fkcodigoTipoDeEquipo = te.codigo
+                            inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
                        where ir.fechaQuePidioReserva between date_sub(now(), interval ".$antiguedad." ".$periodo.") and now()
-                            and s.fkcodigoTipoDeServicio = 1
+                            and s.fkcodigoTipoDeServicio = ".$servicio."
                          group by s.fkcodigoTipoDeServicio
                          order by cantidad desc
                          LIMIT 1;";
-    $resultadoServicioUno = mysqli_query($conexion, $queryServicioUno);
+    /*$resultadoServicioUno = mysqli_query($conexion, $queryServicioUno);*/
 /* ======================================================================================== */
 /* ======================================= SERVICIO ======================================= */
 /* ======================================================================================== */
@@ -118,7 +113,7 @@ if(isset($_POST["buscar"])){
                        where ir.fechaQuePidioReserva between date_sub(now(), interval ".$antiguedad." ".$periodo.") and now()
                             and c.fkCodigoTipoDeCabina = ".$cabina."
                        group by c.fkCodigoTipoDeCabina;";
-    $resultadoCabinaUno = mysqli_query($conexion, $queryCabinaUno);
+    /*$resultadoCabinaUno = mysqli_query($conexion, $queryCabinaUno);*/
     
 /* VUELO QUE MÁS SOLICITÓ LA CABINA */    
     $queryCabinaDos = "select count(v.codigo) as cantidad, v.nombre as nombre
@@ -133,7 +128,7 @@ if(isset($_POST["buscar"])){
                        group by v.codigo
                        order by cantidad desc
                        LIMIT 1;";
-    $resultadoCabinaDos = mysqli_query($conexion, $queryCabinaDos);
+    /*$resultadoCabinaDos = mysqli_query($conexion, $queryCabinaDos);*/
     
 /* SERVICIO MÁS SOLICITADO PARA LA CABINA */ 
     $queryCabinaTres = "select count(s.codigoServicio) as cantidad, ts.descripcion as nombre
@@ -149,7 +144,7 @@ if(isset($_POST["buscar"])){
                         group by s.codigoServicio
                         order by cantidad desc
                         LIMIT 1;";
-    $resultadoCabinaTres = mysqli_query($conexion, $queryCabinaTres);
+    /*$resultadoCabinaTres = mysqli_query($conexion, $queryCabinaTres);*/
     
 /* EQUIPO EN EL QUE MÁS SE ENCUENTRA LA CABINA */
     $queryCabinaCuatro = "select count(e.fkcodigoTipoDeEquipo) as cantidad, te.descripcion as nombre
@@ -166,7 +161,7 @@ if(isset($_POST["buscar"])){
                         group by e.fkcodigoTipoDeEquipo
                         order by cantidad desc
                         LIMIT 1;";
-    $resultadoCabinaCuatro = mysqli_query($conexion, $queryCabinaCuatro);
+    /*$resultadoCabinaCuatro = mysqli_query($conexion, $queryCabinaCuatro);*/
 /* ======================================================================================== */
 /* ======================================== CABINAS ======================================= */
 /* ======================================================================================== */
@@ -198,7 +193,7 @@ if(isset($_POST["buscar"])){
                        group by e.matricula
                        order by cantidad desc
                        LIMIT 1;";
-    $resultadoEquipoUno = mysqli_query($conexion, $queryEquipoUno);
+    /*$resultadoCabinaCuatro = mysqli_query($conexion, $queryCabinaCuatro);*/
 /* ======================================================================================== */
 /* ======================================== EQUIPO ======================================== */
 /* ======================================================================================== */
@@ -206,13 +201,15 @@ if(isset($_POST["buscar"])){
     
     
     
-    /*
-    if() {
+    
+    /*if($resultadoVueloUno || $resultadoVueloDos || $resultadoVueloTres || $resultadoServicioUno || $resultadoCabinaUno || $resultadoCabinaDos || $resultadoCabinaTres || $resultadoCabinaCuatro || $resultadoEquipoUno)*/
+    if($vuelo != 0 || $servicio != 0 || $cabina != 0 || $equipo != 0 and $periodo and $antiguedad){
+        /*echo "HOLA";*/
         include('../Vista/adminReporteDos.php');
     }else{
-        include('../Vista/adminReporteDos.php');
-    }*/
+        /*echo "CHAU";*/
+        include('../Vista/adminReporteTres.php');
+    }
 }
 
-include('../Vista/adminReporteDos.php');
 ?>

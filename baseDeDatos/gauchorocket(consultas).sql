@@ -378,7 +378,7 @@ where r.codigo like '7rvxbj';
 
 /* ================================================== VUELOS ================================================== */
 /* ========== Cantidad de veces que fue reservado ========== */
-select count(v.codigo) as cantidad
+select count(v.codigo) as cantidad, v.nombre as nombre
 from viaje as v
 	inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
 	inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
@@ -386,8 +386,10 @@ from viaje as v
     inner join reserva as r on reld.fkCodigoReserva = r.codigo
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
 where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1
-;
-select * from itemReserva;
+;/*7*/
+
+
+
 /* ========== Cabina más solicitada en este viaje ========== */
 select count(c.codigoCabina) as cantidad, t.descripcion as tipoCabina
 from viaje as v
@@ -399,8 +401,7 @@ from viaje as v
 where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1
 group by c.codigoCabina
 order by cantidad desc
-LIMIT 1
-;
+LIMIT 1;/* 4 - general */
 
 /* ========== Servicio más solicitado en este viaje ========== */
 select count(ir.fkCodigoServicio) as cantidad, ts.descripcion as tipoServicio
@@ -418,16 +419,13 @@ order by cantidad desc
 LIMIT 1
 ;
 
-select *
-from itemReserva;
-
 /* ================================================= SERVICIO ================================================= */
 /* Cuantas veces se solicitó */
 /* Que vuelo más lo solicitó */
 /* En qué cabinas más se solicitó */
 /* En que equipos más se solicitó */
-select s.codigoServicio, count(s.fkcodigoTipoDeServicio) as cantidad, v.nombre as vuelo,
-	tc.descripcion as tipoCabina, te.descripcion as equipoTipo, e.modelo as equipoModelo
+select count(s.fkcodigoTipoDeServicio) as cantidad, v.nombre as vuelo, tc.descripcion as tipoCabina,
+	te.descripcion as equipoTipo, e.modelo as equipoModelo, ts.descripcion as tipoServicio
 from servicio as s
 	inner join itemReserva as ir on s.codigoServicio = ir.fkCodigoServicio
     inner join reserva as r on ir.fkcodigoReserva = r.codigo
@@ -437,6 +435,7 @@ from servicio as s
     inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
     inner join equipo as e on v.matriculaEquipo = e.matricula
     inner join tipoDeEquipo as te on e.fkcodigoTipoDeEquipo = te.codigo
+    inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
 where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and s.fkcodigoTipoDeServicio = 1
 group by s.fkcodigoTipoDeServicio
 order by cantidad desc
@@ -450,8 +449,9 @@ from cabina as c
 	inner join ubicacion as u on c.codigoCabina = u.fkCodigoCabina
     inner join reserva as r on u.fkCodigoReserva = r.codigo
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join viaje as v on u.fkCodigoViaje = v.codigo
 where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1
-group by c.fkCodigoTipoDeCabina;
+group by c.fkCodigoTipoDeCabina;/* 9 */
 
 /* ========== Vuelos que más solicitaron la cabina ========== */
 select count(v.codigo) as cantidad, v.nombre as nombre
@@ -496,7 +496,7 @@ order by cantidad desc
 LIMIT 1;
 
 /* ================================================== EQUIPOS ================================================= */
-/* Cuantoas veces fue utilizado el tipo de equipo */
+/* Cuantas veces fue utilizado el tipo de equipo */
 /* En que vuelos más se encuentra*/
 /* Con cuántos asientos cuenta*/
 /* Servicio más utilizado*/
