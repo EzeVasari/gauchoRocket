@@ -37,6 +37,7 @@ $query3 = " UPDATE trayecto SET fkcodigoLugarDestino='".$destino."'
  	    $query4 ="insert into relacionviajetrayecto (fkIdTrayecto,fkCodigoViaje)
         values('".$idTrayecto."','".$codigoVuelo."')";
           $insert4 = mysqli_query($conexion, $query4);
+          header('location:../Vista/ingresoTrayectoValido.php?vuelo='.$codigoVuelo.'&codigoTrayecto='.$idTrayecto.'');
  }else
  {
  	echo "no salio";
