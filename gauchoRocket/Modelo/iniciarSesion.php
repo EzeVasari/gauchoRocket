@@ -49,6 +49,12 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
+        }elseif ($_GET["m"] == 9){
+            echo '<br><div class="alert alert-danger mt-5" role="alert">
+                    Su nivel de vuelo no permite reservar en este vuelo.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';
         }
     }
 
