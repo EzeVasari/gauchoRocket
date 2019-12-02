@@ -27,7 +27,7 @@
                     </p>
                 </div>
             </div>
-            <form class='needs-validation' method='post' action='adminBusquedaMantenimiento.php'>
+            <form class='needs-validation' method='post' action='adminMantenimiento.php'>
                 <div class='form-row'>
                     <div class='col-md-6 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip01'><i class='fas fa-plane-departure'></i>  Origen</label>
@@ -86,6 +86,9 @@ $consulta="SELECT DISTINCT l.codigo as codigo, l.nombre as nombre
 <br>
 <br>
 
+<?php
+include('adminBusquedaMantenimiento.php');
+?>
 
        
                 

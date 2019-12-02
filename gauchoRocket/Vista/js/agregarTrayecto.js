@@ -7,23 +7,25 @@ $(document).ready(function(){
         
     
         
-<<<<<<< HEAD
+
 
        
 
-        var fieldHTML = "<div class='col-sm-7' id='contenedor1'><label class='col-form-label'>trayecto</label><select class='custom-select' name='trayecto'><option selected value='0'>Seleccione trayecto</option><?php$consulta='SELECT  idTrayecto as codigo, nombreTrayecto as nombre FROM  trayecto '; $resultado = mysqli_query($conexion, $consulta); while($recorrer = mysqli_fetch_assoc($resultado)){ echo ' <option value=''. $recorrer['codigo'] .''>'. $recorrer['nombre'] .'</option>'; } ?></select></div>"; //Nuevos inputs 
-
-=======
-        var fieldHTML = "<div class='col-sm-7' id='contenedor1'><label class='col-form-label'>trayecto</label><select class='custom-select' name='trayecto'><option selected value='0'>Seleccione trayecto</option><?php $consulta='SELECT  idTrayecto as codigo, nombreTrayecto as nombre FROM  trayecto '; $resultado = mysqli_query($conexion, $consulta); while($recorrer = mysqli_fetch_assoc($resultado)){ echo ' <option value=''. $recorrer['codigo'] .''>'. $recorrer['nombre'] .'</option>'; } ?></select></div>"; //Nuevos inputs 
->>>>>>> e52984b51e04d4fa0f19c0688271bb111ce629a6
         
-        var datos=fieldHTML;
+
+
+        var fieldHTML = "<div class='col-sm-7' id='contenedor1'><label class='col-form-label'>trayecto</label><select class='custom-select' name='trayecto'>"
+
+        
+        var datos="<option selected value='0'>Seleccione trayecto</option><?php";
+        var consulta="$consulta='SELECT  idTrayecto as codigo, nombreTrayecto as nombre FROM  trayecto '; $resultado = mysqli_query($conexion, $consulta); while($recorrer = mysqli_fetch_assoc($resultado)){ echo ' <option value=''. $recorrer['codigo'] .''>'. $recorrer['nombre'] .'</option>'; } ?></select></div>"; //Nuevos inputs ;
         var x = 0; // Iniciamos el contador a 2
         
         $(addButton).click(function(){ // Una vez que se haga click en el boton
             if(x <= maxField){ //Comprobamos el maximo
                 x++; //Incrementar
-                $(wrapper).append(datos); // Añadimos el HTML
+                $(wrapper).append(fieldHTML+datos+consulta)
+
             }
         });
         

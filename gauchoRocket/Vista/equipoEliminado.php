@@ -25,7 +25,7 @@
                     <p class="text-muted">
                         puede volver a eliminar un Equipo accediendo en  eliminar otro o volver al inicio
                     </p>
-                    <a href='adminMantenimiento.php' class='btn btn-primary'> eliminar otro Equipo</a>
+                    <a href='eliminarEquipo.php' class='btn btn-primary'> eliminar otro Equipo</a>
                             <a href='adminMantenimientoIndex.php' class='btn btn-primary'>Inicio</a>
                 </div>
             </div>

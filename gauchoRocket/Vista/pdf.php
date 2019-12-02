@@ -38,11 +38,13 @@ include('../Modelo/conexion.php');
 
 
 	$query = "select v.nombre as viaje, i.fkCodigoReserva as reserva, i.idItemReserva as item, i.pago as pago
-                                                              from ItemReserva as i
+        from ItemReserva as i
                                                                    inner join reserva as r on i.fkcodigoReserva = r.codigo
-	                                                               inner join viaje as v on r.codigoViaje = v.codigo
-                                                                   inner join relacionClienteItemReserva as rel on i.idItemReserva = rel.fkIdItemReserva
-                                                              where i.idItemReserva like '".$reserva."'and rel.fkEmailCliente like'".$cliente."';";
+                                                                   inner join relacionReservaTrayecto as rrt on r.codigo= rrt.fkCodigoReserva
+                                                                   inner join relacionViajeTrayecto as rvt on rvt.fkIdTrayecto= rrt.fkIdTrayecto
+                                                                   inner join viaje as v on v.codigo= rvt.fkCodigoViaje
+                                                                   inner join relacionClienteItemReserva as rci on i.idItemReserva = rci.fkIdItemReserva
+                                                              where i.idItemReserva like '".$reserva."'and rci.fkEmailCliente like'".$cliente."';";
                                  $resultado = mysqli_query($conexion, $query);
                                  while($row = mysqli_fetch_assoc($resultado)){
                                  	$this->cell(30,1,'Su destino:');
