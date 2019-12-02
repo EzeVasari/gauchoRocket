@@ -21,7 +21,7 @@
         return $key;
     }
     
-    
+
     if(isset($_GET["codigo"])) {
     
         $codigo = $_GET["codigo"];
@@ -47,7 +47,7 @@
     
     $codigoReserva =  generarCodigoReserva(6); 
         
-    
+    echo $codigoReserva;
     
     if(!empty($_POST["nombres"]) && !empty($_POST["apellidos"]) && !empty($_POST["documentos"]) && !empty($_POST["emails"])){
         $nombres = $_POST["nombres"];
@@ -108,7 +108,7 @@
                 }
             
             }
-            
+
                 $queryReserva = "INSERT INTO reserva (codigo) VALUES ('".$codigoReserva."')";
                 $registroReserva = mysqli_query($conexion, $queryReserva);
 
@@ -139,9 +139,11 @@
                         $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente, fecha) VALUES (".$idItemReserva.", '".$e."', now())";
 
                         $queryRelacionTrayecto = "INSERT INTO relacionReservaTrayecto (fkCodigoReserva, fkIdTrayecto) VALUES ('".$codigoReserva."', ".$trayecto["idTrayecto"].")";
+                        
+                        echo "<br><br>". $codigoReserva;
 
-                        $registro = mysqli_query($conexion, $queryRelacion);
-                        $registro = mysqli_query($conexion, $queryRelacionTrayecto);
+                        $registroClienteItemReserva = mysqli_query($conexion, $queryRelacion);
+                        $registroReservaTrayecto = mysqli_query($conexion, $queryRelacionTrayecto);
 
 
                     }else {
@@ -155,7 +157,7 @@
                         $insertDos = mysqli_query($conexion, $queryDos);
 
                         $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente, fecha) VALUES (".$idItemReserva.", '".$e."', now())";
-                        $registro = mysqli_query($conexion, $queryRelacion);
+                        $registroClienteItemReserva = mysqli_query($conexion, $queryRelacion);
 
                         /* == Envio de email == */
                         $asunto = "Confirmación de cuenta | Gaucho Rocket"; 
@@ -206,7 +208,7 @@
 
                     }  
                 }
-                if($registro){
+                if($registroClienteItemReserva && $registroReservaTrayecto){
                     if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi'] || !$verifAsientos){
                         echo '<br><div class="alert alert-success mt-5" role="alert">
                                 Usted se encuentra en lista de espera. Será informado...

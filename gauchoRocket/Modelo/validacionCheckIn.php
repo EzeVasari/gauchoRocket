@@ -51,7 +51,9 @@
 
                         foreach($ubicaciones as $u){
 
-                            $queryUbicacion = "INSERT INTO ubicacion (estado, fkIdtrayecto, fkCodigoViaje, fkCodigoCabina, fkCodigoReserva, nroUbicacion) VALUES (false, ".$trayecto['idTrayecto'].", ".$trayecto["codigoViaje"].", ".$cabina.", '".$codigoReserva."', ".$u.")";
+                            $queryUbicacion = "UPDATE ubicacion 
+                                               SET estado = false, nroUbicacion = ".$u."
+                                               WHERE idTrayecto = ".$trayecto['idTrayecto']." and fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$trayecto["codigoViaje"]." and fkCodigoReserva = '".$codigoReserva."'";
                             
                             $resultadoUbicacion = mysqli_query($conexion, $queryUbicacion);    
                         }    

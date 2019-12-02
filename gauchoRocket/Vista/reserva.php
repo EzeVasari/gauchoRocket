@@ -4,6 +4,7 @@ include("../Modelo/validacionReserva.php");
 ?>
 <!DOCTYPE html>
 <html>
+   <script type="text/javascript" src="js/agregarPersona.js"></script>
     <body>
         <div class="container" style="margin-top: 5rem;">
            <h3 class="font-weight-bold" >Reserva</h3>
