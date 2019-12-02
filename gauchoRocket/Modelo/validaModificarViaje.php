@@ -14,25 +14,26 @@ $origen = $_POST["origen"];
 
     $modificar1 = "UPDATE viaje SET nombre = '". $nombre ."' 
     WHERE codigo =  '". $codigoVuelo . "'";
-$resultado1 = mysqli_query($conexion, $buscar);
+$resultado1 = mysqli_query($conexion, $modificar1);
 
 $modificar2 = "UPDATE viaje SET descripcion = '". $descripcion ."' 
     WHERE codigo =  '". $codigoVuelo . "'";
-$resultado2 = mysqli_query($conexion, $buscar);
+$resultado2 = mysqli_query($conexion, $modificar2);
 
 $modificar3 = "UPDATE viaje SET precio = '". $precio ."' 
     WHERE codigo =  '". $codigoVuelo . "'";
-$resultado3 = mysqli_query($conexion, $buscar);
+$resultado3 = mysqli_query($conexion, $modificar3);
 
-$modificar4 = "UPDATE viaje SET destino = '". $destino ."' 
+
+
+if ($resultado1==TRUE && $resultado2==TRUE && $resultado3== TRUE) {
+  $modificar4 = "UPDATE viaje SET destino = '". $destino ."' 
     WHERE codigo =  '". $codigoVuelo . "'";
-$resultado4 = mysqli_query($conexion, $buscar);
+$resultado4 = mysqli_query($conexion, $modificar4);
 
 $modificar5 = "UPDATE viaje SET origen = '". $origen ."' 
     WHERE codigo =  '". $codigoVuelo . "'";
-$resultado5 = mysqli_query($conexion, $buscar);
-
-if ($resultado1==TRUE && $resultado2==TRUE && $resultado3== TRUE && $resultado4== TRUE && $resultado5==TRUE) {
+$resultado5 = mysqli_query($conexion, $modificar5);
   echo "algo";
 }
 else
