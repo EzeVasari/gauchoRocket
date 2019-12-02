@@ -237,13 +237,13 @@
 
                     echo "<div class='container mt-5'> 
                             <div class='card mb-3' style='max-width: 840px;'>
-                              <div class='row no-gutters justify-content-md-center'>
+                              <div class='row no-gutters justify-content-center'>
                                 <div class='col-md-4'>
                                   <img src='../Vista/".$reserva['img']."' class='card-img'>
                                 </div>
                                 <div class='col-md-8'>
                                   <div class='card-body'>
-                                    <h5 class='card-title'>".$reserva['nombre']." - (".$reserva['codigo'].")</h5>
+                                    <h5 class='card-title'>".$reserva['nombre']." (".$reserva['codigo'].")</h5>
                                     <div class'row'>
                                         <p>".$reserva['descripcion']."</p>
                                     </div>
