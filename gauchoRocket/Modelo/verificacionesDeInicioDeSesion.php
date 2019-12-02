@@ -58,7 +58,6 @@ $i;
 
 while($reservas = mysqli_fetch_assoc($resultadoReservas)){
 
-    if($reservas['numNivel'] != $nivelCliente){
     if($reservas['numNivel'] <> $nivelCliente){
         $itemReserva = "select fkCodigoReserva as reser
                         from itemReserva
@@ -89,58 +88,3 @@ while($reservas = mysqli_fetch_assoc($resultadoReservas)){
 }
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

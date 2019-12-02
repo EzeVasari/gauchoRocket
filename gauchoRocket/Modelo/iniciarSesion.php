@@ -104,7 +104,6 @@
         /* mysqli_stmt_fetch */
     if(mysqli_stmt_fetch($query)){
         if($mailPass == md5($pass)){
-            session_start();
 	        $_SESSION['user'] = $email;
             setcookie('login', $email, time()+1000);
             if($mailRol == false){
