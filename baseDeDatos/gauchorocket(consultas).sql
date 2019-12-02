@@ -648,7 +648,7 @@ FROM relacionClienteItemReserva AS rcr
                     On rrt.fkIdTrayecto = t.idTrayecto
                   WHERE ir.idItemReserva = 1286;
 
- time(v.fecha) as hora, date(v.fecha) as fecha
+ time(v.fecha) as hora, date(v.fecha) as fecha;
  
  
  SELECT ir.fkCodigoReserva AS codigo, time(v.fecha) as hora, date(v.fecha) as fecha, v.imagen AS img, v.nombre AS nombreViaje, v.descripcion AS descripcion, v.precio AS precio
@@ -663,13 +663,38 @@ FROM relacionClienteItemReserva AS rcr
                     On rrt.fkIdTrayecto = t.idTrayecto
                   WHERE ir.idItemReserva = 1286;
 
+SELECT e.fkcodigoTipoDeEquipo as numNivel, ir.idItemReserva as itRev
+FROM viaje as v
+	inner join equipo as e on v.matriculaEquipo = e.matricula
+    inner join ubicacion as u on v.codigo = u.fkCodigoViaje
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
+where rel.fkEmailCliente like 'cuatro@gmail.com'
+;
+
 UPDATE ubicacion as u INNER JOIN trayecto as t
 	ON u.fkIdTrayecto = t.idTrayecto
 SET estado = false, nroUbicacion = 17
 WHERE idTrayecto = 1 and fkCodigoCabina = 1 and fkCodigoViaje = 1 and fkCodigoReserva = 'fmd1t3';
 
+select *
+from cliente
+;
 
+select ir.idItemReserva, ir.fkCodigoReserva, rel.fkEmailCliente, c.nivelVuelo
+from itemReserva ir
+	inner join relacionClienteItemReserva rel on ir.idItemReserva = rel.fkIdItemReserva
+    inner join cliente c on c.fkEmailUsuario = rel.fkEmailCliente
+order by rel.fkEmailCliente
+;
+/*
+1678
+rmf8go
+*/
 
+select * from relacionClienteItemReserva;
+delete from relacionClienteItemReserva where fkIdItemReserva = 1678;
 
 SELECT t.nombreTrayecto as nombreTrayecto, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino 
 FROM reserva AS r 
@@ -679,10 +704,17 @@ ON r.codigo = rrt.fkCodigoReserva
 INNER JOIN trayecto as t
 On rrt.fkIdTrayecto = t.idTrayecto
 WHERE r.codigo = 'u4i2d0';
+select * from itemReserva;
+delete from itemReserva where idItemReserva = 1678;
 
+select * from ubicacion where fkCodigoReserva like 'rmf8go';
+delete from ubicacion where fkCodigoReserva like 'rmf8go';
 
+select * from relacionreservatrayecto where fkCodigoReserva like 'rmf8go';
+delete from relacionreservatrayecto where fkCodigoReserva like 'rmf8go';
 
-
+select * from reserva where codigo like 'rmf8go';
+delete from reserva where codigo like 'rmf8go';
 
 
 

@@ -50,9 +50,26 @@
                     <span aria-hidden="true">&times;</span>
                 </div>';
         }
-
     }
-       
+    if(isset($_GET["i"])){
+        if($_GET["i"] == 1){
+            echo '<br><div class="alert alert-danger mt-5" role="alert">
+                    NO ENTRÓ AL CICLO
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';
+        }elseif($_GET["i"] == 2){
+            echo '<br><div class="alert alert-warning mt-5" role="alert">
+                    ENTRÓ AL CICLO.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';
+        }
+        
+    }
+    
+    
+    
     $email = ' ';
     
     if(isset($_COOKIE['login'])){    
@@ -107,7 +124,7 @@
                 /* cerrar sentencia */
                 mysqli_stmt_close($query);
                 
-                header('Location: ../Vista/adminIndex.php?m=1');
+                header('Location: ../Vista/adminIndex.php?m=1&i='.$i.'');
             }
             
         }else{
