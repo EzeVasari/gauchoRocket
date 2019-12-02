@@ -47,7 +47,6 @@
     
     $codigoReserva =  generarCodigoReserva(6); 
         
-    echo $codigoReserva;
     
     if(!empty($_POST["nombres"]) && !empty($_POST["apellidos"]) && !empty($_POST["documentos"]) && !empty($_POST["emails"])){
         $nombres = $_POST["nombres"];
@@ -140,7 +139,6 @@
 
                         $queryRelacionTrayecto = "INSERT INTO relacionReservaTrayecto (fkCodigoReserva, fkIdTrayecto) VALUES ('".$codigoReserva."', ".$trayecto["idTrayecto"].")";
                         
-                        echo "<br><br>". $codigoReserva;
 
                         $registroClienteItemReserva = mysqli_query($conexion, $queryRelacion);
                         $registroReservaTrayecto = mysqli_query($conexion, $queryRelacionTrayecto);
@@ -208,7 +206,7 @@
 
                     }  
                 }
-                if($registroClienteItemReserva && $registroReservaTrayecto){
+                if($registroClienteItemReserva){
                     if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi'] || !$verifAsientos){
                         echo '<br><div class="alert alert-success mt-5" role="alert">
                                 Usted se encuentra en lista de espera. Será informado...
