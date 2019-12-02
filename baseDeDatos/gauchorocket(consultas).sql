@@ -760,11 +760,15 @@ on r.codigo = rrt.fkCodigoReserva inner join  itemReserva as ir on
 ir.fkcodigoReserva= r.codigo inner join tipoDeServicio as tds on
  ir.fkCodigoServicio = tds.codigoTipoDeServicio inner join tipoDeCabina 
  as tdc on tdc.codigoTipoDeCabina= ir.fkCodigoCabina
- inner join relacionClienteItemReserva as rci on rci.fkIdItemReserva = ir.idItemReserva
+ inner join relacionClienteItemReserva as rci on rci.fkIdItemReserva = ir.idItemReserva;
 
 
 
-
+SELECT v.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombre as nombre 
+FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
+	ON t.idTrayecto = rvt.fkIdTrayecto
+INNER JOIN viaje as v
+	ON rvt.fkCodigoViaje = v.codigo;
 
 
 

@@ -84,7 +84,11 @@
      header('Location: ../Vista/pagoExitoso.php?reserva='.$codigoReserva.'');
 
     }else{
-       header('Location: ../Vista/ingresoDePago.php?reserva='.$codigoReserva.'');
+      echo '<br><div class="alert alert-warning mt-5" role="alert">
+                                Tarjeta invalida. <a class="alert-link" href="../Vista/ingresoDePago.php?reserva='.$codigoReserva.'">Volver a interntar.</a>.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </div>'; 
     }
 
   

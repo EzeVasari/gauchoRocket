@@ -10,8 +10,8 @@
 
 
 
-    if(isset($_GET["codigo"])){
-        $codigoReserva = $_GET["codigo"];
+    if(isset($_GET["reserva"])){
+        $codigoReserva = $_GET["reserva"];
         $codigoViaje = $_GET["viaje"];
     }
 

@@ -52,21 +52,10 @@
         }
     }
     if(isset($_GET["i"])){
+        
         if($_GET["i"] == 1){
-            echo '<br><div class="alert alert-warning mt-5" role="alert">
-                    NO ENTRÓ AL CICLO
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </div>';
-        }elseif($_GET["i"] == 2){
-            echo '<br><div class="alert alert-warning mt-5" role="alert">
-                    ENTRÓ AL CICLO WHILE
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </div>';
-        }elseif($_GET["i"] == 3){
-            echo '<br><div class="alert alert-warning mt-5" role="alert">
-                    ENTRÓ AL IF
+            echo '<br><div class="alert alert-danger mt-1" role="alert">
+                    Algunas de sus reservas fueron dadas de baja por nivel de vuelo.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>';
