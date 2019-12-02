@@ -712,7 +712,14 @@ delete from reserva where codigo like 'rmf8go';
 
 
 
-
+SELECT e.fkcodigoTipoDeEquipo as numNivel, ir.idItemReserva as itRev
+                FROM viaje as v
+                    inner join equipo as e on v.matriculaEquipo = e.matricula
+                    inner join ubicacion as u on v.codigo = u.fkCodigoViaje
+                    inner join reserva as r on u.fkCodigoReserva = r.codigo
+                    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+                    inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
+                where rel.fkEmailCliente like 'cuatro@gmail.com'
 
 
 

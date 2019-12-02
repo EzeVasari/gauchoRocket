@@ -49,7 +49,7 @@ $queryReservas = "SELECT e.fkcodigoTipoDeEquipo as numNivel, ir.idItemReserva as
                     inner join reserva as r on u.fkCodigoReserva = r.codigo
                     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
                     inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
-                where rel.fkEmailCliente like '".$usuario."'";
+                where rel.fkEmailCliente like '".$usuario."';";
 $resultadoReservas = mysqli_query($conexion, $queryViajes);
 
 /*EMPIEZA LA VALIDACION DE RESERVAS*/
@@ -57,6 +57,7 @@ $resultadoReservas = mysqli_query($conexion, $queryViajes);
 $i = 1;
 
 while($reservas = mysqli_fetch_assoc($resultadoReservas)){
+    $i = 2;
     if($reservas['numNivel'] <> $nivelCliente){
         $itemReserva = "select fkCodigoReserva as reser
                         from itemReserva
@@ -82,7 +83,7 @@ while($reservas = mysqli_fetch_assoc($resultadoReservas)){
         $deleteCinco = "delete from reserva where codigo like '".$codRev."';";
         $resulDeleteCinco = mysqli_query($conexion, $deleteCinco);
         
-        $i = 2;
+        $i = 3;
     }
 }
 
