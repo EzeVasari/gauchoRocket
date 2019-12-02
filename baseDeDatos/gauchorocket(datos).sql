@@ -22,8 +22,8 @@ insert into tipoDeViaje (codigo, descripcion) values
 insert into tipoDeEquipo (codigo, descripcion) values
 (1, 'Baja aceleracion'),
 (2, 'Alta aceleracion'),
-(3, 'Orbitales'),
-(4, 'SubOrbitales');
+(3, 'Orbitales')/*,
+(4, 'SubOrbitales')*/;
 
 insert into equipo (matricula, modelo, capacidadSuit, capacidadGeneral, capacidadFamiliar, fkCodigoTipoDeEquipo) values
 ('AA1', 'Aguila', 25, 200, 75, 2),
@@ -73,8 +73,8 @@ insert into equipo (matricula, modelo, capacidadSuit, capacidadGeneral, capacida
 ('BA3', 'Zorzal', 0, 50, 50, 1); 
 
 insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, matriculaEquipo) values
-(1, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2020.10.25 12:00:00', 2, 4, 2, 'O1'),
-(2, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2020.10.22 12:00:00', 1, 4, 2, 'O1'),
+(1, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2019.12.02 21:30:00', 2, 4, 2, 'O1'),
+(2, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2019.12.02 21:30:00', 1, 4, 2, 'O1'),
 (4, 'img/titan.jpg', 'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 1, 8, 1, 'O1');
 /* A LOS SIGUIENTES HAY QUE ESTABLECER 1 DÍA MÁS TARDE DESDE LA FECHA EN QUE SE DECIDA HACER LA PRIUEBA 
 (7, 'img/prueba.jpg', 'VUELO DE PRUEBA 1.', 11000, 'Se abonó a tiempo',      '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE y "pago" a TRUE
@@ -121,37 +121,29 @@ insert into relacionViajeTrayecto (fkCodigoViaje, fkIdTrayecto) values
 (2, 13),
 (2, 14);
 
-insert into ubicacion(filaUbicacion,columnaUbicacion, estado, fkIdTrayecto, fkCodigoViaje, fkCodigoCabina) values
-('A', 1, false, 1, 1, 1),
-('A', 2, true, 1, 1, 1),
-('A', 3, true, 1, 1, 1),
-('A', 4, true, 1, 1, 1),
-('A', 5, true, 1, 1, 1),
-('A', 6, true, 1, 1, 1),
-('A', 7, true, 1, 1, 1),
-('A', 8, true, 1, 1, 1),
-('A', 9, true, 1, 1, 1),
-('A', 10, true, 1, 1, 1),
-('B', 1, true, 3, 1, 1),
-('B', 2, true, 3, 1, 1),
-('B', 3, true, 3, 1, 1),
-('B', 4, true, 3, 1, 1),
-('B', 5, true, 3, 1, 1),
-('B', 6, true, 3, 1, 1);
- 
-
 insert into usuario (dni, rol, nombre, apellido, fechaDeNacimiento, email, active) values
-(1234, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com', true),
-(2345, false, 'Cesar','Noso', '2000.01.01', 'dos@gmail.com', true),
-(10, false, 'Micho','Tito', '1992.08.10', 'tres@gmail.com', true),
-(1, true, 'Ala','Cran', '1992.08.10', 'admin@gmail.com', true);
+(1, true, 'Ala','Cran', '1992.08.10', 'admin@gmail.com', true),
+(1111, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com', true),
+(2222, false, 'Cesar','Noso', '2000.02.02', 'dos@gmail.com', true),
+(3333, false, 'Micho','Tito', '2000.03.03', 'tres@gmail.com', true),
+(4444, false, 'Lola','Mento', '2000.04.04', 'cuatro@gmail.com', true),
+(5555, false, 'Soila','Cerda', '2000.05.05', 'cinco@gmail.com', true),
+(6666, false, 'Paca','Garte', '2000.06.06', 'seis@gmail.com', true),
+(7777, false, 'Ana','Tomia', '2000.07.07', 'siete@gmail.com', true),
+(8888, false, 'Helen','Chufe', '2000.08.08', 'ocho@gmail.com', true),
+(9999, false, 'Marcia','Ana', '2000.09.09', 'nueve@gmail.com', true);
 
 insert into login (pass, fkEmailUsuario) values
+(md5('asd'), 'admin@gmail.com'),
 (md5('asd'), 'uno@gmail.com'),
 (md5('asd'), 'dos@gmail.com'),
 (md5('asd'), 'tres@gmail.com'),
-(md5('asd'), 'admin@gmail.com');
-
+(md5('asd'), 'cuatro@gmail.com'),
+(md5('asd'), 'cinco@gmail.com'),
+(md5('asd'), 'seis@gmail.com'),
+(md5('asd'), 'siete@gmail.com'),
+(md5('asd'), 'ocho@gmail.com'),
+(md5('asd'), 'nueve@gmail.com');
 
 insert into centroMedico (codigo, turnos, codigoLugar, imagen) values
 (1, 200, 1, 'img/centrosMedicos/buenosaires.jpg'),
@@ -159,9 +151,15 @@ insert into centroMedico (codigo, turnos, codigoLugar, imagen) values
 (3, 200, 13, 'img/centrosMedicos/shanghai.jpg');
 
 insert into cliente (fkEmailUsuario, verifMedica, nivelVuelo, montoDecompras) values
-('uno@gmail.com', false, null, 0),
-('dos@gmail.com', true, 1, 0),
-('tres@gmail.com', false, null, 0);
+('uno@gmail.com', true, 1, 0),
+('dos@gmail.com', true, 2, 0),
+('tres@gmail.com', true, 3, 0),
+('cuatro@gmail.com', false, null, 0),
+('cinco@gmail.com', false, null, 0),
+('seis@gmail.com', false, null, 0),
+('siete@gmail.com', false, null, 0),
+('ocho@gmail.com', false, null, 0),
+('nueve@gmail.com', false, null, 0);
 
 insert into admin (fkEmailUsuario, id) values
 ('admin@gmail.com', 1);
@@ -173,7 +171,9 @@ insert into tipoDeServicio (codigoTipoDeServicio, descripcion, precio) values
 
 /* ====== NECESARIO INCLUIR EN LA BD PORQUE EL USUARIO 2 YA REALIZÓ SU TURNO MÉDICO ====== */
 insert into turnoMedico (fkEmailCliente, fechaTurnoMedico, codigoLugar, nombreLugar) values
-('dos@gmail.com', '2019.01.01 17:00:00', 1, 'Buenos Aires');
+('uno@gmail.com', '2019.01.01 17:00:00', 1, 'Buenos Aires'),
+('dos@gmail.com', '2019.01.01 17:00:00', 1, 'Buenos Aires'),
+('tres@gmail.com', '2019.01.01 17:00:00', 1, 'Buenos Aires');
 /* ======================================================================================= */
 
 insert into servicio (codigoServicio, fkcodigoTipoDeServicio) values 
@@ -195,7 +195,26 @@ insert into relacionCabinaEquipo (fkCodigoCabina, fkMatriculaEquipo) values
 (1, 'O1'),
 (2, 'O1'),
 (3, 'O1');
- 
+
+/*
+insert into ubicacion(idUbicacion, estado,fkCodigoVuelo, fkIdTrayecto, fkCodigoCabina) values
+(1, false, 1, 1, 1),
+(2, true, 1, 1, 1),
+(3, true, 1, 1, 1),
+(4, true, 1, 1, 1),
+(5, true, 1, 1, 1),
+(6, true, 1, 1, 1),
+(7, true, 1, 1, 1),
+(8, true, 1, 1, 1),
+(9, true, 1, 1, 1),
+(10, true, 1, 1, 1),
+(11, true, 3, 1, 1),
+(12, true, 3, 1, 1),
+(13, true, 3, 1, 1),
+(14, true, 3, 1, 1),
+(15, true, 3, 1, 1),
+(16, true, 3, 1, 1);
+*/
 
 SET GLOBAL event_scheduler = ON;
 

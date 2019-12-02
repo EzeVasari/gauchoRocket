@@ -7,7 +7,7 @@
     include('../Modelo/conexion.php');
 
 
-    $idTrayecto = $_GET["$codigoTrayecto"];
+    $idTrayecto = $_GET["codigoTrayecto"];
     $codigoVuelo= $_GET["vuelo"];
 
 
@@ -27,8 +27,8 @@
             </div>';
      echo '<form action="../Vista/ingresarTrayectos.php?viaje='.$codigoVuelo.'" method="post">
   <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" name="subir"  class="btn btn-danger">subir trayecto</button>
+               <a href="adminIndex.php" class="btn btn-primary">Finalizar carga de Trayectos</a>
+                <button class="btn btn-primary  text-white " type="submit" name="ingresar">Registrar Nuevo Trayecto</button>
             </div>
             </form>
      ';

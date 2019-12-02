@@ -86,8 +86,8 @@ $consulta="SELECT DISTINCT l.codigo as codigo, l.nombre as nombre
                         </select>
               </div>
                       <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" name="subir" class="btn btn-danger">Subir</button>
+                <a href='adminIndex.php' class='btn btn-primary'>Cancelar</a>
+           <button class='btn btn-primary  text-white ' type='submit' name='subir'>Registrar trayecto</button>
             </div>
                 </div>
             </form>

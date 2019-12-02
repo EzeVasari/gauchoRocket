@@ -108,20 +108,30 @@ foreign key (fkCodigoLugarOrigen) references lugar(codigo),
 foreign key (fkCodigoLugarDestino) references lugar(codigo)
 );
 
+create table tipoDeCabina(
+codigoTipoDeCabina int primary key,
+descripcion varchar(50),
+precio int
+);
+
+create table cabina(
+codigoCabina int primary key,
+fkCodigoTipoDeCabina int,
+foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
+);
+
 create table ubicacion(
-filaUbicacion varchar(1),
-columnaUbicacion int,
+idUbicacion int auto_increment primary key,
 estado boolean,
 fkIdTrayecto int,
 fkCodigoViaje int,
 fkCodigoCabina int,
-primary key (filaUbicacion, columnaUbicacion),
+fkCodigoReserva varchar (6),
 foreign key (fkIdTrayecto) references trayecto(idTrayecto),
 foreign key (fkCodigoViaje) references viaje(codigo),
-foreign key (fkCodigoCabina) references cabina(codigoCabina)
+foreign key (fkCodigoCabina) references cabina(codigoCabina),
+foreign key (fkCodigoReserva) references reserva(codigo)
 );
-
-
 
 create table relacionReservaTrayecto(
 fkCodigoReserva varchar(6),
@@ -151,18 +161,6 @@ fkcodigoTipoDeServicio int,
 foreign key (fkcodigoTipoDeServicio) references tipoDeServicio(codigoTipoDeServicio)
 );
 
-create table tipoDeCabina(
-codigoTipoDeCabina int primary key,
-descripcion varchar(50),
-precio int
-);
-
-create table cabina(
-codigoCabina int primary key,
-fkCodigoTipoDeCabina int,
-foreign key (fkCodigoTipoDeCabina) references tipoDeCabina(codigoTipoDeCabina)
-);
-
 create table itemReserva(
 idItemReserva int primary key,
 fkCodigoReserva varchar(6),
@@ -188,14 +186,6 @@ primary key (fkIdItemReserva, fkEmailCliente),
 foreign key (fkIdItemReserva) references itemReserva (idItemReserva),
 foreign key (fkEmailCliente) references cliente (fkEmailUsuario)
 );
-
-/*create table relacionItemReservaUbicacion(
-fkIdUbicacion varchar(2),
-fkidItemReserva varchar(6),
-foreign key (fkIdUbicacion) references ubicacion(idUbicacion),
-foreign key (fkidItemReserva) references itemReserva(idItemReserva),
-primary key (fkIdUbicacion, fkidItemReserva)
-);*/
 
 create table relacionCabinaEquipo(
 fkCodigoCabina int,

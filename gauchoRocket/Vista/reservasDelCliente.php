@@ -11,17 +11,20 @@
                 $email = $_SESSION['user']; //Usuario logueado
                 
                 $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
-                                v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
-                                ir.pago as pago, ir.checkin as checki, ir.listaDeEspera as espera,
-                                ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
-                          FROM relacionClienteItemReserva AS rcr
-                                INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
-                                INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
-                                INNER JOIN relacionReservaTrayecto as rrt ON r.codigo = rrt.fkCodigoReserva
-                                INNER JOIN trayecto as t ON rrt.fkIdTrayecto = t.idTrayecto
-                                INNER JOIN relacionViajeTrayecto as rvt ON t.idTrayecto = rvt.fkIdTrayecto
-                                INNER JOIN viaje AS v ON rvt.fkCodigoViaje = v.codigo
-                          WHERE fkEmailCliente ='".$email."'";
+                            v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
+                            ir.pago as pago, ir.checkin as checki, ir.listaDeEspera as espera, v.codigo as codViaje, 
+                            c.codigoCabina as cabina, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino,
+                            ir.fechaInicioDeCheckin as fechaI, ir.fechaLimiteDeCheckin as fechaL, now() as ahora
+                        FROM relacionClienteItemReserva AS rcr
+                            INNER JOIN itemReserva AS ir ON rcr.fkIdItemReserva = ir.idItemReserva
+                            INNER JOIN Reserva AS r ON ir.fkCodigoReserva = r.codigo
+                            INNER JOIN relacionReservaTrayecto as rrt ON r.codigo = rrt.fkCodigoReserva
+                            INNER JOIN trayecto as t ON rrt.fkIdTrayecto = t.idTrayecto
+                            INNER JOIN relacionViajeTrayecto as rvt ON t.idTrayecto = rvt.fkIdTrayecto
+                            INNER JOIN viaje AS v ON rvt.fkCodigoViaje = v.codigo
+                            INNER JOIN ubicacion as u on u.fkCodigoReserva = r.codigo
+                            INNER JOIN cabina as c on c.codigoCabina = u.fkCodigoCabina
+                        WHERE fkEmailCliente = '".$email."'";
                 
                 $resultado = mysqli_query($conexion, $query);
                 
@@ -143,41 +146,12 @@
                                                             if($centro['pago'] == true){
                                                                 if($centro['checki'] == false){
                                                                 echo "<div class='row justify-content-end mr-2'>
-                                                                        <a href='#' class='btn btn-primary' data-toggle='modal'
-                                                                        data-target='#validarCheckIn".$centro['cod']."'>
+                                                                        <a href='checkin.php?reserva=".$centro['codigo']."&vuelo=".$centro['codViaje']."&cabina=".$centro['cabina']."&origen=".$centro['origen']."&destino=".$centro['destino']."'
+                                                                        class='btn btn-primary'>
                                                                             Confirmar check-in
                                                                         </a>
                                                                       </div>
-                                                                      
-<div class='modal fade' id='validarCheckIn".$centro['cod']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-    <div class='modal-dialog modal-sm' role='document'>
-        <div class='modal-content'>
-            <div class='modal-header text-center'>
-                <h5 class='modal-title' id='exampleModalLabel'>
-                    ¿Confirma Check-in?
-                </h5>
-                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                    <span aria-hidden='true'>&times;</span>
-                </button>
-            </div>
-            <div class='modal-body'>
-                <form action='../Modelo/validacionCheckIn.php?reserva=".$centro['cod']."' method='post'>
-                    <div class='container'>
-                        <div class='row align-items-start'>
-                            <button type='button' class='col btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                            <button type='submit' name='valida' class='col btn btn-primary'>Aceptar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-                                                                      
-                                                                      
-                                                                      
-                                                                      
-                                                                      ";
+                                                                     ";
                                                                 }else{
                                                                     echo '<div class="alert alert-success" role="alert">
                                                                         Usted ya ha realizado el check-in.
