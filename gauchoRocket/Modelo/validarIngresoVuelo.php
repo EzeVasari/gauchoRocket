@@ -26,7 +26,7 @@ $img =  $_FILES['img']['name'];
     $count = mysqli_num_rows($resultado);
     $directorio="";
     if($count == 1){
-        header("location: ../Vista/adminMantenimiento.php");
+        header("location: ../Vista/adminMantenimientoIndex.php");
     }else {
 
 

@@ -67,12 +67,12 @@ include('../Modelo/validarPaginasParaAdministradores.php');
             $query = "SELECT * FROM viaje GROUP BY nombre";
             
             $resultado = mysqli_query($conexion, $query);
-        include("../Vista/adminMantenimientoDos.php");
+        include("../Vista/adminMantenimiento2.php");
         }
     }else{
         $query = "SELECT * FROM viaje GROUP BY nombre";
         
         $resultado = mysqli_query($conexion, $query);
-        include("../Vista/adminMantenimientoDos.php");
+        include("../Vista/adminMantenimiento2.php");
     }
 ?>

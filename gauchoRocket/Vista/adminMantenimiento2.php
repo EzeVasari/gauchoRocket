@@ -1,8 +1,8 @@
 <div class="container mt-5">
      <div class="row justify-content-center">
          <div class="col-md-7 text-center mb-3">
-             <h2 class="font-weight-bold">Nuestros destinos</h2>
-             <p class="text-muted">Recorré todo el sistema solar</p>
+             <h2 class="font-weight-bold">Viajes</h2>
+             <p class="text-muted"></p>
          </div>
      </div>
       <div class="row">
