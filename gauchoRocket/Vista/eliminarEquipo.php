@@ -34,11 +34,11 @@
             echo "<div class='col mb-4'>
                     <div class='card destinos text-center mx-auto'>
                           <div class='card-body'>
-                            <h5 class='card-title'> ". $equipo['matricula'] ."</h5>
-                            <p class='card-text'> ". $equipo['modelo'] . "</p>
-                            <h5 class='text-center'>capacidad suit: ". $equipo['capacidadSuit'] ."</h5>
-                            <h5 class='text-center'>capacidad familiar: ". $equipo['capacidadFamiliar'] ."</h5>
-                            <h5 class='text-center'>capacidad general: ". $equipo['capacidadGeneral'] ."</h5>
+                            <h5 class='card-title'>Matricula:  ". $equipo['matricula'] ."</h5>
+                            <p class='card-text'>Modelo: ". $equipo['modelo'] . "</p>
+                            <h5 class='text-center'>Capacidad suit: ". $equipo['capacidadSuit'] ."</h5>
+                            <h5 class='text-center'>Capacidad familiar: ". $equipo['capacidadFamiliar'] ."</h5>
+                            <h5 class='text-center'>Capacidad general: ". $equipo['capacidadGeneral'] ."</h5>
                             <a href='../Modelo/validarEliminarEquipo.php?matricula=" . $equipo['matricula'] . "' class='btn btn-primary'>eliminar</a>
                           </div>
                     </div>
