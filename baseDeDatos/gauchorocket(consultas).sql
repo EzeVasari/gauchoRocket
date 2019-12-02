@@ -671,7 +671,14 @@ WHERE idTrayecto = 1 and fkCodigoCabina = 1 and fkCodigoViaje = 1 and fkCodigoRe
 
 
 
-
+SELECT t.nombreTrayecto as nombreTrayecto, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino 
+FROM reserva AS r 
+ON ir.fkCodigoReserva = r.codigo
+INNER JOIN relacionReservaTrayecto as rrt
+ON r.codigo = rrt.fkCodigoReserva
+INNER JOIN trayecto as t
+On rrt.fkIdTrayecto = t.idTrayecto
+WHERE r.codigo = 'u4i2d0';
 
 
 
