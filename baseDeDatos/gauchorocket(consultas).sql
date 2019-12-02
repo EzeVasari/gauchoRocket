@@ -623,9 +623,45 @@ INSERT INTO ubicacion (idUbicacion, estado, fkIdtrayecto, fkCodigoViaje, fkCodig
 (false, 1, 1, 1, 1);
 
 
+SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombreViaje, v.descripcion AS descripcion, v.precio AS precio, t.nombre as nombreTrayecto
+                  FROM relacionClienteItemReserva AS rcr
+                  INNER JOIN itemReserva AS ir 
+                    ON rcr.fkIdItemReserva = ir.idItemReserva
+                  INNER JOIN Reserva AS r 
+                    ON ir.fkCodigoReserva = r.codigo
+                  INNER JOIN relacionReservaTrayecto as rrt
+                    ON r.codigo = rrt.fkCodigoReserva
+                  INNER JOIN trayecto as t
+                    On rrt.fkIdTrayecto = t.idTrayecto
+                  WHERE ir.idItemReserva = 1286;
 
 
+SELECT t.nombreTrayecto as nombreTrayecto 
+FROM relacionClienteItemReserva AS rcr
+                  INNER JOIN itemReserva AS ir 
+                    ON rcr.fkIdItemReserva = ir.idItemReserva
+                  INNER JOIN Reserva AS r 
+                    ON ir.fkCodigoReserva = r.codigo
+                  INNER JOIN relacionReservaTrayecto as rrt
+                    ON r.codigo = rrt.fkCodigoReserva
+                  INNER JOIN trayecto as t
+                    On rrt.fkIdTrayecto = t.idTrayecto
+                  WHERE ir.idItemReserva = 1286;
 
+ time(v.fecha) as hora, date(v.fecha) as fecha
+ 
+ 
+ SELECT ir.fkCodigoReserva AS codigo, time(v.fecha) as hora, date(v.fecha) as fecha, v.imagen AS img, v.nombre AS nombreViaje, v.descripcion AS descripcion, v.precio AS precio
+                  FROM relacionClienteItemReserva AS rcr
+                  INNER JOIN itemReserva AS ir 
+                    ON rcr.fkIdItemReserva = ir.idItemReserva
+                  INNER JOIN Reserva AS r 
+                    ON ir.fkCodigoReserva = r.codigo
+                  INNER JOIN relacionReservaTrayecto as rrt
+                    ON r.codigo = rrt.fkCodigoReserva
+                  INNER JOIN trayecto as t
+                    On rrt.fkIdTrayecto = t.idTrayecto
+                  WHERE ir.idItemReserva = 1286;
 
 
 
