@@ -9,6 +9,8 @@
     include('../Modelo/conexion.php');
     ?>
 
+    <script type="text/javascript" src="js/agregarTrayecto.js"></script>
+
 
    <?php
                      
@@ -64,25 +66,26 @@ echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method
                 <label class="col-form-label">duracion</label>
             <input type="text" class="form-control" name="duracion" required>
               </div>
-              <div class="col-sm-7" id="contenedor1">
-               <label class="col-form-label">trayecto</label>
-               <select class='custom-select' name='trayecto'>
+              <div class='col-sm-7' id='contenedor1'>
+               <label class='col-form-label'>trayecto</label>
+               <select class='custom-select' name='trayecto[]'>
                             <option selected value='0'>Seleccione trayecto</option>
                             <?php
-$consulta="SELECT  idTrayecto as codigo, nombreTrayecto as nombre
-              FROM  trayecto ";
+$consulta='SELECT  idTrayecto as codigo, nombreTrayecto as nombre
+              FROM  trayecto ';
                             $resultado = mysqli_query($conexion, $consulta);
                             
                             while($recorrer = mysqli_fetch_assoc($resultado)){
-                                echo "
-                                        <option value='". $recorrer["codigo"] ."'>". $recorrer['nombre'] ."</option>
-                                     ";
+                                echo '
+                                        <option value="'. $recorrer['codigo'] .'">'. $recorrer['nombre'] .'</option>
+                                     ';
                             }
                             ?>
                   
                         </select>
             
               </div>
+            </div>
               <div class="btn btn-primary" id="btn-nuevoTrayecto">Agregar Trayecto</div>
 
               
