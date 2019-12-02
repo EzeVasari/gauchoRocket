@@ -10,19 +10,38 @@
     ?>
 
 
+   <?php
+                     
+$vuelo= $_GET["viaje"];
+
+                            $viajes = 'select  *
+                                          from  viaje
+                                          where codigo = "'.$vuelo.'"';
+                            $resultadoViaje = mysqli_query($conexion, $viajes);
+                            $fila = mysqli_fetch_assoc($resultadoViaje);
+                             
+                            ?>
+
 <br>
 <br>
 <br>
 <br>
 <br>
+
+
  <div class='container buscador p-3 mb-3 border border-info'>
             
             <div class="row justify-content-center">
                 <div class="col-md-7 text-center mb-3">
-                    <h2 class="font-weight-bold">Una vez ingresado su viaje debe ingresar los trayectos
+                    <h2 class="font-weight-bold">Ingresar Los Trayectos del viaje
+                   "<?php echo $fila['nombre'];?>"
                     </h2>
                     <p class="text-muted">
-                        Puede ingresar en la parte de destino y origen, los lugares precargados
+                       descripcion de los trayectos del viaje
+                        "<?php echo $fila['descripcion'];?>"
+                    </p>
+                    <p class="text-muted">
+                        Puede ingresar en la parte de destino y origen, las opciones precargadas
                     </p>
                 </div>
             </div>

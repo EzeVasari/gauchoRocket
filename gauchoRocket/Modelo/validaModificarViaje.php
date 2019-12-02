@@ -34,11 +34,11 @@ $resultado4 = mysqli_query($conexion, $modificar4);
 $modificar5 = "UPDATE viaje SET origen = '". $origen ."' 
     WHERE codigo =  '". $codigoVuelo . "'";
 $resultado5 = mysqli_query($conexion, $modificar5);
-  echo "algo";
+   header('Location: ../Vista/ingresarTrayectos.php?viaje='.$codigoVuelo.'');
 }
 else
 {
- echo "nada";
+ header('Location: ../Vista/adminBusquedaMantenimiento.php');
 }
 
       

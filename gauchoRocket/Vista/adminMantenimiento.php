@@ -7,7 +7,6 @@
     include('adminNavbar.php');
     include('../Modelo/iniciarSesion.php');
     include('../Modelo/conexion.php');
-   
     ?>
 
 
@@ -86,6 +85,8 @@ $consulta="SELECT DISTINCT l.codigo as codigo, l.nombre as nombre
 <br>
 <br>
 <br>
+
+
        
                 
             
