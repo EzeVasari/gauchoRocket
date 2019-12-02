@@ -42,7 +42,7 @@ include('../Modelo/conexion.php');
                                                                    inner join reserva as r on i.fkcodigoReserva = r.codigo
 	                                                               inner join viaje as v on r.codigoViaje = v.codigo
                                                                    inner join relacionClienteItemReserva as rel on i.idItemReserva = rel.fkIdItemReserva
-                                                              where i.idItemReserva like '".$reserva."'and rel.fkEmailCliente='".$cliente."';";
+                                                              where i.idItemReserva like '".$reserva."'and rel.fkEmailCliente like'".$cliente."';";
                                  $resultado = mysqli_query($conexion, $query);
                                  while($row = mysqli_fetch_assoc($resultado)){
                                  	$this->cell(30,1,'Su destino:');

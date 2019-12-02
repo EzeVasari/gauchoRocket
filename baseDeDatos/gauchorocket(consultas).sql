@@ -744,6 +744,17 @@ delete from reserva where codigo like 'rmf8go';
 
 
 
+SELECT v.descripcion, t.nombreTrayecto, tdc.descripcion as nombreCabina, count(rci.fkIdItemReserva) AS personas, tds.precio AS precioServicio, t.precio AS precioViaje, tdc.precio AS precioCabina 
+from viaje as v inner join relacionViajeTrayecto as rvt on
+v.codigo= rvt.fkCodigoViaje inner join trayecto as t on 
+t.idTrayecto = rvt.fkIdTrayecto inner join relacionReservaTrayecto
+as rrt on rrt.fkIdTrayecto =t.idTrayecto inner join reserva as r
+on r.codigo = rrt.fkCodigoReserva inner join  itemReserva as ir on
+ir.fkcodigoReserva= r.codigo inner join tipoDeServicio as tds on
+ ir.fkCodigoServicio = tds.codigoTipoDeServicio inner join tipoDeCabina 
+ as tdc on tdc.codigoTipoDeCabina= ir.fkCodigoCabina
+ inner join relacionClienteItemReserva as rci on rci.fkIdItemReserva = ir.idItemReserva
+
 
 
 
