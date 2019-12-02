@@ -122,7 +122,7 @@
                     (".$idItemReserva.",'".$codigoReserva."', ". $servicio .", ". $cabina .", false, false, '".$fechaDeCheckin['fl']."', '".$fechaDeCheckin['fi']."', null, '".$fechaDeCheckin['ahora']."', false);";
                     
                     for($i= 0; $i < count($emails); $i++){
-                        $guardarUbicacion = "INSERT INTO ubicacion (estado, fkCodigoViaje, fkIdTrayecto, fkCodigoCabina, fkCodigoReserva) VALUES
+                        $guardarUbicacion = "INSERT INTO ubicacion (estado,fkCodigoViaje, fkIdTrayecto, fkCodigoCabina, fkCodigoReserva) VALUES
                         (false, ".$codigo.", ".$trayecto['idTrayecto'].", ".$cabina.", '".$codigoReserva."')";
                         $resultadoGuardar = mysqli_query($conexion, $guardarUbicacion);   
                     }

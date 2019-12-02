@@ -187,14 +187,6 @@ foreign key (fkIdItemReserva) references itemReserva (idItemReserva),
 foreign key (fkEmailCliente) references cliente (fkEmailUsuario)
 );
 
-/*create table relacionItemReservaUbicacion(
-fkIdUbicacion varchar(2),
-fkidItemReserva varchar(6),
-foreign key (fkIdUbicacion) references ubicacion(idUbicacion),
-foreign key (fkidItemReserva) references itemReserva(idItemReserva),
-primary key (fkIdUbicacion, fkidItemReserva)
-);*/
-
 create table relacionCabinaEquipo(
 fkCodigoCabina int,
 fkMatriculaEquipo varchar(15),

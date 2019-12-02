@@ -9,7 +9,8 @@ if(isset($_POST["buscar"])){
                        u.email as user, c.verifMedica as medico, c.nivelVuelo as nivel, u.dni as dni
                   from cliente as c
 	                   inner join usuario as u on c.fkEmailUsuario = u.email
-                  where u.email like '%".$cliente."%';";
+                  where u.email like '%".$cliente."%'
+                  order by c.fkEmailUsuario;";
     /* ======================================== */
         
     $resultado = mysqli_query($conexion, $query);

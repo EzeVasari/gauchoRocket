@@ -1,4 +1,5 @@
 <?php
+include('conexion.php');
 $usuario = $_SESSION['user'];
 $fecha_actual = strtotime(date("d-m-Y H:i:00",time())); //Fecha-hora actuales
 
@@ -29,6 +30,9 @@ while($verificar = mysqli_fetch_assoc($queryUno)){
                                 where fkEmailUsuario like '".$usuario."';";
             $actualizarDos = mysqli_query($conexion, $actualizarUno);
         }
+        
+        /*HACER EN ESTE PUNTO LA VALIDACION DEL NIVEL DE VUELO ASIGNADO Y EL VUELO RESERVADO*/
+        
     }
 }
 
