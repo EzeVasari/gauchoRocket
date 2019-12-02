@@ -18,34 +18,38 @@
         
 /* ======================================== */
         
-        $query = "SELECT * FROM viaje";
+        $query = "SELECT v.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre
+                    FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
+                        ON t.idTrayecto = rvt.fkIdTrayecto
+                    INNER JOIN viaje as v
+                        ON rvt.fkCodigoViaje = v.codigo";
         $criterio = "";
 
         if(!empty($origen) || $origen != 0){
-            $criterio = " where codigoLugarorigen = ".$origen;
+            $criterio = " where t.fkCodigoLugarorigen = ".$origen;
         }
         
         if(!empty($destino) || $destino != 0){
             if($criterio == ""){
-                $criterio = " where codigoLugardestino = ".$destino;
+                $criterio = " where t.fkCodigoLugardestino = ".$destino;
             }else{
-                $criterio .= " and codigoLugardestino = ".$destino;
+                $criterio .= " and t.fkCodigoLugardestino = ".$destino;
             }
         }
         
         if(!empty($fecha) || $fecha=""){
             if($criterio == ""){
-                $criterio = " where date(fecha) = '".$fechaAComparar."'";
+                $criterio = " where v.date(fecha) = '".$fechaAComparar."'";
             }else{
-                $criterio .= " and date(fecha) = '".$fechaAComparar."'";
+                $criterio .= " and v.date(fecha) = '".$fechaAComparar."'";
             }
         }
         
         if(!empty($nivel) || $nivel=""){
             if($criterio == ""){
-                $criterio = " where codigoTipoDeViaje = '".$nivel."'";
+                $criterio = " where v.codigoTipoDeViaje = '".$nivel."'";
             }else{
-                $criterio .= " and codigoTipoDeViaje = '".$nivel."'";
+                $criterio .= " and v.codigoTipoDeViaje = '".$nivel."'";
             }
         }
         
@@ -65,13 +69,21 @@
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                     <span aria-hidden='true'>&times;</span>
                 </div>";
-            $query = "SELECT * FROM viaje GROUP BY nombre";
+            $query = "SELECT v.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre 
+                        FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
+                            ON t.idTrayecto = rvt.fkIdTrayecto
+                        INNER JOIN viaje as v
+                            ON rvt.fkCodigoViaje = v.codigo";
             
             $resultado = mysqli_query($conexion, $query);
         include("../Vista/cards.php");
         }
     }else{
-        $query = "SELECT * FROM viaje GROUP BY nombre";
+        $query = "SELECT v.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre
+                FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
+                    ON t.idTrayecto = rvt.fkIdTrayecto
+                INNER JOIN viaje as v
+                    ON rvt.fkCodigoViaje = v.codigo";
         
         $resultado = mysqli_query($conexion, $query);
         include("../Vista/cards.php");

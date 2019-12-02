@@ -50,9 +50,21 @@
                     <span aria-hidden="true">&times;</span>
                 </div>';
         }
-
     }
-       
+
+    if(isset($_GET["i"])){
+        
+        if($_GET["i"] == 1){
+            echo '<br><div class="alert alert-danger mt-1" role="alert">
+                    Algunas de sus reservas fueron dadas de baja ya que el nivel de vuelo que se le asignó no se lo permite.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </div>';
+        }
+    }
+    
+    
+    
     $email = ' ';
     
     if(isset($_COOKIE['login'])){    
@@ -93,7 +105,6 @@
         /* mysqli_stmt_fetch */
     if(mysqli_stmt_fetch($query)){
         if($mailPass == md5($pass)){
-            session_start();
 	        $_SESSION['user'] = $email;
             setcookie('login', $email, time()+1000);
             if($mailRol == false){
@@ -102,7 +113,7 @@
                 /* cerrar sentencia */
                 mysqli_stmt_close($query);
                 
-                header('Location: ../Vista/index.php?m=1');
+                header("Location: ../Vista/index.php?m=1&i=".$i."");
             }else {
                 /* cerrar sentencia */
                 mysqli_stmt_close($query);
