@@ -18,7 +18,7 @@ if(isset($_POST["buscar"])){
                             inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
                             inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
                             inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-                          where ir.fechaQuePidioReserva between date_sub(now(), interval ".$totalAntiguedad." ".$tiempoTotal.") and now();";
+                          where ir.fechaQuePidioReserva between date_sub(now(), interval ".$totalAntiguedad." ".$tiempoTotal.") and now() and ir.pago = true;";
     }
     
     $vuelo = $_POST['vuelo'];
@@ -39,7 +39,7 @@ if(isset($_POST["buscar"])){
                             inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
                             inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
                           where ir.fechaQuePidioReserva between date_sub(now(), interval ".$vueloAntiguedad." ".$tiempoVuelo.") and now()
-                            and v.codigo = ".$vuelo.";";
+                            and v.codigo = ".$vuelo." and ir.pago = true;";
     }
     
     $servicio = $_POST['servicio'];
@@ -60,7 +60,7 @@ if(isset($_POST["buscar"])){
                                 inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
                                 inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
                           where ir.fechaQuePidioReserva between date_sub(now(), interval ".$servicioAntiguedad." ".$tiempoServicio.") and now()
-                                and s.fkcodigoTipoDeServicio = ".$servicio.";";
+                                and s.fkcodigoTipoDeServicio = ".$servicio."  and ir.pago = true;";
     }
     
     $cabina = $_POST['cabina'];
@@ -81,7 +81,7 @@ if(isset($_POST["buscar"])){
                                 inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
                                 inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
                           where ir.fechaQuePidioReserva between date_sub(now(), interval ".$cabinaAntiguedad." ".$tiempoCabina.") and now()
-                                and c.fkCodigoTipoDeCabina = ".$cabina.";";
+                                and c.fkCodigoTipoDeCabina = ".$cabina." and ir.pago = true;";
     }
     
     if(isset($queryTotalUno) || isset($queryVueloUno) || isset($queryServicioUno) || isset($queryCabinaUno)){
