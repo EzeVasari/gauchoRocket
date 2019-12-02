@@ -524,15 +524,53 @@ LIMIT 1;
 /* ============================================================ FACTURACIÓN ============================================================ */
 /* ===================================================================================================================================== */
 
-/* Cantidad de veces que fue reservado */
-select count(v.codigo), v.nombre
+/* Total facturado */
+select sum(v.precio) as sumaViaje, sum(ts.precio) as sumaServicio, sum(tc.precio) as sumaCabina
 from viaje as v
-	inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
-	inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
-    inner join relacionReservaTrayecto as reld on t.idTrayecto = reld.fkIdTrayecto
-    inner join reserva as r on reld.fkCodigoReserva = r.codigo
-where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
-;
+	inner join ubicacion as u on v.codigo = u.fkCodigoViaje
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join cabina as c on u.fkCodigoCabina = c.codigoCabina
+    inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
+    inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now();
+
+/* Total facturado de viajes */
+select sum(v.precio) as cantidad, v.nombre as nombre
+from viaje as v
+	inner join ubicacion as u on v.codigo = u.fkCodigoViaje
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join cabina as c on u.fkCodigoCabina = c.codigoCabina
+    inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
+    inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1;
+
+/* Total facturado de servicios */
+select sum(ts.precio) as cantidad, ts.descripcion as nombre
+from viaje as v
+	inner join ubicacion as u on v.codigo = u.fkCodigoViaje
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join cabina as c on u.fkCodigoCabina = c.codigoCabina
+    inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
+    inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and s.fkcodigoTipoDeServicio = 1;
+
+/* Total facturado de cabinas */
+select sum(tc.precio) as cantidad, tc.descripcion as nombre
+from viaje as v
+	inner join ubicacion as u on v.codigo = u.fkCodigoViaje
+    inner join reserva as r on u.fkCodigoReserva = r.codigo
+    inner join cabina as c on u.fkCodigoCabina = c.codigoCabina
+    inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+    inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
+    inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1;
 
 
 
@@ -540,20 +578,7 @@ where date_sub(now(), INTERVAL 1 month) and v.codigo = 1
 
 
 
-select count(ir.fkCodigoServicio) as cantidad, ts.descripcion as tipoServicio
-                       from viaje as v
-                            inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
-                            inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
-                            inner join relacionReservaTrayecto as reld on t.idTrayecto = reld.fkIdTrayecto
-                            inner join reserva as r on reld.fkCodigoReserva = r.codigo
-                            inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
-                            inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
-                            inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-                       where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now()
-                            and v.codigo = 1
-                       group by ir.fkCodigoServicio
-                       order by cantidad desc
-                       LIMIT 1
+
 
 
 

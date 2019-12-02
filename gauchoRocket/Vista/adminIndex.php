@@ -37,7 +37,7 @@
                         <div class='card-body'>
                             <h5 class='card-title'>Facturación</h5>
                             <p class='card-text'>Puede hacer clic aquí para poder ver el dinero generado en el día, semana, mes o año</p>
-                            <a href='adminFacturacion.php' class='btn btn-primary'>Reporte</a>
+                            <a href='adminFacturacionUno.php' class='btn btn-primary'>Reporte</a>
                          </div>
                     </div>
                 </div>

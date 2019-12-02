@@ -20,7 +20,7 @@
                 </div>
             </div>
             
-            <form class='needs-validation' method='post' action='../Modelo/validacionFacturacion.php'>
+            <form class='needs-validation' method='post' action='adminFacturacionUno.php'>
                 <div class='form-row'>
                     
                     <div class='col-md-12'>
@@ -30,7 +30,7 @@
                     <div class='col-md-6 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip01'><i class="far fa-calendar-alt"></i>  Período</label>
                         <select class='custom-select' name='totalPeriodo'>
-                            <option selected value='0'>Seleccione período</option>
+                            <option selected>Seleccione período</option>
                             <option value='1'>Días</option>
                             <option value='2'>Semanas</option>
                             <option value='3'>Meses</option>
@@ -52,7 +52,7 @@
                     <div class='col-md-6 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip01'><i class="fas fa-globe"></i>  Vuelos</label>
                         <select class='custom-select' name='vuelo'>
-                            <option selected value='0'>Seleccione vuelo</option>
+                            <option selected>Seleccione vuelo</option>
                             <?php
                             $query = "select codigo, nombre from viaje;";
                             $resultado = mysqli_query($conexion, $query);
@@ -90,7 +90,7 @@
                     <div class='col-md-6 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip02'><i class="fas fa-cocktail"></i>  Servicios</label>
                         <select class='custom-select' name='servicio'>
-                            <option selected value='0'>Seleccione servicio</option>
+                            <option selected>Seleccione servicio</option>
                             <?php
                             $query = "select codigoTipoDeServicio, descripcion from tipoDeServicio;";
                             $resultado = mysqli_query($conexion, $query);
@@ -107,7 +107,7 @@
                     <div class='col-md-3 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip01'><i class="far fa-calendar-alt"></i>  Período</label>
                         <select class='custom-select' name='servicioPeriodo'>
-                            <option selected value='0'>Seleccione período</option>
+                            <option selected>Seleccione período</option>
                             <option value='1'>Días</option>
                             <option value='2'>Semanas</option>
                             <option value='3'>Meses</option>
@@ -128,7 +128,7 @@
                     <div class='col-md-6 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip03'><i class="fas fa-person-booth"></i>  Cabina</label>
                         <select class='custom-select' name='cabina'>
-                            <option selected value='0'>Seleccione cabina</option>
+                            <option selected>Seleccione cabina</option>
                             <?php
                             $query = "select codigoTipoDeCabina, descripcion from tipoDeCabina;";
                             $resultado = mysqli_query($conexion, $query);
@@ -145,7 +145,7 @@
                     <div class='col-md-3 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip01'><i class="far fa-calendar-alt"></i>  Período</label>
                         <select class='custom-select' name='cabinaPeriodo'>
-                            <option selected value='0'>Seleccione período</option>
+                            <option selected>Seleccione período</option>
                             <option value='1'>Días</option>
                             <option value='2'>Semanas</option>
                             <option value='3'>Meses</option>
@@ -159,12 +159,13 @@
                     </div>
                      
                      <div class='col-md-12 mt-3'>
-                        <button class='btn btn-primary w-100' type='submit' name='buscarCabina'><i class="fas fa-coins"></i>  Generar facturación</button>
+                        <button class='btn btn-primary w-100' type='submit' name='buscar'><i class="fas fa-coins"></i>  Generar facturación</button>
                     </div>
                 </div>
             </form>
         </div>
-           
-       
+        <?php
+        include('../Modelo/adminValidarFacturacion.php');
+        ?>
     </body>
 </html>
