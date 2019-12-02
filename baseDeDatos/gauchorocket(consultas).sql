@@ -534,7 +534,7 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now();
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and ir.pago = true;
 
 /* Total facturado de viajes */
 select sum(v.precio) as cantidad, v.nombre as nombre
@@ -546,7 +546,7 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1;
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1 and ir.pago = true;
 
 /* Total facturado de servicios */
 select sum(ts.precio) as cantidad, ts.descripcion as nombre
@@ -558,7 +558,7 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and s.fkcodigoTipoDeServicio = 1;
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and s.fkcodigoTipoDeServicio = 1 and ir.pago = true;
 
 /* Total facturado de cabinas */
 select sum(tc.precio) as cantidad, tc.descripcion as nombre
@@ -570,7 +570,7 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1;
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1 and ir.pago = true;
 
 
 
