@@ -51,10 +51,8 @@
 
                         foreach($ubicaciones as $u){
 
-                            $queryUbicacion = "INSERT INTO ubicacion (estado, fkIdtrayecto, fkCodigoViaje, fkCodigoCabina, fkCodigoReserva, nroUbicacion) VALUES (false, ".$trayecto['idTrayecto'].", ".$trayecto["codigoViaje"].", ".$cabina.", ".$codigoReserva.", ".$u.")";
+                            $queryUbicacion = "INSERT INTO ubicacion (estado, fkIdtrayecto, fkCodigoViaje, fkCodigoCabina, fkCodigoReserva, nroUbicacion) VALUES (false, ".$trayecto['idTrayecto'].", ".$trayecto["codigoViaje"].", ".$cabina.", '".$codigoReserva."', ".$u.")";
                             
-                            echo "<br><br>".$queryUbicacion."<br>";
-
                             $resultadoUbicacion = mysqli_query($conexion, $queryUbicacion);    
                         }    
                     }

@@ -60,11 +60,9 @@
         /* ============================================================ */
         
         $asientosTotales = "select e.capacidadSuit as suite, e.capacidadGeneral as general, e.capacidadFamiliar as familiar
-                            from reserva as r
-	                           inner join ubicacion as u on u.fkCodigoReserva = r.codigo
-                               inner join viaje as v on u.fkCodigoViaje = v.codigo
+                            from viaje as v
                                inner join equipo as e on v.matriculaEquipo = e.matricula
-                            where r.codigo like '".$reserva."'";
+                            where v.codigo = ".$codigoViaje."";
         $resultadoAsientos = mysqli_query($conexion, $asientosTotales);
         
         /* ============================================================ */
@@ -119,7 +117,6 @@
                                 <form name="ordenamiento" id="contenedor" action="checkin.php?reserva='.$reserva.'&cabina='.$codigoCabina["codigoCabina"].'" method="post">
                                 <input type="hidden" id="cantidad" value='.$limite.'>
                                     ';
-        
                                     while($result = mysqli_fetch_assoc($resultadoAsientos)){
                                         
                                         if ($codigoCabina["codigoCabina"] == 1){
@@ -134,7 +131,7 @@
                                             if ((($i-1) % 10) == 0){
                                                 echo "<div class='row'>";
                                             }
-                                            $buscarUbicacion = "SELECT * 
+                                            $buscarUbicacion = "SELECT u.nroUbicacion as nro
                                                                 FROM ubicacion as u
                                                                     INNER JOIN trayecto as t ON u.fkIdTrayecto = t.idTrayecto
                                                                 WHERE fkCodigoCabina = ".$codigoCabina["codigoCabina"]."
@@ -145,10 +142,10 @@
 
                                             $resultadoUbicacion = mysqli_query($conexion, $buscarUbicacion);
                                             $ubicacion = mysqli_fetch_assoc($resultadoUbicacion);
-                                    
-                                            if($ubicacion){
+                                            
+                                            if($ubicacion['nro'] == $i){
                                                 echo "<div class='col seat'>
-                                                    <input type='checkbox' id='".$i."' value='".$i."' name='ubicaciones[]' checked>
+                                                    <input type='checkbox' id='".$i."' value='".$i."' name='ubicaciones[]' disabled>
                                                     <label class='text-center' for='".$i."'> ".$i." </label>
                                                   </div>";
                                             } else {
