@@ -59,11 +59,6 @@ include('../Modelo/validarPaginasParaAdministradores.php');
         if(mysqli_num_rows($resultado) >= 1) {
             include("adminMantenimiento2.php");
         }else{
-            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                    No se encontró ningún viaje!
-                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                    <span aria-hidden='true'>&times;</span>
-                </div>";
             $query = "SELECT * FROM viaje GROUP BY nombre";
             
             $resultado = mysqli_query($conexion, $query);

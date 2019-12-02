@@ -3,8 +3,7 @@ include('conexion.php');
 
 $codigoVuelo= $_GET["vuelo"];
 $idTrayecto = $_POST["trayecto"];
-$precio= $_POST["precio"];
-$duracion= $_POST["duracion"];
+
 
 /*$query1 = "insert into trayecto (idTrayecto, nombreTrayecto, precio, duracion, fkCodigoLugarOrigen, fkCodigoLugarDestino)
         values('".$idTrayecto."', '".$nombreTrayecto."', '".$precio."', '".$duracion."', null, null)";
