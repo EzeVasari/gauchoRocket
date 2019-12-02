@@ -50,7 +50,7 @@ $queryReservas = "SELECT e.fkcodigoTipoDeEquipo as numNivel, ir.idItemReserva as
                     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
                     inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
                 where rel.fkEmailCliente like '".$usuario."';";
-$resultadoReservas = mysqli_query($conexion, $queryViajes);
+$resultadoReservas = mysqli_query($conexion, $queryReservas);
 
 /*EMPIEZA LA VALIDACION DE RESERVAS*/
 
@@ -58,7 +58,7 @@ $i = 1;
 
 while($reservas = mysqli_fetch_assoc($resultadoReservas)){
     $i = 2;
-    if($reservas['numNivel'] <> $nivelCliente){
+    if($reservas['numNivel'] != $nivelCliente){
         $itemReserva = "select fkCodigoReserva as reser
                         from itemReserva
                         where idItemReserva = ".$reservas['itRev'].";";

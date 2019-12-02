@@ -682,6 +682,19 @@ select *
 from cliente
 ;
 
+SELECT t.nombreTrayecto as nombreTrayecto, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino 
+FROM reserva AS r 
+ON ir.fkCodigoReserva = r.codigo
+INNER JOIN relacionReservaTrayecto as rrt
+ON r.codigo = rrt.fkCodigoReserva
+INNER JOIN trayecto as t
+On rrt.fkIdTrayecto = t.idTrayecto
+WHERE r.codigo = 'u4i2d0';
+
+
+
+
+
 select ir.idItemReserva, ir.fkCodigoReserva, rel.fkEmailCliente, c.nivelVuelo
 from itemReserva ir
 	inner join relacionClienteItemReserva rel on ir.idItemReserva = rel.fkIdItemReserva
@@ -696,14 +709,6 @@ rmf8go
 select * from relacionClienteItemReserva;
 delete from relacionClienteItemReserva where fkIdItemReserva = 1678;
 
-SELECT t.nombreTrayecto as nombreTrayecto, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino 
-FROM reserva AS r 
-ON ir.fkCodigoReserva = r.codigo
-INNER JOIN relacionReservaTrayecto as rrt
-ON r.codigo = rrt.fkCodigoReserva
-INNER JOIN trayecto as t
-On rrt.fkIdTrayecto = t.idTrayecto
-WHERE r.codigo = 'u4i2d0';
 select * from itemReserva;
 delete from itemReserva where idItemReserva = 1678;
 
