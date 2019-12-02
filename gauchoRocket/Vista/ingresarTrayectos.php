@@ -12,27 +12,20 @@
 
    <?php
                      
-$vuelo= $_GET["viaje"];
+        $vuelo= $_GET["viaje"];
 
-                            $viajes = 'select  *
-                                          from  viaje
-                                          where codigo = "'.$vuelo.'"';
-                            $resultadoViaje = mysqli_query($conexion, $viajes);
-                            $fila = mysqli_fetch_assoc($resultadoViaje);
-                             
-                            ?>
+        $viajes = 'select  *
+                      from  viaje
+                      where codigo = "'.$vuelo.'"';
+        $resultadoViaje = mysqli_query($conexion, $viajes);
+        $fila = mysqli_fetch_assoc($resultadoViaje);
 
-<br>
-<br>
-<br>
-<br>
-<br>
+        ?>
 
-
- <div class='container buscador p-3 mb-3 border border-info'>
+<br><br><div class='container buscador p-3 mb-3 mt-5 border border-info'>
             
             <div class="row justify-content-center">
-                <div class="col-md-7 text-center mb-3">
+                <div class="col-md-7 text-center">
                     <h2 class="font-weight-bold">Ingresar Los Trayectos del viaje
                    "<?php echo $fila['nombre'];?>"
                     </h2>
@@ -45,12 +38,9 @@ $vuelo= $_GET["viaje"];
                     </p>
                 </div>
             </div>
-<?php
 
-$vuelo= $_GET["viaje"];
 
-echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method="post">';
-?>
+<form action="../Modelo/validarIngresoTrayecto.php?vuelo=<?php echo $codigo ?>" method="post">
           <div class="form-group">
             <label class="col-form-label">Nombre del Trayecto</label>
             <input type="text" class="form-control" name="nombreTrayecto" required>
@@ -65,33 +55,33 @@ echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method
             <input type="text" class="form-control" name="duracion" required>
               </div>
               <div class="col-sm-7" id="contenedor1">
-               <label class="col-form-label">trayecto</label>
+               <label class="col-form-label">Trayecto</label>
                <select class='custom-select' name='trayecto'>
-                            <option selected value='0'>Seleccione trayecto</option>
-                            <?php
-$consulta="SELECT  idTrayecto as codigo, nombreTrayecto as nombre
-              FROM  trayecto ";
-                            $resultado = mysqli_query($conexion, $consulta);
-                            
-                            while($recorrer = mysqli_fetch_assoc($resultado)){
-                                echo "
-                                        <option value='". $recorrer["codigo"] ."'>". $recorrer['nombre'] ."</option>
-                                     ";
-                            }
-                            ?>
-                  
-                        </select>
-            
-              </div>
-              <div class="btn btn-primary" id="btn-nuevoTrayecto">Agregar Trayecto</div>
+                    <option selected value='0'>Seleccione trayecto</option>
+                    <?php
+                    $consulta="SELECT  idTrayecto as codigo, nombreTrayecto as nombre
+                               FROM  trayecto ";
+                    $resultado = mysqli_query($conexion, $consulta);
 
-              
-              
-                      <div class="modal-footer">
-                <a href='adminIndex.php' class='btn btn-primary'>Cancelar</a>
-           <button class='btn btn-primary  text-white ' type='submit' name='subir'>Registrar trayecto</button>
+                    while($recorrer = mysqli_fetch_assoc($resultado)){
+                        echo "
+                                <option value='". $recorrer["codigo"] ."'>". $recorrer['nombre'] ."</option>
+                             ";
+                    }
+            
+                    ?>
+
+                </select>
             </div>
-                </div>
+        </div>
+            <input type="button" class="btn btn-primary mt-2" id="btn-nuevoTrayecto" value="Agregar trayecto">
+            
+            
+            <div class="modal-footer">
+                <a href='adminIndex.php' class='btn btn-primary'>Cancelar</a>
+                <button class='btn btn-primary text-white' type='submit' name='subir'>Registrar trayecto</button>
+            </div>
+        
             </form>
 
 

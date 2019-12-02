@@ -15,9 +15,9 @@
                     <div class='card destinos text-center mx-auto'>
                         <img src='img/admin/reporte.jpg' class='card-img-top' alt='...'>
                         <div class='card-body'>
-                            <h5 class='card-title'>Baja o Modificacion</h>
-                            <p class='card-text'>Puede modificar o eliminar los vuelos</p>
-                            <a href='adminMantenimiento.php' class='btn btn-primary'>acceder</a>
+                            <h5 class='card-title'>Ingreso de vuelos</h5>
+                            <p class='card-text text-muted'>Puede agregar nuevos vuelos y los trayectos de este mismo</p>
+                            <a href='ingresarVuelo.php' class='btn btn-primary'>Nuevos vuelos</a>
                          </div>
                     </div>
                 </div>
@@ -25,9 +25,9 @@
                     <div class='card destinos text-center mx-auto'>
                         <img src='img/admin/reporte.jpg' class='card-img-top' alt='...'>
                         <div class='card-body'>
-                            <h5 class='card-title'>ingreso de vuelos</h5>
-                            <p class='card-text'>Puede agregar nuevos vuelos y los trayectos de este mismo</p>
-                            <a href='ingresarVuelo.php' class='btn btn-primary'>acceder</a>
+                            <h5 class='card-title'>Baja o Modificacion</h5>
+                            <p class='card-text text-muted'>Puede modificar o eliminar los vuelos</p>
+                            <a href='adminMantenimiento.php' class='btn btn-primary'>Modificar vuelos</a>
                          </div>
                     </div>
                 </div>

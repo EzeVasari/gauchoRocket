@@ -7,7 +7,7 @@ $(document).ready(function(){
         
     
         
-        var fieldHTML = "<div class='col-sm-7' id='contenedor1'><label class='col-form-label'>trayecto</label><select class='custom-select' name='trayecto'><option selected value='0'>Seleccione trayecto</option><?php$consulta='SELECT  idTrayecto as codigo, nombreTrayecto as nombre FROM  trayecto '; $resultado = mysqli_query($conexion, $consulta); while($recorrer = mysqli_fetch_assoc($resultado)){ echo ' <option value=''. $recorrer['codigo'] .''>'. $recorrer['nombre'] .'</option>'; } ?></select></div>"; //Nuevos inputs 
+        var fieldHTML = "<div class='col-sm-7' id='contenedor1'><label class='col-form-label'>trayecto</label><select class='custom-select' name='trayecto'><option selected value='0'>Seleccione trayecto</option><?php $consulta='SELECT  idTrayecto as codigo, nombreTrayecto as nombre FROM  trayecto '; $resultado = mysqli_query($conexion, $consulta); while($recorrer = mysqli_fetch_assoc($resultado)){ echo ' <option value=''. $recorrer['codigo'] .''>'. $recorrer['nombre'] .'</option>'; } ?></select></div>"; //Nuevos inputs 
         
         var x = 2; // Iniciamos el contador a 2
         
