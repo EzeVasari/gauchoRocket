@@ -134,7 +134,7 @@
                                                 }else{
                                                     if($centro['ahora'] < $centro['fechaI']){
                                                         if($centro['pago'] == false){
-                                                            echo "<div class='row justify-content-end mr-2'><a href='ingresoDePago.php?codigo=".$centro['codigo']."&vuelo=".$centro['codViaje']."' class='btn btn-primary'>Pagar</a></div>";
+                                                            echo "<div class='row justify-content-end mr-2'><a href='ingresoDePago.php?reserva=".$centro['codigo']."&vuelo=".$centro['codViaje']."' class='btn btn-primary'>Pagar</a></div>";
                                                         }else{
                                                             echo '
                                                                 <div class="alert alert-success" role="alert">

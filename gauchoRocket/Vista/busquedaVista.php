@@ -1,8 +1,8 @@
 <?php
 include('../Modelo/conexion.php');
 
-$consulta = "SELECT DISTINCT v.codigoLugarOrigen as codigo, l.nombre as nombre
-              FROM viaje as v INNER JOIN lugar as l ON v.codigoLugarOrigen = l.codigo";
+$consulta = "SELECT DISTINCT t.fkcodigoLugarOrigen as codigo, l.nombre as nombre
+              FROM trayecto as t INNER JOIN lugar as l ON t.fkCodigoLugarOrigen = l.codigo";
 $resultado = mysqli_query($conexion, $consulta);
 
 echo "
@@ -31,8 +31,8 @@ echo                        "
                             <option selected value='0'>Seleccione destino</option>
                             ";
                             
-                            $consulta = "SELECT DISTINCT l.nombre as nombre, v.codigoLugarDestino as codigo
-                                          FROM viaje as v inner join lugar as l on v.codigoLugarDestino = l.codigo";
+                            $consulta = "SELECT DISTINCT l.nombre as nombre, t.fkCodigoLugarDestino as codigo
+                                          FROM trayecto as t inner join lugar as l on t.fkCodigoLugarDestino = l.codigo";
                             $resultado = mysqli_query($conexion, $consulta);
                             while($recorrer = mysqli_fetch_assoc($resultado)){
                                 echo "<option value='". $recorrer["codigo"] ."'>". $recorrer["nombre"] ."</option>";
