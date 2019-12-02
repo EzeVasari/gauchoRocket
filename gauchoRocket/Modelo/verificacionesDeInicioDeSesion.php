@@ -30,11 +30,115 @@ while($verificar = mysqli_fetch_assoc($queryUno)){
                                 where fkEmailUsuario like '".$usuario."';";
             $actualizarDos = mysqli_query($conexion, $actualizarUno);
         }
-        
-        /*HACER EN ESTE PUNTO LA VALIDACION DEL NIVEL DE VUELO ASIGNADO Y EL VUELO RESERVADO*/
-        
     }
 }
 
+$queryNivelCliente = "select nivelVuelo
+                      from cliente
+                      where fkEmailUsuario like '".$usuario."'";
+$resultadoQuery = mysqli_query($conexion, $queryNivelCliente);
+$nivelCliente;
+while($row = mysqli_fetch_assoc($resultadoQuery)){
+    $nivelCliente = $row['nivelVuelo'];
+}
+
+$queryReservas = "SELECT e.fkcodigoTipoDeEquipo as numNivel, ir.idItemReserva as itRev
+                FROM viaje as v
+                    inner join equipo as e on v.matriculaEquipo = e.matricula
+                    inner join ubicacion as u on v.codigo = u.fkCodigoViaje
+                    inner join reserva as r on u.fkCodigoReserva = r.codigo
+                    inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
+                    inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
+                where rel.fkEmailCliente like '".$usuario."'";
+$resultadoReservas = mysqli_query($conexion, $queryViajes);
+
+/*EMPIEZA LA VALIDACION DE RESERVAS*/
+
+$i = 1;
+
+while($reservas = mysqli_fetch_assoc($resultadoReservas)){
+    if($reservas['numNivel'] <> $nivelCliente){
+        $itemReserva = "select fkCodigoReserva as reser
+                        from itemReserva
+                        where idItemReserva = ".$reservas['itRev'].";";
+        $resulSubQuery = mysqli_query($conexion, $itemReserva);
+        $codRev;
+        while($subQuery = mysqli_fetch_assoc($resulSubQuery)){
+            $codRev = $subQuery['reser'];
+        }
+        
+        $deleteUno = "delete from relacionClienteItemReserva where fkIdItemReserva = ".$reservas['itRev'].";";
+        $resulDeleteUno = mysqli_query($conexion, $deleteUno);
+        
+        $deleteDos = "delete from itemReserva where idItemReserva = ".$reservas['itRev'].";";
+        $resulDeleteDos = mysqli_query($conexion, $deleteDos);
+        
+        $deleteTres = "delete from ubicacion where fkCodigoReserva like '".$codRev."';";
+        $resulDeleteTres = mysqli_query($conexion, $deleteTres);
+        
+        $deleteCuatro = "delete from relacionreservatrayecto where fkCodigoReserva like '".$codRev."';";
+        $resulDeleteCuatro = mysqli_query($conexion, $deleteCuatro);
+        
+        $deleteCinco = "delete from reserva where codigo like '".$codRev."';";
+        $resulDeleteCinco = mysqli_query($conexion, $deleteCinco);
+        
+        $i = 2;
+    }
+}
 
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
