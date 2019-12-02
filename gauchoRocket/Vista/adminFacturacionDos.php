@@ -5,7 +5,8 @@ include('../Modelo/conexion.php');
 <div class='container p-2 mb-5 mt-5 border border-dark'>
     <div class="row justify-content-center">
         
-        <?php /* FACTURACIÓN TOTAL */
+        <?php
+        /* FACTURACIÓN TOTAL */
         if(isset($queryTotalUno)){
             if($totalPeriodo == 1){$tiempo = "días";
             }elseif($totalPeriodo == 2){$tiempo = "semanas";
@@ -27,9 +28,8 @@ include('../Modelo/conexion.php');
                      ";
             }
         }
-        ?>
         
-        <?php /* FACTURACIÓN VUELO */
+        /* FACTURACIÓN VUELO */
         if(isset($queryVueloUno)){
             if($vueloPeriodo == 1){$tiempo = "días";
             }elseif($vueloPeriodo == 2){$tiempo = "semanas";
@@ -48,9 +48,8 @@ include('../Modelo/conexion.php');
                      ";
             }
         }
-        ?>
         
-        <?php /* FACTURACIÓN SERVICIO */
+        /* FACTURACIÓN SERVICIO */
         if(isset($queryServicioUno)){
             if($servicioPeriodo == 1){$tiempo = "días";
             }elseif($servicioPeriodo == 2){$tiempo = "semanas";
@@ -69,9 +68,8 @@ include('../Modelo/conexion.php');
                      ";
             }
         }
-        ?>
         
-        <?php /* FACTURACIÓN CABINA */
+        /* FACTURACIÓN CABINA */
         if(isset($queryCabinaUno)){
             if($cabinaPeriodo == 1){$tiempo = "días";
             }elseif($cabinaPeriodo == 2){$tiempo = "semanas";

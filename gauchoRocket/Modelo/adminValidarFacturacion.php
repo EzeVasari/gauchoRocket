@@ -38,7 +38,7 @@ if(isset($_POST["buscar"])){
                             inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
                             inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
                             inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-                          where ir.fechaQuePidioReserva between date_sub(now(), interval ".$totalAntiguedad." ".$tiempoVuelo.") and now()
+                          where ir.fechaQuePidioReserva between date_sub(now(), interval ".$vueloAntiguedad." ".$tiempoVuelo.") and now()
                             and v.codigo = ".$vuelo.";";
     }
     
@@ -59,7 +59,7 @@ if(isset($_POST["buscar"])){
                                 inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
                                 inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
                                 inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-                          where ir.fechaQuePidioReserva between date_sub(now(), interval ".$totalAntiguedad." ".$tiempoServicio.") and now()
+                          where ir.fechaQuePidioReserva between date_sub(now(), interval ".$servicioAntiguedad." ".$tiempoServicio.") and now()
                                 and s.fkcodigoTipoDeServicio = ".$servicio.";";
     }
     
@@ -80,7 +80,7 @@ if(isset($_POST["buscar"])){
                                 inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
                                 inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
                                 inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-                          where ir.fechaQuePidioReserva between date_sub(now(), interval ".$totalAntiguedad." ".$tiempoCabina.") and now()
+                          where ir.fechaQuePidioReserva between date_sub(now(), interval ".$cabinaAntiguedad." ".$tiempoCabina.") and now()
                                 and c.fkCodigoTipoDeCabina = ".$cabina.";";
     }
     
