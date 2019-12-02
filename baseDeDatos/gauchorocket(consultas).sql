@@ -601,9 +601,26 @@ INNER JOIN trayecto as t
 	ON rrt.fkIdTrayecto = t.idTrayecto
 WHERE r.codigo = '09es0g';
 
+SELECT ir.fkCodigocabina as codigoCabina
+FROM reserva as r INNER JOIN itemReserva as ir
+	ON r.codigo = ir.fkCodigoReserva
+WHERE r.codigo = 'f1ytqz';
 
 
+SELECT tdc.descripcion as nombreCabina 
+FROM viaje as v INNER JOIN equipo as e 
+	ON v.matriculaEquipo = e.matricula
+INNER JOIN relacionCabinaEquipo as rce 
+	ON e.matricula = rce.fkMatriculaEquipo
+INNER JOIN cabina as c 
+	ON rce.fkCodigoCabina = c.codigoCabina
+INNER JOIN tipoDeCabina as tdc 
+	ON tdc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
+WHERE c.codigoCabina = 1 and v.codigo = 1;
 
+
+INSERT INTO ubicacion (idUbicacion, estado, fkIdtrayecto, fkCodigoViaje, fkCodigoCabina, fkCodigoReserva, nroUbicacion) VALUES 
+(false, 1, 1, 1, 1);
 
 
 
