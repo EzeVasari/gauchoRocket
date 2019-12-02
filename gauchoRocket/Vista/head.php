@@ -11,6 +11,13 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <script type="text/javascript" src="js/agregarPersona.js"></script>
+=======
+>>>>>>> master
+=======
+>>>>>>> e52984b51e04d4fa0f19c0688271bb111ce629a6
     <script src="https://kit.fontawesome.com/06b3ad8f3c.js" crossorigin="anonymous"></script>
     <!-- fin JS -->
     

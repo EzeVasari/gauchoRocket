@@ -682,19 +682,6 @@ select *
 from cliente
 ;
 
-SELECT t.nombreTrayecto as nombreTrayecto, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino 
-FROM reserva AS r 
-ON ir.fkCodigoReserva = r.codigo
-INNER JOIN relacionReservaTrayecto as rrt
-ON r.codigo = rrt.fkCodigoReserva
-INNER JOIN trayecto as t
-On rrt.fkIdTrayecto = t.idTrayecto
-WHERE r.codigo = 'u4i2d0';
-
-
-
-
-
 select ir.idItemReserva, ir.fkCodigoReserva, rel.fkEmailCliente, c.nivelVuelo
 from itemReserva ir
 	inner join relacionClienteItemReserva rel on ir.idItemReserva = rel.fkIdItemReserva
@@ -709,6 +696,14 @@ rmf8go
 select * from relacionClienteItemReserva;
 delete from relacionClienteItemReserva where fkIdItemReserva = 1678;
 
+SELECT t.nombreTrayecto as nombreTrayecto, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino 
+FROM reserva AS r 
+ON ir.fkCodigoReserva = r.codigo
+INNER JOIN relacionReservaTrayecto as rrt
+ON r.codigo = rrt.fkCodigoReserva
+INNER JOIN trayecto as t
+On rrt.fkIdTrayecto = t.idTrayecto
+WHERE r.codigo = 'u4i2d0';
 select * from itemReserva;
 delete from itemReserva where idItemReserva = 1678;
 
@@ -755,6 +750,17 @@ SELECT e.fkcodigoTipoDeEquipo as numNivel, ir.idItemReserva as itRev
 
 
 
+
+SELECT v.descripcion, t.nombreTrayecto, tdc.descripcion as nombreCabina, count(rci.fkIdItemReserva) AS personas, tds.precio AS precioServicio, t.precio AS precioViaje, tdc.precio AS precioCabina 
+from viaje as v inner join relacionViajeTrayecto as rvt on
+v.codigo= rvt.fkCodigoViaje inner join trayecto as t on 
+t.idTrayecto = rvt.fkIdTrayecto inner join relacionReservaTrayecto
+as rrt on rrt.fkIdTrayecto =t.idTrayecto inner join reserva as r
+on r.codigo = rrt.fkCodigoReserva inner join  itemReserva as ir on
+ir.fkcodigoReserva= r.codigo inner join tipoDeServicio as tds on
+ ir.fkCodigoServicio = tds.codigoTipoDeServicio inner join tipoDeCabina 
+ as tdc on tdc.codigoTipoDeCabina= ir.fkCodigoCabina
+ inner join relacionClienteItemReserva as rci on rci.fkIdItemReserva = ir.idItemReserva
 
 
 
