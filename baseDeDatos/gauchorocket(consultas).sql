@@ -586,7 +586,20 @@ from viaje as v
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
 where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1;
 
+SELECT rce.fkCodigoCabina as codigoCabina
+FROM viaje as v
+INNER JOIN equipo as e 
+	ON v.matriculaEquipo = e.matricula
+INNER JOIN relacionCabinaEquipo as rce 
+	ON e.matricula = rce.fkMatriculaEquipo
+WHERE v.codigo = 1;
 
+SELECT t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino
+FROM reserva as r INNER JOIN relacionReservaTrayecto as rrt
+	ON r.codigo = rrt.fkCodigoReserva 
+INNER JOIN trayecto as t 
+	ON rrt.fkIdTrayecto = t.idTrayecto
+WHERE r.codigo = '09es0g';
 
 
 
