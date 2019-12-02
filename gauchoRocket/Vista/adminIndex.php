@@ -27,7 +27,7 @@
                         <div class='card-body'>
                             <h5 class='card-title'>Mantenimiento</h5>
                             <p class='card-text'>Puede modificar los vuelos, cancelar o agregar un nuevo</p>
-                            <a href='adminMantenimientoIndex.php' class='btn btn-primary'>acceder</a>
+                            <a href='adminMantenimientoIndex.php' class='btn btn-primary'>Mantenimiento</a>
                          </div>
                     </div>
                 </div>
