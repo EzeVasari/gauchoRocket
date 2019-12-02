@@ -143,9 +143,8 @@
                         $registroClienteItemReserva = mysqli_query($conexion, $queryRelacion);
                         $registroReservaTrayecto = mysqli_query($conexion, $queryRelacionTrayecto);
 
-
                     }else {
-                        $i++;
+                        
                         $codigoHash = md5(rand(0,1000));
 
                         $query = "INSERT INTO usuario (email, dni, rol, nombre, apellido, codigoHash, active) VALUES('".$e."','".$documentos[$i]."',false,'".$nombres[$i]."','".$apellidos[$i]."', '".$codigoHash."', false)";
@@ -203,8 +202,8 @@
                         mail($e,$asunto,$cuerpo,$headers);
 
                         /* == Fin envio de email == */
-
-                    }  
+                    }
+                    $i++;
                 }
                 if($registroClienteItemReserva){
                     if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi'] || !$verifAsientos){

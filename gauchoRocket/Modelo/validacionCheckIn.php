@@ -51,7 +51,8 @@
 
                         foreach($ubicaciones as $u){
 
-                            $queryUbicacion = "UPDATE ubicacion 
+                            $queryUbicacion = "UPDATE ubicacion as u INNER JOIN trayecto as t
+                                                    ON u.fkIdTrayecto = t.idTrayecto
                                                SET estado = false, nroUbicacion = ".$u."
                                                WHERE idTrayecto = ".$trayecto['idTrayecto']." and fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$trayecto["codigoViaje"]." and fkCodigoReserva = '".$codigoReserva."'";
                             

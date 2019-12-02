@@ -673,6 +673,10 @@ FROM viaje as v
 where rel.fkEmailCliente like 'cuatro@gmail.com'
 ;
 
+UPDATE ubicacion as u INNER JOIN trayecto as t
+	ON u.fkIdTrayecto = t.idTrayecto
+SET estado = false, nroUbicacion = 17
+WHERE idTrayecto = 1 and fkCodigoCabina = 1 and fkCodigoViaje = 1 and fkCodigoReserva = 'fmd1t3';
 
 select *
 from cliente
