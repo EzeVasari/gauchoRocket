@@ -8,52 +8,77 @@
     if(!isset($_POST['confirmarCheckin'])) {
         
         $reserva = $_GET["reserva"];
-        $codigoVuelo = $_GET["vuelo"];
-        $cabina = $_GET["cabina"];
-        $origen = $_GET["origen"];
-        $destino = $_GET["destino"];
-
-        $buscarUbicacion = "SELECT * 
-                            FROM ubicacion as u
-                                INNER JOIN trayecto as t ON u.fkIdTrayecto = t.idTrayecto
-                            WHERE fkCodigoCabina = ".$cabina."
-                                and fkCodigoViaje = ".$codigoVuelo."
-                                and t.fkCodigoLugarOrigen = ".$origen."
-                                and t.fkCodigoLugarDestino = ".$destino."
-                                and u.fkCodigoReserva like '".$reserva."';";
-
-        $buscarCabina = "SELECT tdc.descripcion as descripcion
+        $codigoViaje = $_GET["viaje"];
+        
+        /* ============================================================ */
+        
+        $buscarCodigoCabina = "SELECT ir.fkCodigocabina as codigoCabina
+                                FROM reserva as r INNER JOIN itemReserva as ir
+                                    ON r.codigo = ir.fkCodigoReserva
+                                WHERE r.codigo = '".$reserva."'";
+        
+        $resultadoCodigoCabina = mysqli_query($conexion, $buscarCodigoCabina);
+        $codigoCabina = mysqli_fetch_assoc($resultadoCodigoCabina);
+        
+        /* ============================================================ */
+        
+        $buscarNombreCabina = "SELECT tdc.descripcion as nombreCabina 
                          FROM viaje as v
                             INNER JOIN equipo as e ON v.matriculaEquipo = e.matricula
                             INNER JOIN relacionCabinaEquipo as rce ON e.matricula = rce.fkMatriculaEquipo
                             INNER JOIN cabina as c ON rce.fkCodigoCabina = c.codigoCabina
                             INNER JOIN tipoDeCabina as tdc ON tdc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
-                         WHERE c.codigoCabina = ".$cabina." and v.codigo = ".$codigoVuelo."";
+                         WHERE c.codigoCabina = ".$codigoCabina["codigoCabina"]." and v.codigo = ".$codigoViaje."";
         
+        $resultadoNombreCabina = mysqli_query($conexion, $buscarNombreCabina);
+        $nombreCabina = mysqli_fetch_assoc($resultadoNombreCabina);
         
         /* ============================================================ */
-        $asientosTotales = "select (e.capacidadSuit + e.capacidadGeneral + e.capacidadFamiliar + 1) as asientosTotales
-                            from reserva as r
-	                           inner join ubicacion as u on u.fkCodigoReserva = r.codigo
-                               inner join viaje as v on u.fkCodigoViaje = v.codigo
-                               inner join equipo as e on v.matriculaEquipo = e.matricula
-                            where r.codigo like '".$reserva."'";
-        $resultadoAsientos = mysqli_query($conexion, $asientosTotales);
-        /* ============================================================ */
         
-
+        $buscarOrigenDestino = "SELECT t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino
+                         FROM reserva as r INNER JOIN relacionReservaTrayecto as rrt
+                            ON r.codigo = rrt.fkCodigoReserva 
+                         INNER JOIN trayecto as t 
+                            ON rrt.fkIdTrayecto = t.idTrayecto
+                         WHERE r.codigo = '".$reserva."'";
+        
+        $resultadoOrigenDestino = mysqli_query($conexion, $buscarOrigenDestino);
+        $OrigenDestino = mysqli_fetch_assoc($resultadoOrigenDestino);
+        
+        
+        $buscarUbicacion = "SELECT * 
+                            FROM ubicacion as u
+                                INNER JOIN trayecto as t ON u.fkIdTrayecto = t.idTrayecto
+                            WHERE fkCodigoCabina = ".$codigoCabina["codigoCabina"]."
+                                and fkCodigoViaje = ".$codigoViaje."
+                                and t.fkCodigoLugarOrigen = ".$OrigenDestino['origen']."
+                                and t.fkCodigoLugarDestino = ".$OrigenDestino['destino']."
+                                and u.fkCodigoReserva like '".$reserva."' and ;";
+        
         $resultadoUbicacion = mysqli_query($conexion, $buscarUbicacion);
-        $resultadoCabina = mysqli_query($conexion, $buscarCabina);
-
-        $cabinaArray = mysqli_fetch_assoc($resultadoCabina);
         
+        /* ============================================================ */
+        
+        $asientosTotales = "select e.capacidadSuit as suite, e.capacidadGeneral as general, e.capacidadFamiliar as familiar
+                            from viaje as v
+                               inner join equipo as e on v.matriculaEquipo = e.matricula
+                            where v.codigo = ".$codigoViaje."";
+        $resultadoAsientos = mysqli_query($conexion, $asientosTotales);
+        
+        /* ============================================================ */
+    
         $queryLimite = "select count(*) as resultado
                         from relacionClienteItemReserva as rel
 	                       inner join itemReserva as ir on rel.fkIdItemReserva = ir.idItemReserva
 	                       inner join reserva as r on ir.fkcodigoReserva = r.codigo
                         where r.codigo like '".$reserva."';";
+        
         $resultadoLimite = mysqli_query($conexion, $queryLimite);
+        
+        /* ============================================================ */
+        
         $limite = 0;
+        
         while($rowLimite = mysqli_fetch_assoc($resultadoLimite)){
             $limite = $rowLimite['resultado'];
         }
@@ -88,52 +113,79 @@
                             <div class="col-md-7 bg-light p-3 border border-primary rounded-lg" >
                                 <h4 class="font-weight-bold">Selección de ubicación</h4>
                                 <p class="text-muted">Seleccione los asientos que desea ocupar</p>
-                                <h4 class="font-weight-bold text-center">'.$cabinaArray["descripcion"].'</h4>
-                                <form name="ordenamiento" id="contenedor" action="checkin.php?reserva='.$reserva.'" method="post">
+                                <h4 class="font-weight-bold text-center">'.$nombreCabina["nombreCabina"].'</h4>
+                                <form name="ordenamiento" id="contenedor" action="checkin.php?reserva='.$reserva.'&cabina='.$codigoCabina["codigoCabina"].'" method="post">
                                 <input type="hidden" id="cantidad" value='.$limite.'>
                                     ';
-        
-                                        while($result = mysqli_fetch_assoc($resultadoAsientos)){
-                                            for($i = 1; $i < $result['asientosTotales']; $i++){
-                                                if ((($i-1) % 10) == 0){
-                                                    echo "<div class='row'>";
-                                                }
-                                                
-                                                echo "<div class='col seat'>
-                                                        <input type='checkbox' id='".$i."' value='".$i."' name='registro[]'>
-                                                        <label class='text-center' for='".$i."'> ".$i." </label>
-                                                      </div>";
-                                                /*
-                                                <div class='col seat'>
-                                                    <input type='checkbox' id='".$i."' value='".$i."' name='registro[]' onclick='seleccionados()'>
-                                                    <label class='text-center' for='".$i."'> ".$i." </label>
-                                                </div>
-                                                */
-                                                
-                                                if ((($i) % 10) == 0){
-                                                    echo "</div>";
-                                                }
-                                                /*
-                                                if($asientos["estado"] == false){
-                                                    echo '<div class="seat">';
-                                                    echo '<input
-                                                            type="checkbox"
-                                                            value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"
-                                                            name="ubicaciones[]"
-                                                            id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"
-                                                            disabled
-                                                            />';
-                                                    echo '<label class="text-center" for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
-                                                    echo '</div>';
-                                                }else {
-                                                    echo '<div class="seat">';
-                                                    echo '<input type="checkbox" value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" name="ubicaciones[]" id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"/>';
-                                                    echo '<label class="text-center"for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
-                                                    echo '</div>';
-                                                }
-                                                */
-                                            }
+                                    while($result = mysqli_fetch_assoc($resultadoAsientos)){
+                                        
+                                        if ($codigoCabina["codigoCabina"] == 1){
+                                            $asientosTotales = $result["general"];
+                                        }elseif ($codigoCabina["codigoCabina"] == 2){
+                                            $asientosTotales = $result["familiar"];
+                                        }else {
+                                            $asientosTotales = $result["suite"];
                                         }
+                                        
+                                        for($i = 1; $i < $asientosTotales +1; $i++){
+                                            if ((($i-1) % 10) == 0){
+                                                echo "<div class='row'>";
+                                            }
+                                            $buscarUbicacion = "SELECT u.nroUbicacion as nro
+                                                                FROM ubicacion as u
+                                                                    INNER JOIN trayecto as t ON u.fkIdTrayecto = t.idTrayecto
+                                                                WHERE fkCodigoCabina = ".$codigoCabina["codigoCabina"]."
+                                                                    and fkCodigoViaje = ".$codigoViaje."
+                                                                    and t.fkCodigoLugarOrigen = ".$OrigenDestino['origen']."
+                                                                    and t.fkCodigoLugarDestino = ".$OrigenDestino['destino']."
+                                                                    and u.fkCodigoReserva like '".$reserva."' and nroUbicacion =".$i;
+
+                                            $resultadoUbicacion = mysqli_query($conexion, $buscarUbicacion);
+                                            $ubicacion = mysqli_fetch_assoc($resultadoUbicacion);
+                                            
+                                            if($ubicacion['nro'] == $i){
+                                                echo "<div class='col seat'>
+                                                    <input type='checkbox' id='".$i."' value='".$i."' name='ubicaciones[]' disabled>
+                                                    <label class='text-center' for='".$i."'> ".$i." </label>
+                                                  </div>";
+                                            } else {
+                                                echo "<div class='col seat'>
+                                                    <input type='checkbox' id='".$i."' value='".$i."' name='ubicaciones[]'>
+                                                    <label class='text-center' for='".$i."'> ".$i." </label>
+                                                  </div>";
+                                            }
+                                            
+                                            /*
+                                            <div class='col seat'>
+                                                <input type='checkbox' id='".$i."' value='".$i."' name='registro[]' onclick='seleccionados()'>
+                                                <label class='text-center' for='".$i."'> ".$i." </label>
+                                            </div>
+                                            */
+
+                                            if ((($i) % 10) == 0){
+                                                echo "</div>";
+                                            }
+                                            /*
+                                            if($asientos["estado"] == false){
+                                                echo '<div class="seat">';
+                                                echo '<input
+                                                        type="checkbox"
+                                                        value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"
+                                                        name="ubicaciones[]"
+                                                        id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"
+                                                        disabled
+                                                        />';
+                                                echo '<label class="text-center" for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
+                                                echo '</div>';
+                                            }else {
+                                                echo '<div class="seat">';
+                                                echo '<input type="checkbox" value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" name="ubicaciones[]" id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"/>';
+                                                echo '<label class="text-center"for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
+                                                echo '</div>';
+                                            }
+                                            */
+                                        }
+                                    }
                             echo '</div>
 
                             </div>

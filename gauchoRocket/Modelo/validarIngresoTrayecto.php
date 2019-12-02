@@ -2,12 +2,11 @@
 include('conexion.php');
 
 $codigoVuelo= $_GET["vuelo"];
-$nombreTrayecto= $_POST["nombreTrayecto"];
 $idTrayecto = $_POST["trayecto"];
 $precio= $_POST["precio"];
 $duracion= $_POST["duracion"];
 
-$query1 = "insert into trayecto (idTrayecto, nombreTrayecto, precio, duracion, fkCodigoLugarOrigen, fkCodigoLugarDestino)
+/*$query1 = "insert into trayecto (idTrayecto, nombreTrayecto, precio, duracion, fkCodigoLugarOrigen, fkCodigoLugarDestino)
         values('".$idTrayecto."', '".$nombreTrayecto."', '".$precio."', '".$duracion."', null, null)";
 
 
@@ -22,19 +21,20 @@ $query2 = "UPDATE trayecto SET fkcodigoLugarOrigen='".$origen."'
 $query3 = " UPDATE trayecto SET fkcodigoLugarDestino='".$destino."' 
         where idTrayecto='".$idTrayecto."'";
     
-        $insert3 = mysqli_query($conexion, $query3);
+        $insert3 = mysqli_query($conexion, $query3);*/
 
 
          
+ 	    $query4 ="insert into relacionviajetrayecto (fkIdTrayecto,fkCodigoViaje)
+        values('".$idTrayecto."','".$codigoVuelo."')";
+         $insert4 = mysqli_query($conexion, $query4);
 
 
       
 
- if($insert1 == TRUE )
+ if($insert4 == TRUE )
  {
- 	    $query4 ="insert into relacionviajetrayecto (fkIdTrayecto,fkCodigoViaje)
-        values('".$idTrayecto."','".$codigoVuelo."')";
-          $insert4 = mysqli_query($conexion, $query4);
+ 	   
           header('location:../Vista/ingresoTrayectoValido.php?vuelo='.$codigoVuelo.'&codigoTrayecto='.$idTrayecto.'');
  }else
  {

@@ -1,3 +1,9 @@
+<?php
+    include('../Modelo/iniciarSesion.php');
+    include('iniciarSesion.php');
+    include('../Modelo/registroUsuarios.php');
+    include('registroUsuarios.php');
+?>
 <nav class="navbar fixed-top shadow-sm navbar-expand-lg navbar-light bg-light mb-1">
       <h2><a class="navbar-brand text-black mx-4 mx-xs-1" href="index.php">
         <img src="img/cohete.png" width="25" height="25" alt="">

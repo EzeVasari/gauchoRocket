@@ -1,5 +1,4 @@
 <?php
-    include("head.php");
     include('../Modelo/conexion.php');
 
     if(isset($_POST["registrarse"])){

@@ -68,7 +68,7 @@ echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method
               </div>
               <div class='col-sm-7' id='contenedor1'>
                <label class='col-form-label'>trayecto</label>
-               <select class='custom-select' name='trayecto[]'>
+               <select class='custom-select' name='trayecto'>
                             <option selected value='0'>Seleccione trayecto</option>
                             <?php
 $consulta='SELECT  idTrayecto as codigo, nombreTrayecto as nombre
