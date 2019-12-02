@@ -57,10 +57,6 @@ echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method
           </div>
           <div class="row">
               <div class="col-sm-5">
-                <label class="col-form-label">Id del Trayecto:</label>
-                <input type="text" class="form-control" name="codigoTrayecto" required>
-              </div>
-              <div class="col-sm-5">
                 <label class="col-form-label">Precio</label>
             <input type="text" class="form-control" name="precio" required>
               </div>
@@ -68,13 +64,13 @@ echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method
                 <label class="col-form-label">duracion</label>
             <input type="text" class="form-control" name="duracion" required>
               </div>
-              <div class="col-sm-7">
-               <label class="col-form-label">Origen</label>
-               <select class='custom-select' name='origen'>
-                            <option selected value='0'>Seleccione origen</option>
+              <div class="col-sm-7" id="contenedor1">
+               <label class="col-form-label">trayecto</label>
+               <select class='custom-select' name='trayecto'>
+                            <option selected value='0'>Seleccione trayecto</option>
                             <?php
-$consulta="SELECT DISTINCT l.codigo as codigo, l.nombre as nombre
-              FROM  lugar as l ";
+$consulta="SELECT  idTrayecto as codigo, nombreTrayecto as nombre
+              FROM  trayecto ";
                             $resultado = mysqli_query($conexion, $consulta);
                             
                             while($recorrer = mysqli_fetch_assoc($resultado)){
@@ -87,23 +83,10 @@ $consulta="SELECT DISTINCT l.codigo as codigo, l.nombre as nombre
                         </select>
             
               </div>
+              <div class="btn btn-primary" id="btn-nuevoTrayecto">Agregar Trayecto</div>
+
               
-              <div class="col-sm-5">
-                <label class="col-form-label">Destino</label>
-             <select class='custom-select' name='destino'>
-                            <option selected value='0'>Seleccione destino</option>
-                            <?php
-                            
-                            $consulta = "SELECT DISTINCT l.nombre as nombre, l.codigo as codigo
-                                          FROM  lugar as l ";
-                            $resultado = mysqli_query($conexion, $consulta);
-                            while($recorrer = mysqli_fetch_assoc($resultado)){
-                                echo "<option value='". $recorrer["codigo"] ."'>". $recorrer["nombre"] ."</option>";
-                            }
-                            ?>
-                      
-                        </select>
-              </div>
+              
                       <div class="modal-footer">
                 <a href='adminIndex.php' class='btn btn-primary'>Cancelar</a>
            <button class='btn btn-primary  text-white ' type='submit' name='subir'>Registrar trayecto</button>
