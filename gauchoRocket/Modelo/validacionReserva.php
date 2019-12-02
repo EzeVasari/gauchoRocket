@@ -21,13 +21,14 @@
         return $key;
     }
     
-    
+
     if(isset($_GET["codigo"])) {
     
         $codigo = $_GET["codigo"];
         $usuario = $_SESSION['user'];
         //Busqueda Viaje
-        $reserva = "select * from viaje as v inner join equipo as e on v.matriculaEquipo = e.matricula where v.codigo = " . $codigo ."";
+        $reserva = "SELECT * FROM viaje as v inner join equipo as e on v.matriculaEquipo = e.matricula WHERE v.codigo = ". $codigo ."";
+        
         $resultado = mysqli_query($conexion, $reserva);
         $viaje = mysqli_fetch_assoc($resultado);
         }
@@ -46,7 +47,6 @@
     
     $codigoReserva =  generarCodigoReserva(6); 
         
-    
     
     if(!empty($_POST["nombres"]) && !empty($_POST["apellidos"]) && !empty($_POST["documentos"]) && !empty($_POST["emails"])){
         $nombres = $_POST["nombres"];
@@ -81,7 +81,8 @@
                     $queryAsientos = "SELECT count(idUbicacion) as asientosReservados
                                       FROM ubicacion as u INNER JOIN trayecto as t
 	                                   ON u.fkIdTrayecto = t.idTrayecto
-                                      WHERE fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigo." and t.fkCodigoLugarOrigen =".$i." and t.fkCodigoLugarDestino =".$auxDestino."";
+                                      WHERE fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$codigo." and t.fkCodigoLugarOrigen =".$i."
+                                        and t.fkCodigoLugarDestino =".$auxDestino."";
                     
                     $resultadoAsientos = mysqli_query($conexion, $queryAsientos);
                     $asientos = mysqli_fetch_assoc($resultadoAsientos);
@@ -106,7 +107,7 @@
                 }
             
             }
-            
+
                 $queryReserva = "INSERT INTO reserva (codigo) VALUES ('".$codigoReserva."')";
                 $registroReserva = mysqli_query($conexion, $queryReserva);
 
@@ -137,9 +138,10 @@
                         $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente, fecha) VALUES (".$idItemReserva.", '".$e."', now())";
 
                         $queryRelacionTrayecto = "INSERT INTO relacionReservaTrayecto (fkCodigoReserva, fkIdTrayecto) VALUES ('".$codigoReserva."', ".$trayecto["idTrayecto"].")";
+                        
 
-                        $registro = mysqli_query($conexion, $queryRelacion);
-                        $registro = mysqli_query($conexion, $queryRelacionTrayecto);
+                        $registroClienteItemReserva = mysqli_query($conexion, $queryRelacion);
+                        $registroReservaTrayecto = mysqli_query($conexion, $queryRelacionTrayecto);
 
 
                     }else {
@@ -153,7 +155,7 @@
                         $insertDos = mysqli_query($conexion, $queryDos);
 
                         $queryRelacion = "INSERT INTO relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente, fecha) VALUES (".$idItemReserva.", '".$e."', now())";
-                        $registro = mysqli_query($conexion, $queryRelacion);
+                        $registroClienteItemReserva = mysqli_query($conexion, $queryRelacion);
 
                         /* == Envio de email == */
                         $asunto = "Confirmación de cuenta | Gaucho Rocket"; 
@@ -204,7 +206,7 @@
 
                     }  
                 }
-                if($registro){
+                if($registroClienteItemReserva){
                     if($fechaDeCheckin['ahora'] > $fechaDeCheckin['fi'] || !$verifAsientos){
                         echo '<br><div class="alert alert-success mt-5" role="alert">
                                 Usted se encuentra en lista de espera. Será informado...
@@ -235,13 +237,13 @@
 
                     echo "<div class='container mt-5'> 
                             <div class='card mb-3' style='max-width: 840px;'>
-                              <div class='row no-gutters justify-content-md-center'>
+                              <div class='row no-gutters justify-content-center'>
                                 <div class='col-md-4'>
                                   <img src='../Vista/".$reserva['img']."' class='card-img'>
                                 </div>
                                 <div class='col-md-8'>
                                   <div class='card-body'>
-                                    <h5 class='card-title'>".$reserva['nombre']." - (".$reserva['codigo'].")</h5>
+                                    <h5 class='card-title'>".$reserva['nombre']." (".$reserva['codigo'].")</h5>
                                     <div class'row'>
                                         <p>".$reserva['descripcion']."</p>
                                     </div>

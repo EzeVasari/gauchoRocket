@@ -3,19 +3,24 @@
     include("conexion.php");
     
     if(isset($_POST['confirmarCheckin'])){
+        foreach($_POST['ubicaciones'] as $u){
+            
+             echo $u;
+            }
 
         if(isset($_GET['reserva']) && isset($_POST['ubicaciones'])){
 
             $codigoReserva = $_GET['reserva'];
             $ubicaciones = $_POST['ubicaciones'];
+            $cabina= $_GET['cabina'];
             
             
-            foreach($ubicaciones as $u){
+            foreach($_POST['ubicaciones'] as $u){
             
              echo $u;
             }
 
-            $queryTrayecto = "SELECT t.fkCodigoLugarOrigen AS origen, t.fkCodigoLugarDestino AS destino, rvt.fkCodigoViaje AS codigoViaje
+            $queryTrayecto = "SELECT t.fkCodigoLugarOrigen AS origen, t.fkCodigoLugarDestino AS destino, rvt.fkCodigoViaje AS codigoViaje, t.idTrayecto as idTrayecto
                             FROM reserva AS r INNER JOIN relacionReservaTrayecto AS rrt
                                 ON r.codigo = rrt.fkCodigoReserva
                             INNER JOIN trayecto AS t
@@ -30,7 +35,7 @@
 
                 $auxDestino = $trayecto["origen"];
 
-                for ($i = $trayecto["origen"]; $i <= $trayecto["destino"]; $i++){
+                for ($i = $trayecto["origen"]; $i < $trayecto["destino"]; $i++){
 
                     $auxDestino++;
 
@@ -46,10 +51,10 @@
 
                         foreach($ubicaciones as $u){
 
-                            $queryUbicacion = "UPDATE ubicacion as u
-                                               SET estado = false
-                                               WHERE CONCAT(u.filaUbicacion, u.columnaUbicacion) ='".$u."'";
-
+                            $queryUbicacion = "UPDATE ubicacion 
+                                               SET estado = false, nroUbicacion = ".$u."
+                                               WHERE idTrayecto = ".$trayecto['idTrayecto']." and fkCodigoCabina = ".$cabina." and fkCodigoViaje = ".$trayecto["codigoViaje"]." and fkCodigoReserva = '".$codigoReserva."'";
+                            
                             $resultadoUbicacion = mysqli_query($conexion, $queryUbicacion);    
                         }    
                     }

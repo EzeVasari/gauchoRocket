@@ -288,6 +288,20 @@ SELECT CONCAT(u.filaUbicacion, u.columnaUbicacion) as id, u.estado
 FROM ubicacion as u
 WHERE CONCAT(u.filaUbicacion, u.columnaUbicacion) = 'A2';
 
+SELECT count(idUbicacion) as asientosReservados
+FROM ubicacion as u
+	INNER JOIN trayecto as t ON u.fkIdTrayecto = t.idTrayecto
+WHERE fkCodigoCabina = 1 and fkCodigoViaje = 1 and t.fkCodigoLugarOrigen = 2 and t.fkCodigoLugarDestino = 3;
+
+SELECT * 
+FROM trayecto as t
+	INNER JOIN relacionViajeTrayecto as rvt ON t.idTrayecto = rvt.fkIdTrayecto
+WHERE t.fkCodigoLugarOrigen = 2 and t.fkCodigoLugarDestino = 3 and fkCodigoViaje = 1;
+
+SELECT *
+FROM viaje as v
+	inner join equipo as e on v.matriculaEquipo = e.matricula
+WHERE v.codigo = 1;
 select v.nombre as viaje, t.fkCodigoLugarOrigen as tOrigen, t.fkCodigoLugarDestino as tDestino, t.nombreTrayecto as tNombre,
 	i.fkCodigoReserva as reserva, i.idItemReserva as item, i.pago as pago
 from ItemReserva as i
@@ -534,7 +548,7 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now();
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and ir.pago = true;
 
 /* Total facturado de viajes */
 select sum(v.precio) as cantidad, v.nombre as nombre
@@ -546,7 +560,7 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1;
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and v.codigo = 1 and ir.pago = true;
 
 /* Total facturado de servicios */
 select sum(ts.precio) as cantidad, ts.descripcion as nombre
@@ -558,7 +572,7 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and s.fkcodigoTipoDeServicio = 1;
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and s.fkcodigoTipoDeServicio = 1 and ir.pago = true;
 
 /* Total facturado de cabinas */
 select sum(tc.precio) as cantidad, tc.descripcion as nombre
@@ -570,18 +584,84 @@ from viaje as v
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
     inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
-where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1;
+where ir.fechaQuePidioReserva between date_sub(now(), interval 2 day) and now() and c.fkCodigoTipoDeCabina = 1 and ir.pago = true;
+
+SELECT rce.fkCodigoCabina as codigoCabina
+FROM viaje as v
+INNER JOIN equipo as e 
+	ON v.matriculaEquipo = e.matricula
+INNER JOIN relacionCabinaEquipo as rce 
+	ON e.matricula = rce.fkMatriculaEquipo
+WHERE v.codigo = 1;
+
+SELECT t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino
+FROM reserva as r INNER JOIN relacionReservaTrayecto as rrt
+	ON r.codigo = rrt.fkCodigoReserva 
+INNER JOIN trayecto as t 
+	ON rrt.fkIdTrayecto = t.idTrayecto
+WHERE r.codigo = '09es0g';
+
+SELECT ir.fkCodigocabina as codigoCabina
+FROM reserva as r INNER JOIN itemReserva as ir
+	ON r.codigo = ir.fkCodigoReserva
+WHERE r.codigo = 'f1ytqz';
 
 
+SELECT tdc.descripcion as nombreCabina 
+FROM viaje as v INNER JOIN equipo as e 
+	ON v.matriculaEquipo = e.matricula
+INNER JOIN relacionCabinaEquipo as rce 
+	ON e.matricula = rce.fkMatriculaEquipo
+INNER JOIN cabina as c 
+	ON rce.fkCodigoCabina = c.codigoCabina
+INNER JOIN tipoDeCabina as tdc 
+	ON tdc.codigoTipoDeCabina = c.fkCodigoTipoDeCabina
+WHERE c.codigoCabina = 1 and v.codigo = 1;
 
 
+INSERT INTO ubicacion (idUbicacion, estado, fkIdtrayecto, fkCodigoViaje, fkCodigoCabina, fkCodigoReserva, nroUbicacion) VALUES 
+(false, 1, 1, 1, 1);
 
 
+SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombreViaje, v.descripcion AS descripcion, v.precio AS precio, t.nombre as nombreTrayecto
+                  FROM relacionClienteItemReserva AS rcr
+                  INNER JOIN itemReserva AS ir 
+                    ON rcr.fkIdItemReserva = ir.idItemReserva
+                  INNER JOIN Reserva AS r 
+                    ON ir.fkCodigoReserva = r.codigo
+                  INNER JOIN relacionReservaTrayecto as rrt
+                    ON r.codigo = rrt.fkCodigoReserva
+                  INNER JOIN trayecto as t
+                    On rrt.fkIdTrayecto = t.idTrayecto
+                  WHERE ir.idItemReserva = 1286;
 
 
+SELECT t.nombreTrayecto as nombreTrayecto 
+FROM relacionClienteItemReserva AS rcr
+                  INNER JOIN itemReserva AS ir 
+                    ON rcr.fkIdItemReserva = ir.idItemReserva
+                  INNER JOIN Reserva AS r 
+                    ON ir.fkCodigoReserva = r.codigo
+                  INNER JOIN relacionReservaTrayecto as rrt
+                    ON r.codigo = rrt.fkCodigoReserva
+                  INNER JOIN trayecto as t
+                    On rrt.fkIdTrayecto = t.idTrayecto
+                  WHERE ir.idItemReserva = 1286;
 
-
-
+ time(v.fecha) as hora, date(v.fecha) as fecha
+ 
+ 
+ SELECT ir.fkCodigoReserva AS codigo, time(v.fecha) as hora, date(v.fecha) as fecha, v.imagen AS img, v.nombre AS nombreViaje, v.descripcion AS descripcion, v.precio AS precio
+                  FROM relacionClienteItemReserva AS rcr
+                  INNER JOIN itemReserva AS ir 
+                    ON rcr.fkIdItemReserva = ir.idItemReserva
+                  INNER JOIN Reserva AS r 
+                    ON ir.fkCodigoReserva = r.codigo
+                  INNER JOIN relacionReservaTrayecto as rrt
+                    ON r.codigo = rrt.fkCodigoReserva
+                  INNER JOIN trayecto as t
+                    On rrt.fkIdTrayecto = t.idTrayecto
+                  WHERE ir.idItemReserva = 1286;
 
 
 

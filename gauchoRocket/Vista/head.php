@@ -11,8 +11,6 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="js/agregarPersona.js"></script>
-    <script type="text/javascript" src="js/agregarTrayecto.js"></script>
     <script src="https://kit.fontawesome.com/06b3ad8f3c.js" crossorigin="anonymous"></script>
     <!-- fin JS -->
     
