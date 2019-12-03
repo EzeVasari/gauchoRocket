@@ -229,6 +229,40 @@ begin
 end //
 delimiter ;
 
+/* ============================================================ */
+
+delimiter //
+create event vaciarAsientosSinCheckin on schedule every 5 minute
+starts '2019-01-01 00:00:00'
+do
+begin
+	delete from relacionClienteItemReserva where fkIdItemReserva in
+	(select idItemReserva
+	from itemReserva
+	where checkin = false and fechaLimiteDeCheckin < now());
+
+	delete from ubicacion where fkCodigoReserva in
+	(select r.codigo
+	from reserva as r
+		inner join itemReserva as ir on r.codigo = ir.fkCodigoReserva
+	where ir.checkin = false and ir.fechaLimiteDeCheckin < now());
+
+	delete from relacionreservatrayecto where fkCodigoReserva in
+	(select r.codigo
+	from reserva as r
+		inner join itemReserva as ir on r.codigo = ir.fkCodigoReserva
+	where ir.checkin = false and ir.fechaLimiteDeCheckin < now());
+
+	delete from itemReserva where checkin = false and fechaLimiteDeCheckin < now();
+
+	delete from reserva where codigo not in
+	(select fkCodigoReserva
+	from itemReserva);
+end //
+delimiter ;
+
+
+
 /* ========== */
 /*
 delimiter //
