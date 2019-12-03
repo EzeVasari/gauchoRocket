@@ -750,6 +750,7 @@ INNER JOIN viaje as v
 /* ================================================================================ */
 /* ================================================================================ */
 /* ================================================================================ */
+
 delete from relacionClienteItemReserva where fkIdItemReserva in
 (select idItemReserva
 from itemReserva
@@ -773,7 +774,9 @@ delete from reserva where codigo not in
 (select fkCodigoReserva
 from itemReserva);
 
-
+/* ================================================================================ */
+/* ================================================================================ */
+/* ================================================================================ */
 
 select count(c.codigoCabina) as cantidad, tc.descripcion
 from itemReserva as ir
@@ -810,9 +813,18 @@ from itemReserva as ir
 where ir.pago = true
 group by e.matricula, v.nombre;
 
+/* ================================================================================ */
+/* ================================================================================ */
+/* ================================================================================ */
 
+update itemReserva
+set listaDeEspera = false,
+	fechaLimiteDeCheckin = date_add(fechaLimiteDeCheckin, interval 115 minute),/*Hay tiempo hasta 5 minutos de iniciar el viaje*/
+	fechaInicioDeCheckin = date_add(fechaInicioDeCheckin, interval 2790 minute)/*Se puede abonar hasta hora y media antes del checkin*/
+where fechaLimiteDeCheckin < now() and listaDeEspera = true;
 
-
+select *
+from itemReserva;
 
 
 

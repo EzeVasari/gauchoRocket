@@ -261,67 +261,19 @@ begin
 end //
 delimiter ;
 
+/* ============================================================ */
 
-
-/* ========== */
-/*
 delimiter //
-create event tareasDiarias2 on schedule every 1 minute
+create event clientesEnListaDeEspera on schedule every 5 minute
 starts '2019-01-01 00:00:00'
 do
 begin
-	select count(*) as cantidad
-	from itemReserva as ir
-		inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
-	where (now() > ir.fechaInicioDeCheckin and ir.pago = false)
-		or (now() > ir.fechaLimiteDeCheckin and ir.checkin = false)
-		and (listaDeEspera = false);
-	
-    update centroMedico set turnos = cantidad where codigo = 1;
+	update itemReserva
+	set listaDeEspera = false,
+		fechaLimiteDeCheckin = date_add(fechaLimiteDeCheckin, interval 115 minute),/*Hay tiempo hasta 5 minutos de iniciar el viaje*/
+		fechaInicioDeCheckin = date_add(fechaInicioDeCheckin, interval 2790 minute)/*Se puede abonar hasta hora y media antes del checkin*/
+	where fechaLimiteDeCheckin < now() and listaDeEspera = true;
 end //
 delimiter ;
-*/
-/* DATOS CARGADOS "A LA FUERZA" PARA HACER PRUEBAS */
-/* Los comento sólo para poder ejecutar todo de arriba a abajo */
-
-/*
-insert into relacionClienteItemReserva (fkIdItemReserva, fkEmailCliente) values
-(1675, 'dos@gmail.com');
-*/
-
-/*
-insert into centroMedico (codigo, turnos, codigoLugar, imagen) values
-(4, 0, 1, 'img/centrosMedicos/buenosaires.jpg');
-
-insert into turnoMedico (fkEmailCliente, fechaTurnoMedico, codigoLugar, nombreLugar) values
-('uno@gmail.com', curtime(), 1, 'caca1');
-
-insert into turnoMedico (fkEmailCliente, fechaTurnoMedico, codigoLugar, nombreLugar) values
-('uno@gmail.com', date_add(curtime(), interval 60 day), 1, 'caca2');
-
-insert into turnoMedico (fkEmailCliente, fechaTurnoMedico, codigoLugar, nombreLugar) values
-('uno@gmail.com', date_add(curtime(), interval 10 minute), 1, 'caca3');
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
