@@ -13,7 +13,7 @@
             <div class="row">
                 <div class='col mb-4'>
                     <div class='card destinos text-center mx-auto'>
-                        <img src='img/admin/reporte.jpg' class='card-img-top' alt='...'>
+                        <img src='img/admin/viajes.jpg' class='card-img-top' alt='...'>
                         <div class='card-body'>
                             <h5 class='card-title'>Ingreso de vuelos</h5>
                             <p class='card-text text-muted'>Puede agregar nuevos vuelos y los trayectos de este mismo</p>
@@ -23,7 +23,7 @@
                 </div>
                 <div class='col mb-4'>
                     <div class='card destinos text-center mx-auto'>
-                        <img src='img/admin/reporte.jpg' class='card-img-top' alt='...'>
+                        <img src='img/admin/altasBajas.jpg' class='card-img-top' alt='...'>
                         <div class='card-body'>
                             <h5 class='card-title'>Baja o Modificacion</h5>
                             <p class='card-text text-muted'>Puede modificar o eliminar los vuelos</p>
@@ -33,7 +33,7 @@
                 </div>
                  <div class='col mb-4'>
                     <div class='card destinos text-center mx-auto'>
-                        <img src='img/admin/reporte.jpg' class='card-img-top' alt='...'>
+                        <img src='img/admin/equiposUno.jpg' class='card-img-top' alt='...'>
                         <div class='card-body'>
                             <h5 class='card-title'>ingreso de Equipos</h5>
                             <p class='card-text'>Puede agregar nuevos equipos </p>
@@ -43,7 +43,7 @@
                 </div>
                   <div class='col mb-4'>
                     <div class='card destinos text-center mx-auto'>
-                        <img src='img/admin/reporte.jpg' class='card-img-top' alt='...'>
+                        <img src='img/admin/equiposDos.jpg' class='card-img-top' alt='...'>
                         <div class='card-body'>
                             <h5 class='card-title'>eliminacion de equipos</h5>
                             <p class='card-text'>Puede eliminar Equipos</p>
