@@ -23,7 +23,7 @@
                 </div>
                 <div class='col mb-4'>
                     <div class='card destinos text-center mx-auto'>
-                        <img src='img/admin/reporte.jpg' class='card-img-top' alt='...'>
+                        <img src='img/admin/mantenimiento.jpg' class='card-img-top' alt='...'>
                         <div class='card-body'>
                             <h5 class='card-title'>Mantenimiento</h5>
                             <p class='card-text'>Puede modificar los vuelos, cancelar o agregar un nuevo</p>
