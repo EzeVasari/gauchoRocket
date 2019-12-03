@@ -1,6 +1,22 @@
 <?php
 include('conexion.php');
 
+
+$queryReporteUno = "select e.matricula as matEquipo, v.nombre as nomViaje,
+                        (100 * count(ir.fkCodigoCabina = 2) / e.capacidadFamiliar) as 'pocentaje Familiar',
+                        (100 * count(ir.fkCodigoCabina = 1) / e.capacidadGeneral) as 'pocentaje General',
+                        (100 * count(ir.fkCodigoCabina = 3) / e.capacidadSuit) as 'pocentaje suite'
+                    from itemReserva as ir
+                        inner join cabina as c on ir.fkCodigoCabina = c.codigoCabina
+                        inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+                        inner join relacionCabinaEquipo as rel on c.codigoCabina = rel.fkCodigoCabina
+                        inner join equipo as e on rel.fkMatriculaEquipo = e.matricula
+                        inner join viaje as v on e.matricula = v.matriculaEquipo
+                    where ir.pago = true
+                    group by e.matricula, v.nombre;";
+$resultadoReporteUno = mysqli_query($conexion, $queryReporteUno);
+
+
 $queryReporteDos = "select sum(v.precio) as sumaViaje, sum(ts.precio) as sumaServicio, sum(tc.precio) as sumaCabina
                     from viaje as v
                         inner join ubicacion as u on v.codigo = u.fkCodigoViaje
