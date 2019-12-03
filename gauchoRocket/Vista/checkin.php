@@ -22,7 +22,7 @@
         
         /* ============================================================ */
         
-        $buscarNombreCabina = "SELECT tdc.descripcion as nombreCabina 
+        $buscarNombreCabina = "SELECT tdc.descripcion as nombreCabina
                          FROM viaje as v
                             INNER JOIN equipo as e ON v.matriculaEquipo = e.matricula
                             INNER JOIN relacionCabinaEquipo as rce ON e.matricula = rce.fkMatriculaEquipo
@@ -32,6 +32,18 @@
         
         $resultadoNombreCabina = mysqli_query($conexion, $buscarNombreCabina);
         $nombreCabina = mysqli_fetch_assoc($resultadoNombreCabina);
+        
+        /* ============================================================ */
+        
+        $buscarNombreServicio = "SELECT tds.descripcion as nombreServicio
+                         FROM reserva as r
+                            INNER JOIN itemReserva as ir ON r.codigo = ir.fkCodigoReserva
+                            INNER JOIN servicio as s ON ir.fkCodigoServicio = s.codigoServicio
+                            INNER JOIN tipoDeServicio as tds ON tds.codigoTipoDeServicio = s.fkCodigoTipoDeServicio
+                         WHERE r.codigo = '".$reserva."'";
+        
+        $resultadoNombreServicio = mysqli_query($conexion, $buscarNombreServicio);
+        $nombreServicio = mysqli_fetch_assoc($resultadoNombreServicio);
         
         /* ============================================================ */
         
@@ -46,22 +58,22 @@
         $OrigenDestino = mysqli_fetch_assoc($resultadoOrigenDestino);
         
         
-        $buscarUbicacion = "SELECT * 
+        $buscarUbicacion = "SELECT t.nombreTrayecto as nombre 
                             FROM ubicacion as u
                                 INNER JOIN trayecto as t ON u.fkIdTrayecto = t.idTrayecto
-                            WHERE fkCodigoCabina = ".$codigoCabina["codigoCabina"]."
-                                and fkCodigoViaje = ".$codigoViaje."
+                            WHERE fkCodigoViaje = ".$codigoViaje."
                                 and t.fkCodigoLugarOrigen = ".$OrigenDestino['origen']."
-                                and t.fkCodigoLugarDestino = ".$OrigenDestino['destino']."
-                                and u.fkCodigoReserva like '".$reserva."' and ;";
+                                and t.fkCodigoLugarDestino = ".$OrigenDestino['destino']."";
         
         $resultadoUbicacion = mysqli_query($conexion, $buscarUbicacion);
+        $trayecto = mysqli_fetch_assoc($resultadoUbicacion);
         
         /* ============================================================ */
         
-        $asientosTotales = "select e.capacidadSuit as suite, e.capacidadGeneral as general, e.capacidadFamiliar as familiar
+        $asientosTotales = "select e.capacidadSuit as suite, e.capacidadGeneral as general, e.capacidadFamiliar as familiar, e.modelo as modeloEquipo
                             from viaje as v
-                               inner join equipo as e on v.matriculaEquipo = e.matricula
+                            inner join equipo as e 
+                                on v.matriculaEquipo = e.matricula
                             where v.codigo = ".$codigoViaje."";
         $resultadoAsientos = mysqli_query($conexion, $asientosTotales);
         
@@ -119,17 +131,22 @@
                     <div class="container" style="margin-top: 5rem;">
                         <h3 class="font-weight-bold text-center">Check-in</h3>
                         <div class="row justify-content-center" id="tabla">
-                            <div class="col-md-7 bg-light p-3 mt-2 mb-3 border border-primary rounded-lg align-self-center">
-                                <h4 class="font-weight-bold">Viaje</h4>
+                            <div class="col-md-5 bg-light p-3 mt-2 mb-3 border border-primary rounded-lg align-self-center">
+                                <h4 class="font-weight-bold">'.$trayecto["nombre"].'</h4>
                                 <p class="text-muted"></p>
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                    <p><span class="font-weight-bold">Trayecto: 1</span><p>
+                                    <div class="col-md-12">
+                                        <p><span class="font-weight-bold"><i class="fas fa-ticket-alt"></i> Reserva:</span> '.$reserva.'</p>
                                     </div>
-
-                                    <div class="form-group col-md-6">
-
+                                    <div class=" col-md-6">
+                                        <p><span class="font-weight-bold"><i class="fas fa-door-closed"></i> Cabina:</span> '.$nombreCabina["nombreCabina"].'</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><span class="font-weight-bold"><i class="fas fa-concierge-bell"></i> Servicio:</span> '.$nombreServicio["nombreServicio"].'</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><span class="font-weight-bold"><i class="fas fa-user"></i> Cant. de ubicaciones:</span> '.$limite.'</p>
                                     </div>
                                 </div>
                             </div>
