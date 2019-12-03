@@ -183,20 +183,20 @@
                                                                     and fkCodigoViaje = ".$codigoViaje."
                                                                     and t.fkCodigoLugarOrigen = ".$OrigenDestino['origen']."
                                                                     and t.fkCodigoLugarDestino = ".$OrigenDestino['destino']."
-                                                                    and u.fkCodigoReserva like '".$reserva."' and nroUbicacion =".$i;
+                                                                    and u.fkCodigoReserva like '".$reserva."' and nroUbicacion = '". $letra.$numero."'";
 
                                             $resultadoUbicacion = mysqli_query($conexion, $buscarUbicacion);
                                             $ubicacion = mysqli_fetch_assoc($resultadoUbicacion);
                                             
-                                            if($ubicacion['nro'] == $i){
+                                            if($ubicacion['nro'] == $letra.$numero){
                                                 echo "<div class='col seat'>
-                                                    <input type='checkbox' id='".$letra,$numero."' value='".$letra,$numero."' name='ubicaciones[]' disabled>
-                                                    <label class='text-center' for='".$letra,$numero."'> ".$letra,$numero." </label>
+                                                    <input type='checkbox' id='".$letra.$numero."' value='".$letra.$numero."' name='ubicaciones[]' disabled>
+                                                    <label class='text-center' for='".$letra.$numero."'> ".$letra.$numero." </label>
                                                   </div>";
                                             } else {
                                                 echo "<div class='col seat'>
-                                                    <input type='checkbox' id='".$letra,$numero."' value='".$letra,$numero."' name='ubicaciones[]'>
-                                                    <label class='text-center' for='".$letra,$numero."'> ".$letra,$numero." </label>
+                                                    <input type='checkbox' id='".$letra,$numero."' value='".$letra.$numero."' name='ubicaciones[]'>
+                                                    <label class='text-center' for='".$letra.$numero."'> ".$letra.$numero." </label>
                                                   </div>";
                                             }
                                             
@@ -213,13 +213,12 @@
        
                             echo ' </div>
 
+                                </div>
                             </div>
-                            
                             <div class="row justify-content-center" id="tabla">
                                 <div class="col-md-7 mt-2 mb-3">
                                     <button class="btn btn-primary w-100 text-white mt-3" type="submit" name="confirmarCheckin">Confirmar check-in</button>
                                </div>
-                            </div>
                             </form>
                         </div>
                         
