@@ -64,12 +64,12 @@
             <input type="text" class="form-control" name="familiar" required>
               </div>
                 <div class="col-sm-7">
-                <label class="col-form-label">Nivel de vuelo</label>
+                <label class="col-form-label">tipo de equipo</label>
                <select class='custom-select' name='nivel'>
-                            <option value='0' selected>Elija nivel de vuelo...</option>";
+                            <option value='0' selected>Elija el tipo de equipo...</option>";
                             <?php
                             $consulta = "select distinct tv.descripcion as nombre, tv.codigo as codigo
-                                        from  tipoDeViaje as tv ;";
+                                        from  tipoDeEquipo as tv ;";
                             $resultado = mysqli_query($conexion, $consulta);
                             while($recorrer = mysqli_fetch_assoc($resultado)){
                                 echo "<option value='". $recorrer["codigo"] ."'>". $recorrer["nombre"] ."</option>";

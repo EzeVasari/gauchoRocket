@@ -23,14 +23,14 @@
         $criterio = "";
 
         if(!empty($origen) || $origen != 0){
-            $criterio = " where codigoLugarorigen = ".$origen;
+            $criterio = " where codigoLugarOrigen = ".$origen;
         }
         
         if(!empty($destino) || $destino != 0){
             if($criterio == ""){
-                $criterio = " where codigoLugardestino = ".$destino;
+                $criterio = " where codigoLugarDestino = ".$destino;
             }else{
-                $criterio .= " and codigoLugardestino = ".$destino;
+                $criterio .= " and codigoLugarDestino = ".$destino;
             }
         }
         
@@ -55,6 +55,11 @@
         if(mysqli_num_rows($resultado) >= 1) {
             include("adminMantenimiento2.php");
         }else{
+              echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                    No se encontró ningún viaje!
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </div>";
             $query = "SELECT * FROM viaje GROUP BY nombre";
             
             $resultado = mysqli_query($conexion, $query);

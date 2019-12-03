@@ -21,7 +21,7 @@
           </div>
           <diV class="form-group">
               
-          <input type='text' autocomplete='off' id='fecha' class='form-control' name='fecha' placeholder='DD/MM/AAAA'>
+          <input type='text' autocomplete='off' id='fecha1' class='form-control' name='fecha' placeholder='DD/MM/AAAA'>
                       
           </diV>
           <div class="form-group">

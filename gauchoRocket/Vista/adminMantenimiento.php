@@ -21,9 +21,10 @@
             
             <div class="row justify-content-center">
                 <div class="col-md-7 text-center mb-3">
-                    <h2 class="font-weight-bold">Bienvenido al área de generación de Modificacion/baja/alta de vuelos</h2>
+                    <h2 class="font-weight-bold">Bienvenido al área de generación de Modificacion/eliminacion de vuelos</h2>
                     <p class="text-muted">
-                        A través de esta sección, podrá modificar, eliminar o habilitar un nuevo vuelo
+                        A través de esta sección, podrá modificar o eliminar
+                        un vuelo 
                     </p>
                 </div>
             </div>

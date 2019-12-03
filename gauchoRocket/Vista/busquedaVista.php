@@ -65,6 +65,7 @@ echo "
                         </select>
                     </div>
               
+                   
                     <div class='col-md-3 mb-3'>
                         <label class='font-weight-bold' for='validationTooltip05'><i class='far fa-calendar-alt'></i>  Fecha</label>
                         <div class='input-group date'>

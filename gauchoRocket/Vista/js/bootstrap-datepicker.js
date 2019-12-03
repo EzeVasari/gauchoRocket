@@ -1676,6 +1676,12 @@ $(function() {
 				'format': 'dd-mm-yyyy',
 				'autoclose': true
 			});
+			$('#fecha1').datepicker({
+				'format': 'dd-mm-yyyy',
+				'autoclose': true
+			});
+
+
 		});
 
         
