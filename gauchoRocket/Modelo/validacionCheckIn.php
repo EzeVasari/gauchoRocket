@@ -191,7 +191,7 @@
 
         }else {
              echo '<br><div class="alert alert-warning mt-5" role="alert">
-                        No se seleccionaron ubicaciones. <a class="alert-link" href="../Vista/checkin.php?reserva=".$codigoReserva."&viaje=".$codigoViaje."">Volver a intentarlo</a>
+                        No se seleccionaron ubicaciones. <a class="alert-link" href="../Vista/checkin.php?reserva='.$codigoReserva.'&viaje='.$codigoViaje.'">Volver a intentarlo</a>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </div>';

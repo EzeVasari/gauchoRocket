@@ -83,6 +83,15 @@
             $limite = $rowLimite['resultado'];
         }
         
+        function siguienteLetra($letter){
+            for($x = $letter; $x < 'ZZZ'; $x++){
+                $x++;
+                $next = $x;
+                break;
+            }
+            return $next;
+        }
+        
         echo'<body>
               <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
               <script>
@@ -108,12 +117,29 @@
               <link rel="stylesheet" href="css/estilosCheckin.css">
               
                     <div class="container" style="margin-top: 5rem;">
-                       <h3 class="font-weight-bold">Check-in</h3>
-                        <div class="row" id="tabla">
+                        <h3 class="font-weight-bold text-center">Check-in</h3>
+                        <div class="row justify-content-center" id="tabla">
+                            <div class="col-md-7 bg-light p-3 mt-2 mb-3 border border-primary rounded-lg align-self-center">
+                                <h4 class="font-weight-bold">Viaje</h4>
+                                <p class="text-muted"></p>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                    <p><span class="font-weight-bold">Trayecto: 1</span><p>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         
+                        <div class="row justify-content-center" id="tabla">
                             <div class="col-md-7 bg-light p-3 border border-primary rounded-lg" >
-                                <h4 class="font-weight-bold">Selección de ubicación</h4>
+                                <h5 class="font-weight-bold">Selección de ubicación</h5>
                                 <p class="text-muted">Seleccione los asientos que desea ocupar</p>
-                                <h4 class="font-weight-bold text-center">'.$nombreCabina["nombreCabina"].'</h4>
+                                <h5 class="font-weight-bold text-center">'.$nombreCabina["nombreCabina"].'</h5>
                                 <form name="ordenamiento" id="contenedor" action="checkin.php?reserva='.$reserva.'&cabina='.$codigoCabina["codigoCabina"].'&viaje='.$codigoViaje.'" method="post">
                                 <input type="hidden" id="cantidad" value='.$limite.'>
                                     ';
@@ -126,6 +152,8 @@
                                         }else {
                                             $asientosTotales = $result["suite"];
                                         }
+                                        $letra = "A";
+                                        $numero = 1;
                                         
                                         for($i = 1; $i < $asientosTotales +1; $i++){
                                             if ((($i-1) % 10) == 0){
@@ -145,43 +173,36 @@
                                             
                                             if($ubicacion['nro'] == $i){
                                                 echo "<div class='col seat'>
-                                                    <input type='checkbox' id='".$i."' value='".$i."' name='ubicaciones[]' disabled>
-                                                    <label class='text-center' for='".$i."'> ".$i." </label>
+                                                    <input type='checkbox' id='".$letra,$numero."' value='".$letra,$numero."' name='ubicaciones[]' disabled>
+                                                    <label class='text-center' for='".$letra,$numero."'> ".$letra,$numero." </label>
                                                   </div>";
                                             } else {
                                                 echo "<div class='col seat'>
-                                                    <input type='checkbox' id='".$i."' value='".$i."' name='ubicaciones[]'>
-                                                    <label class='text-center' for='".$i."'> ".$i." </label>
+                                                    <input type='checkbox' id='".$letra,$numero."' value='".$letra,$numero."' name='ubicaciones[]'>
+                                                    <label class='text-center' for='".$letra,$numero."'> ".$letra,$numero." </label>
                                                   </div>";
                                             }
                                             
+                                                $numero++;
+                                            
                                             if ((($i) % 10) == 0){
                                                 echo "</div>";
+                                                $letra = siguienteLetra($letra);
+                                                $numero = 1;
                                             }
                                           
                                         }
                                     }
-                            echo '</div>
+       
+                            echo ' </div>
 
                             </div>
-                            <div class="col-md-7 bg-light p-3 border border-primary rounded-lg">
-            <h4 class="font-weight-bold">Viaje</h4>
-            <p class="text-muted"></p>
-
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                <p><span class="font-weight-bold">Trayecto: 1</span><p>
-                </div>
-
-                <div class="form-group col-md-6">
-
-                </div>
-            </div>
-        </div>
                             
-                            <div class="col-md-6 mt-2 mb-3">
-                                <button class="btn btn-primary w-100 text-white mt-3" type="submit" name="confirmarCheckin">Confirmar check-in</button>
-                           </div>
+                            <div class="row justify-content-center" id="tabla">
+                                <div class="col-md-7 mt-2 mb-3">
+                                    <button class="btn btn-primary w-100 text-white mt-3" type="submit" name="confirmarCheckin">Confirmar check-in</button>
+                               </div>
+                            </div>
                             </form>
                         </div>
                         
@@ -191,6 +212,6 @@
             </body>';
         
     }
-?>
-        
+
+?>   
 
