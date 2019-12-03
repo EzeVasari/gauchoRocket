@@ -53,7 +53,7 @@ echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method
                <select class='custom-select' name='trayecto'>
                     <option selected value='0'>Seleccione trayecto</option>
                     <?php
-                    $consulta="SELECT  idTrayecto as codigo, nombreTrayecto as nombre
+                    $consulta="SELECT idTrayecto as codigo, nombreTrayecto as nombre
                                FROM  trayecto ";
                     $resultado = mysqli_query($conexion, $consulta);
 

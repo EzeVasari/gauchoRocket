@@ -22,23 +22,33 @@
             <div class="row justify-content-center">
                 
                 <div class="col-md-5 col-sm-11 mb-5 ml-3 mr-3 bg-light p-3 border border-primary rounded-lg">
-                    <h4 class="font-weight-bold">Tasa de ocupación por viaje y equipo</h4>
-                    <p class="text-muted">REPORTE 1</p>
+                    <h4 class="font-weight-bold text-center">Tasa de ocupación</h4>
+                    
+                    <div class="text-center mt-4">
+                        <a href="graficoCabinaMasVendida.php" class="btn btn-primary">Tasa por vuelo</a>
+                        <a href="graficoTasaPorEquipo.php" class="btn btn-primary">Tasa por equipo</a>
+                    </div>
                 </div>
                 
                 <div class="col-md-5 col-sm-11 mb-5 ml-3 mr-3 bg-light p-3 border border-primary rounded-lg">
-                    <h4 class="font-weight-bold">Facturación Mensual</h4>
-                    <p class="text-muted">REPORTE 2</p>
+                    <h4 class="font-weight-bold text-center">Facturación Mensual</h4>
+                    <div class="text-center mt-4">
+                        <a href="graficoCabinaMasVendida.php" class="btn btn-primary">Facturacion</a>
+                    </div>
                 </div>
                 
                 <div class="col-md-5 col-sm-11 mb-5 ml-3 mr-3 bg-light p-3 border border-primary rounded-lg">
-                    <h4 class="font-weight-bold">Cabina más vendida</h4>
-                    <p class="text-muted">REPORTE 3</p>
+                    <h4 class="font-weight-bold text-center">Cabina más vendida</h4>
+                    <div class="text-center mt-4">
+                        <a href="graficoCabinaMasVendida.php" class="btn btn-primary">Cabina más vendidas</a>
+                    </div>
                 </div>
                 
                 <div class="col-md-5 col-sm-11 mb-5 ml-3 mr-3 bg-light p-3 border border-primary rounded-lg">
-                    <h4 class="font-weight-bold">Facturación por Cliente</h4>
-                    <p class="text-muted">REPORTE 4</p>
+                    <h4 class="font-weight-bold text-center">Facturación por Cliente</h4>
+                    <div class="text-center mt-4">
+                        <a href="graficoFacturacionPorCliente.php" class="btn btn-primary">Facturacion</a>
+                    </div>
                 </div>
                 
             </div>
