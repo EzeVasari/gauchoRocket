@@ -1,5 +1,5 @@
 <?php
-$conexion = mysqli_connect("localhost:3306", "root", "1234", "gauchorocket");
+$conexion = mysqli_connect("localhost", "root", "", "gauchorocket");
     
         if(!$conexion){
             die("Error de conexion");
