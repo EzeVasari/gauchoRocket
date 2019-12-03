@@ -114,7 +114,7 @@
                                 <h4 class="font-weight-bold">Selección de ubicación</h4>
                                 <p class="text-muted">Seleccione los asientos que desea ocupar</p>
                                 <h4 class="font-weight-bold text-center">'.$nombreCabina["nombreCabina"].'</h4>
-                                <form name="ordenamiento" id="contenedor" action="checkin.php?reserva='.$reserva.'&cabina='.$codigoCabina["codigoCabina"].'" method="post">
+                                <form name="ordenamiento" id="contenedor" action="checkin.php?reserva='.$reserva.'&cabina='.$codigoCabina["codigoCabina"].'&viaje='.$codigoViaje.'" method="post">
                                 <input type="hidden" id="cantidad" value='.$limite.'>
                                     ';
                                     while($result = mysqli_fetch_assoc($resultadoAsientos)){
