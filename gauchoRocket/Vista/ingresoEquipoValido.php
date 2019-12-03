@@ -20,21 +20,18 @@
    <br>
    <div class="row justify-content-center">
                 <div class="col-md-7 text-center mb-3">
-                    <h2 class="font-weight-bold">El equipo "'.$matricula.'" "'.$equipo["modelo"].'"
-                    fue ingresado satifactoriamente
-
-                    </h2>
+                    <h2 class="font-weight-bold">¡Equipo registrado!</h2>
+                    <p>El equipo "'.$equipo["modelo"].'" ("'.$matricula.'") fue ingresado al sistema</p>
                     <p class="text-muted">
-                        Puede seguir ingresando trayectos apretando el boton siguiente, si desea salir cancelar
+                        Puede seguir ingresando equipos apretando "Registrar nuevo equipo", si desea salir "Volver a mantenimiento"
                     </p>
                 </div>
             </div>';
-     echo '<form action="../Vista/agregarNuevoEquipo.php" method="post">
-  <div class="modal-footer">
-               <a href="adminIndex.php" class="btn btn-primary">Finalizar carga de Equipos</a>
-                <button class="btn btn-primary  text-white " type="submit" name="ingresar">Registrar Nuevo equipo</button>
-            </div>
-            </form>
-     ';
+     
+    echo '  <hr>
+            <div class="text-center mt-2">
+               <a href="adminIndex.php" class="btn btn-secondary">Volver a mantenimiento</a>
+                <a href="../Vista/agregarNuevoEquipo.php" class="btn btn-primary  text-white " type="submit" name="ingresar">Registrar nuevo equipo</a>
+            </div>';
 
     ?>

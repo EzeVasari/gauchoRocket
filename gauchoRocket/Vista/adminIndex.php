@@ -9,7 +9,7 @@
     ?>
 
     <body>
-        <div class="container mt-5">
+        <div class="container mt-4">
             <div class="row">
                 <div class='col mb-4'>
                     <div class='card destinos text-center mx-auto'>

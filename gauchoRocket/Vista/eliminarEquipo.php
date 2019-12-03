@@ -11,12 +11,8 @@
 
 
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
+    
   <div class="container mt-5">
      <div class="row justify-content-center">
          <div class="col-md-7 text-center mb-3">
@@ -39,7 +35,7 @@
                             <h5 class='text-center'>Capacidad suit: ". $equipo['capacidadSuit'] ."</h5>
                             <h5 class='text-center'>Capacidad familiar: ". $equipo['capacidadFamiliar'] ."</h5>
                             <h5 class='text-center'>Capacidad general: ". $equipo['capacidadGeneral'] ."</h5>
-                            <a href='../Modelo/validarEliminarEquipo.php?matricula=" . $equipo['matricula'] . "' class='btn btn-primary'>eliminar</a>
+                            <a href='../Modelo/validarEliminarEquipo.php?matricula=" . $equipo['matricula'] . "' class='btn btn-primary'>Eliminar</a>
                           </div>
                     </div>
                 </div>
