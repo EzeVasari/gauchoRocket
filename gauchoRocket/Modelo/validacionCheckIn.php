@@ -146,7 +146,7 @@
                         <div class="container mt-2">
                           <div class="row justify-content-center">
                             <div class="col-md-5 order-md-2 mb-2">
-                              <ul class="list-group mb-2">
+                              <ul class="list-group mb-2 border border-primary">
                                 <li class="list-group-item lh-condensed">
                                   <div>
                                     <h3 class="my-0 text-center"><strong>'.$origen["nombreOrigen"].'  <i class="fas fa-space-shuttle"></i>  '.$destino["nombreDestino"].'</strong></h3>
