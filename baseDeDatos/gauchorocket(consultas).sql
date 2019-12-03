@@ -670,7 +670,7 @@ FROM viaje as v
     inner join reserva as r on u.fkCodigoReserva = r.codigo
     inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
     inner join relacionClienteItemReserva as rel on ir.idItemReserva = rel.fkIdItemReserva
-where v.codigo = 1
+where rel.fkEmailCliente like 'cuatro@gmail.com'
 ;
 
 UPDATE ubicacion as u INNER JOIN trayecto as t
@@ -720,7 +720,13 @@ select * from reserva where codigo like 'rmf8go';
 delete from reserva where codigo like 'rmf8go';
 
 
+SELECT e.fkcodigoTipoDeEquipo as numNivel
+FROM viaje as v inner join equipo as e on v.matriculaEquipo = e.matricula
+where v.codigo = 1;
 
+select nivelVuelo
+from cliente
+where fkEmailUsuario like 'uno@gmail.com';
 
 
 
