@@ -11,7 +11,6 @@
               
             echo "<div class='col mb-4'>
                     <div class='card destinos text-center mx-auto'>
-                      <img src='". $viaje["imagen"] . "' class='card-img-top' alt='...'>
                           <div class='card-body'>
                             <h5 class='card-title'> ". $viaje['nombre'] ."</h5>
                             <p class='card-text'> ". $viaje['descripcion'] . "</p>
