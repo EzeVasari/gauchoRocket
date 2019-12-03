@@ -130,7 +130,7 @@
                 </div>
 
             </div>
-            <div class="text-center">
+            <div class="text-center mt-3">
             <a href='adminMantenimientoIndex.php' class='btn btn-secondary'>Cancelar</a>
            <button class='btn btn-primary  text-white ' type='submit' name='subir'>Registrar Viaje</button>
            </div>

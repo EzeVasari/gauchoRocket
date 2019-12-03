@@ -28,53 +28,47 @@
             
             <div class="row justify-content-center">
                 <div class="col-md-7 text-center">
-                    <h2 class="font-weight-bold">Ingresar Los Trayectos del viaje
-                   "<?php echo $fila['nombre'];?>"
-                    </h2>
+                    <h2 class="font-weight-bold">Ingresar trayecto</h2>
                     <p class="text-muted">
-                       descripcion de los trayectos del viaje
-                        "<?php echo $fila['descripcion'];?>"
-                    </p>
-                    <p class="text-muted">
-                        seleccione el trayecto que desea cargar para este vieje
+                        Seleccione el trayecto que desea cargar para <?php echo $fila['descripcion'];?>:
                     </p>
                 </div>
             </div>
 
 
-<?php
+        <?php
 
+        echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method="post">';
 
+        ?>
+                
+        <div class="row justify-content-center mb-2">
+              <div class="col-sm-7 align-self-center" id="contenedor1">
+                   <label class="col-form-label">Trayecto</label>
+                   <select class='custom-select' name='trayecto'>
+                        <option selected value='0'>Seleccione trayecto</option>
+                        <?php
+                        $consulta="SELECT  idTrayecto as codigo, nombreTrayecto as nombre
+                                   FROM  trayecto ";
+                        $resultado = mysqli_query($conexion, $consulta);
 
-echo'<form action="../Modelo/validarIngresoTrayecto.php?vuelo='.$vuelo.'" method="post">';
-?>
-          <div class="col-sm-7" id="contenedor1">
-               <label class="col-form-label">Trayecto</label>
-               <select class='custom-select' name='trayecto'>
-                    <option selected value='0'>Seleccione trayecto</option>
-                    <?php
-                    $consulta="SELECT  idTrayecto as codigo, nombreTrayecto as nombre
-                               FROM  trayecto ";
-                    $resultado = mysqli_query($conexion, $consulta);
-
-                    while($recorrer = mysqli_fetch_assoc($resultado)){
-                        echo "
-                                <option value='". $recorrer["codigo"] ."'>". $recorrer['nombre'] ."</option>
-                             ";
-                    }
-                    ?>
-                </select>
+                        while($recorrer = mysqli_fetch_assoc($resultado)){
+                            echo "
+                                    <option value='". $recorrer["codigo"] ."'>". $recorrer['nombre'] ."</option>
+                                 ";
+                        }
+                        ?>
+                    </select>
+                </div>
             </div>
         </div>
-           
-            
-            
-            <div class="modal-footer">
-                <a href='adminIndex.php' class='btn btn-primary'>Cancelar</a>
-                <button class='btn btn-primary text-white' type='submit' name='subir'>Registrar trayecto</button>
-            </div>
-        
-            </form>
+
+        <div class="text-center mt-2">
+            <a href='adminIndex.php' class='btn btn-secondary'>Cancelar</a>
+            <button class='btn btn-primary text-white' type='submit' name='subir'>Registrar trayecto</button>
+        </div>
+
+        </form>
 
 
 
