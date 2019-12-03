@@ -269,10 +269,10 @@ starts '2019-01-01 00:00:00'
 do
 begin
 	update itemReserva
-	set listaDeEspera = false,
+	set listaDeEspera = true,
 		fechaLimiteDeCheckin = date_add(fechaLimiteDeCheckin, interval 115 minute),/*Hay tiempo hasta 5 minutos de iniciar el viaje*/
 		fechaInicioDeCheckin = date_add(fechaInicioDeCheckin, interval 2790 minute)/*Se puede abonar hasta hora y media antes del checkin*/
-	where fechaLimiteDeCheckin < now() and listaDeEspera = true;
+	where fechaLimiteDeCheckin < now() and listaDeEspera = false;
 end //
 delimiter ;
 
