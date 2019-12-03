@@ -14,7 +14,7 @@ $origen = $_POST["origen"];
 $destino = $_POST["destino"];
 $nivel = $_POST["nivel"];
 $nave = $_POST["nave"];
-$img =  $_FILES['img']['name'];
+
 
 
 
@@ -29,33 +29,8 @@ $img =  $_FILES['img']['name'];
         header("location: ../Vista/adminMantenimientoIndex.php");
     }else {
 
-
-            if($_FILES["img"]["error"] > 0){
-            echo "Error: " . $_FILES["img"]["error"] . "<br />";
-            }   else{
-                    echo "Upload: " . $_FILES["img"]["name"] . "<br />";
-                    echo "Type: " . $_FILES["img"]["type"] . "<br />";
-                    echo "Size: " . ($_FILES["img"]["size"] / 1024) . " Kb<br />";
-                    echo "Stored in: " . $_FILES["img"]["tmp_name"];
-
-                    if(file_exists("../Vista/img/" . $_FILES["img"]["name"])){
-                        echo $_FILES["img"]["name"] . " ya existe. ";
-                        } else{
-                            move_uploaded_file($_FILES["img"]["tmp_name"],
-                            "../Vista/img/" . $_FILES["img"]["name"]);
-                            echo "Almacenado en: " . "../Vista/img/" . $_FILES["img"]["name"];
-                            }
-                }
-
-                 $directorio = "img/".$_FILES["img"]["name"];
-
-
-
-            
-
-
-        $query1 = "insert into viaje (codigo, imagen, descripcion, precio, nombre)
-        values('".$codigoVuelo."', '".$directorio."', '".$descripcion."',
+        $query1 = "insert into viaje (codigo, descripcion, precio, nombre)
+        values('".$codigoVuelo."', '".$descripcion."',
                     '".$precio."', '".$nombreVuelo."')";
     
         $insert1 = mysqli_query($conexion, $query1);

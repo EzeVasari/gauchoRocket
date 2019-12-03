@@ -31,6 +31,7 @@
                          </div>
                     </div>
                 </div>
+
                  <div class='col mb-4'>
                     <div class='card destinos text-center mx-auto'>
                         <img src='img/admin/equiposUno.jpg' class='card-img-top' alt='...'>
@@ -48,6 +49,16 @@
                             <h5 class='card-title'>eliminacion de equipos</h5>
                             <p class='card-text'>Puede eliminar Equipos</p>
                             <a href='eliminarEquipo.php' class='btn btn-primary'>acceder</a>
+                         </div>
+                    </div>
+                </div>
+                <div class='col mb-4'>
+                    <div class='card destinos text-center mx-auto'>
+                        <img src='img/admin/equiposDos.jpg' class='card-img-top' alt='...'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>Ingreso de Trayectos</h5>
+                            <p class='card-text'>Puede agregar un Nuevo Trayecto</p>
+                            <a href='registrarNuevoTrayecto.php' class='btn btn-primary'>acceder</a>
                          </div>
                     </div>
                 </div>

@@ -23,6 +23,24 @@ $query3 = " UPDATE trayecto SET fkcodigoLugarDestino='".$destino."'
         $insert3 = mysqli_query($conexion, $query3);*/
 
 
+        $query="select *
+        from relacionviajetrayecto";
+        $buscarTrayecto = mysqli_query($conexion, $query);
+        $recorrer = mysqli_fetch_assoc($buscarTrayecto);
+
+        if ($recorrer["fkIdTrayecto"]==$idTrayecto && $recorrer["fkCodigoViaje"]==$codigoVuelo) {
+        	$query4 ="insert into relacionviajetrayecto (fkIdTrayecto,fkCodigoViaje)
+        values('".$idTrayecto."','".$codigoVuelo."')";
+         $insert4 = mysqli_query($conexion, $query4);
+        }else
+        {
+        	echo "no salio";
+        }
+
+
+
+
+
          
  	    $query4 ="insert into relacionviajetrayecto (fkIdTrayecto,fkCodigoViaje)
         values('".$idTrayecto."','".$codigoVuelo."')";
