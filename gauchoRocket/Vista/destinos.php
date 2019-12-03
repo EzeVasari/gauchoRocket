@@ -5,7 +5,7 @@
     
     
     include('../Modelo/conexion.php');
-    $query="SELECT v.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre
+    $query="SELECT t.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre
                 FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
                     ON t.idTrayecto = rvt.fkIdTrayecto
                 INNER JOIN viaje as v

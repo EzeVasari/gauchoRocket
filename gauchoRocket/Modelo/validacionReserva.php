@@ -220,15 +220,18 @@
                             </div>';
                     }
                 
-                $query = "SELECT ir.fkCodigoReserva AS codigo, time(v.fecha) as hora, date(v.fecha) as fecha, v.imagen AS img, v.nombre AS nombre,              v.descripcion AS descripcion,               v.precio AS precio
-                  FROM relacionClienteItemReserva AS rcr
+                $query = "SELECT ir.fkCodigoReserva AS codigo, time(v.fecha) as hora, date(v.fecha) as fecha, t.imagen AS img, t.nombreTrayecto AS nombre, v.descripcion AS descripcion
+                  FROM viaje as v INNER JOIN relacionViajeTrayecto as rvt
+                    ON v.codigo = rvt.fkCodigoViaje 
+                  INNER JOIN trayecto as t
+                    ON rvt.fkIdTrayecto = t.idTrayecto
+                  INNER JOIN relacionReservaTrayecto as rrt
+                    ON rrt.fkIdTrayecto = t.idTrayecto
+                  INNER JOIN reserva AS r
+                    ON rrt.fkCodigoReserva = r.codigo
                   INNER JOIN itemReserva AS ir 
-                    ON rcr.fkIdItemReserva = ir.idItemReserva
-                  INNER JOIN Reserva AS r 
-                    ON ir.fkCodigoReserva = r.codigo
-                  INNER JOIN Viaje AS v 
-                    ON v.codigo = ".$codigo."
-                  WHERE ir.idItemReserva ='".$idItemReserva."'";
+                    ON r.codigo = ir.fkCodigoReserva                  
+                  WHERE ir.idItemReserva ='".$idItemReserva."' and v.codigo = ".$codigo." and fkCodigoLugarOrigen =".$origenTrayecto." and fkCodigoLugarDestino =".$destinoTrayecto;
                 
                 $resultadoReserva = mysqli_query($conexion, $query);
 

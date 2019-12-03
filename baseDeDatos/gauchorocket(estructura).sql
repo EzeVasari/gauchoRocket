@@ -78,7 +78,6 @@ foreign key (fkcodigoTipoDeEquipo) references tipoDeEquipo(codigo)
 
 create table viaje(
 codigo int primary key,
-imagen varchar(100),
 descripcion varchar(100),
 precio int,
 nombre varchar(50),
@@ -102,6 +101,7 @@ idTrayecto int primary key,
 nombreTrayecto varchar(50),
 precio int,
 duracion int,
+imagen varchar(100),
 fkCodigoLugarOrigen int,
 fkCodigoLugarDestino int,
 foreign key (fkCodigoLugarOrigen) references lugar(codigo),

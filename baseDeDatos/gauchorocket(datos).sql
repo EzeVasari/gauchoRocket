@@ -72,10 +72,10 @@ insert into equipo (matricula, modelo, capacidadSuit, capacidadGeneral, capacida
 ('BA2', 'Zorzal', 0, 50, 50, 1),
 ('BA3', 'Zorzal', 0, 50, 50, 1); 
 
-insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, matriculaEquipo) values
-(1, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2019.12.06 21:30:00', 2, 4, 2, 'O1'),
-(2, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2019.12.06 21:30:00', 1, 4, 2, 'AA1'),
-(4, 'img/titan.jpg', 'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 1, 8, 1, 'BA10');
+insert into viaje (codigo, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, matriculaEquipo) values
+(1, 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2019.12.06 21:30:00', 2, 4, 2, 'O1'),
+(2,'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2019.12.06 21:30:00', 1, 4, 2, 'AA1'),
+(4,'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 1, 8, 1, 'BA10');
 /* A LOS SIGUIENTES HAY QUE ESTABLECER 1 DÍA MÁS TARDE DESDE LA FECHA EN QUE SE DECIDA HACER LA PRIUEBA 
 (7, 'img/prueba.jpg', 'VUELO DE PRUEBA 1.', 11000, 'Se abonó a tiempo',      '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE y "pago" a TRUE
 (8, 'img/prueba.jpg', 'VUELO DE PRUEBA 2.', 11000, 'No se abonó a tiempo',   '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE
@@ -83,21 +83,21 @@ insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, codigoLug
 (10, 'img/prueba.jpg', 'VUELO DE PRUEBA 4.', 11000, 'No se hizo el checkin', '2019.11.19 23:30:00', 72, 2, 8, 1, 4444);/*pasar "listaDeEspera" a FALSE y "pago" a TRUE
  AL SIGUIENTE HAY QUE PONER LA FECHA ACTUAL Y 2 HORAS MÁS (ES DECIR, SI SON LAS 20HS PONERLE 22HS) */ 
 
-insert into trayecto (idTrayecto, nombreTrayecto, precio, duracion, fkCodigoLugarOrigen, fkCodigoLugarDestino) values 
-(1, 'Ankara - EEI', 1200, 2, 2, 3),
-(2, 'Bs. As. - EEI', 1300, 2, 1, 3),
-(3, 'EEI - OrbitalHotel', 1800, 1, 3, 4),
-(4, 'OrbitalHotel - Luna', 1500, 2, 4, 5),
-(5, 'Luna - Marte', 2500, 3, 5, 6),
-(6, 'Ankara - OrbitalHotel', 3000, 3, 2, 4),
-(7, 'Ankara - Luna', 4500, 5, 2, 5),
-(8, 'Ankara - Marte', 7000, 8, 2, 6),
-(9, 'Bs. As. - OrbitalHotel', 3100, 3, 1, 4),
-(10, 'Bs. As. - Luna', 4600, 5, 1, 5),
-(11, 'Bs. As. - Marte', 7100, 8, 1, 6),
-(12, 'EEI - Luna', 3300, 3, 3, 5),
-(13, 'EEI - Marte', 5800, 6, 3, 6),
-(14, 'OrbitalHotel - Marte', 4000, 5, 4,6);
+insert into trayecto (idTrayecto, nombreTrayecto, imagen, precio, duracion, fkCodigoLugarOrigen, fkCodigoLugarDestino) values 
+(1, 'Ankara - EEI', 'img/EEI.jpg', 1200, 2, 2, 3),
+(2, 'Bs. As. - EEI', 'img/EEI.jpg', 1300, 2, 1, 3),
+(3, 'EEI - OrbitalHotel', 'img/OH.jpg', 1800, 1, 3, 4),
+(4, 'OrbitalHotel - Luna', 'img/Luna.jpg', 1500, 2, 4, 5),
+(5, 'Luna - Marte', 'img/Marte.jpg', 2500, 3, 5, 6),
+(6, 'Ankara - OrbitalHotel', 'img/OH.jpg', 3000, 3, 2, 4),
+(7, 'Ankara - Luna', 'img/Luna2.jpg', 4500, 5, 2, 5),
+(8, 'Ankara - Marte', 'img/Marte2.jpg', 7000, 8, 2, 6),
+(9, 'Bs. As. - OrbitalHotel', 'img/OH.jpg', 3100, 3, 1, 4),
+(10, 'Bs. As. - Luna', 'img/Luna.jpg', 4600, 5, 1, 5),
+(11, 'Bs. As. - Marte', 'img/Marte.jpg', 7100, 8, 1, 6),
+(12, 'EEI - Luna', 'img/Luna2.jpg', 3300, 3, 3, 5),
+(13, 'EEI - Marte', 'img/Marte2.jpg', 5800, 6, 3, 6),
+(14, 'OrbitalHotel - Marte', 'img/Marte.jpg', 4000, 5, 4,6);
 
 insert into relacionViajeTrayecto (fkCodigoViaje, fkIdTrayecto) values
 (1, 1),

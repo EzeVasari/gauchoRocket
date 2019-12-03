@@ -10,7 +10,7 @@
    
                 $email = $_SESSION['user']; //Usuario logueado
                 
-                $query = "SELECT ir.fkCodigoReserva AS codigo, v.imagen AS img, v.nombre AS nombre,
+                $query = "SELECT ir.fkCodigoReserva AS codigo, t.imagen AS img, t.nombreTrayecto AS nombre,
                             v.descripcion AS descripcion, v.precio AS precio, idItemReserva as cod,
                             ir.pago as pago, ir.checkin as checki, ir.listaDeEspera as espera, v.codigo as codViaje, 
                             c.codigoCabina as cabina, t.fkCodigoLugarOrigen as origen, t.fkCodigoLugarDestino as destino,

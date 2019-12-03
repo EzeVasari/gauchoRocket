@@ -18,7 +18,7 @@
         
 /* ======================================== */
         
-        $query = "SELECT v.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre
+        $query = "SELECT t.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre
                     FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
                         ON t.idTrayecto = rvt.fkIdTrayecto
                     INNER JOIN viaje as v
@@ -69,7 +69,7 @@
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                     <span aria-hidden='true'>&times;</span>
                 </div>";
-            $query = "SELECT v.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre 
+            $query = "SELECT t.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre 
                         FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
                             ON t.idTrayecto = rvt.fkIdTrayecto
                         INNER JOIN viaje as v
@@ -79,7 +79,7 @@
         include("../Vista/cards.php");
         }
     }else{
-        $query = "SELECT v.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre
+        $query = "SELECT t.imagen as imagen, v.descripcion as descripcion, t.precio as precio, v.codigo as codigo, t.nombreTrayecto as nombre
                 FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
                     ON t.idTrayecto = rvt.fkIdTrayecto
                 INNER JOIN viaje as v
