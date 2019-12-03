@@ -117,7 +117,7 @@
                         <h6 class="my-0">Vuelo <span class="text-muted">x'.$asientos["personas"].'</span></h6>
                         <small class="text-muted">Monto final de vuelo</small>
                       </div>
-                      <span class="text-muted">$'.$viajePrecioTotal.'</span>
+                      <span class="text-muted">$'.$precioViaje.'</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                       <div>

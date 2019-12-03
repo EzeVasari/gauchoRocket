@@ -61,6 +61,13 @@
                     }
                 }    
             }
+            
+            $queryItem = "UPDATE itemReserva as ir INNER JOIN reserva as r
+                            ON ir.fkCodigoReserva = r.codigo
+                          SET checkin = true
+                          WHERE r.codigo = '".$codigoReserva."'";
+                            
+            $resultadoitem = mysqli_query($conexion, $queryItem);
 
             if($resultadoUbicacion) {
                 echo '<br><div class="alert alert-success mt-5" role="alert">

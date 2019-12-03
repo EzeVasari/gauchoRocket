@@ -155,35 +155,10 @@
                                                   </div>";
                                             }
                                             
-                                            /*
-                                            <div class='col seat'>
-                                                <input type='checkbox' id='".$i."' value='".$i."' name='registro[]' onclick='seleccionados()'>
-                                                <label class='text-center' for='".$i."'> ".$i." </label>
-                                            </div>
-                                            */
-
                                             if ((($i) % 10) == 0){
                                                 echo "</div>";
                                             }
-                                            /*
-                                            if($asientos["estado"] == false){
-                                                echo '<div class="seat">';
-                                                echo '<input
-                                                        type="checkbox"
-                                                        value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"
-                                                        name="ubicaciones[]"
-                                                        id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"
-                                                        disabled
-                                                        />';
-                                                echo '<label class="text-center" for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
-                                                echo '</div>';
-                                            }else {
-                                                echo '<div class="seat">';
-                                                echo '<input type="checkbox" value="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'" name="ubicaciones[]" id="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'"/>';
-                                                echo '<label class="text-center"for="'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'">'.$asientos["filaUbicacion"],$asientos["columnaUbicacion"].'</label>';
-                                                echo '</div>';
-                                            }
-                                            */
+                                          
                                         }
                                     }
                             echo '</div>
