@@ -73,8 +73,8 @@ insert into equipo (matricula, modelo, capacidadSuit, capacidadGeneral, capacida
 ('BA3', 'Zorzal', 0, 50, 50, 1); 
 
 insert into viaje (codigo, imagen, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, matriculaEquipo) values
-(1, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2019.12.05 21:30:00', 2, 4, 2, 'O1'),
-(2, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2019.12.05 21:30:00', 1, 4, 2, 'AA1'),
+(1, 'img/marte2.jpg', 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2019.12.04 23:15:00', 2, 4, 2, 'O1'),
+(2, 'img/Marte.jpg', 'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2019.12.04 23:15:00', 1, 4, 2, 'AA1'),
 (4, 'img/titan.jpg', 'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 1, 8, 1, 'BA10');
 /* A LOS SIGUIENTES HAY QUE ESTABLECER 1 DÍA MÁS TARDE DESDE LA FECHA EN QUE SE DECIDA HACER LA PRIUEBA 
 (7, 'img/prueba.jpg', 'VUELO DE PRUEBA 1.', 11000, 'Se abonó a tiempo',      '2019.11.20 18:00:00', 72, 2, 8, 1, 4444),/*pasar "listaDeEspera" a FALSE y "pago" a TRUE
@@ -228,6 +228,40 @@ begin
     update centroMedico set turnos = 210 where codigo = 3;
 end //
 delimiter ;
+
+/* ============================================================ */
+
+delimiter //
+create event vaciarAsientosSinCheckin on schedule every 5 minute
+starts '2019-01-01 00:00:00'
+do
+begin
+	delete from relacionClienteItemReserva where fkIdItemReserva in
+	(select idItemReserva
+	from itemReserva
+	where checkin = false and fechaLimiteDeCheckin < now());
+
+	delete from ubicacion where fkCodigoReserva in
+	(select r.codigo
+	from reserva as r
+		inner join itemReserva as ir on r.codigo = ir.fkCodigoReserva
+	where ir.checkin = false and ir.fechaLimiteDeCheckin < now());
+
+	delete from relacionreservatrayecto where fkCodigoReserva in
+	(select r.codigo
+	from reserva as r
+		inner join itemReserva as ir on r.codigo = ir.fkCodigoReserva
+	where ir.checkin = false and ir.fechaLimiteDeCheckin < now());
+
+	delete from itemReserva where checkin = false and fechaLimiteDeCheckin < now();
+
+	delete from reserva where codigo not in
+	(select fkCodigoReserva
+	from itemReserva);
+end //
+delimiter ;
+
+
 
 /* ========== */
 /*

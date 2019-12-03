@@ -728,31 +728,6 @@ select nivelVuelo
 from cliente
 where fkEmailUsuario like 'uno@gmail.com';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 SELECT v.descripcion, t.nombreTrayecto, tdc.descripcion as nombreCabina, count(rci.fkIdItemReserva) AS personas, tds.precio AS precioServicio, t.precio AS precioViaje, tdc.precio AS precioCabina 
 from viaje as v inner join relacionViajeTrayecto as rvt on
 v.codigo= rvt.fkCodigoViaje inner join trayecto as t on 
@@ -771,6 +746,78 @@ FROM trayecto as t INNER JOIN relacionViajeTrayecto as rvt
 	ON t.idTrayecto = rvt.fkIdTrayecto
 INNER JOIN viaje as v
 	ON rvt.fkCodigoViaje = v.codigo;
+
+/* ================================================================================ */
+/* ================================================================================ */
+/* ================================================================================ */
+
+
+
+delete from relacionClienteItemReserva where fkIdItemReserva in
+(select idItemReserva
+from itemReserva
+where checkin = false and fechaLimiteDeCheckin < now());
+
+delete from ubicacion where fkCodigoReserva in
+(select r.codigo
+from reserva as r
+	inner join itemReserva as ir on r.codigo = ir.fkCodigoReserva
+where ir.checkin = false and ir.fechaLimiteDeCheckin < now());
+
+delete from relacionreservatrayecto where fkCodigoReserva in
+(select r.codigo
+from reserva as r
+	inner join itemReserva as ir on r.codigo = ir.fkCodigoReserva
+where ir.checkin = false and ir.fechaLimiteDeCheckin < now());
+
+delete from itemReserva where checkin = false and fechaLimiteDeCheckin < now();
+
+delete from reserva where codigo not in
+(select fkCodigoReserva
+from itemReserva);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
