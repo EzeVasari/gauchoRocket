@@ -4,8 +4,6 @@
 /* Include the `fusioncharts.php` file that contains functions  to embed the charts. */
 
    include("../help/fusioncharts-suite-xt/integrations/php/fusioncharts-wrapper/fusioncharts.php");
-    include("head.php");
-   
 
 /* The following 4 code lines contain the database connection information. Alternatively, you can move these code lines to a separate file and include the file here. You can also modify this code based on your database connection. */
 
@@ -37,15 +35,16 @@
     <?php
       // Form the SQL query that returns the top 10 most populous countries
        
-      $strQuery = "SELECT count(c.codigoCabina) as total, t.descripcion as tipoCabina
-                      from viaje as v
+      $strQuery = "select sum(v.precio + ts.precio + tc.precio) as sumaViaje, month(now()) as mes
+                    from viaje as v
                         inner join ubicacion as u on v.codigo = u.fkCodigoViaje
-                        inner join cabina as c on u.fkCodigoCabina = c.codigoCabina
-                        inner join tipoDeCabina as t on c.fkCodigoTipoDeCabina = t.codigoTipoDeCabina
                         inner join reserva as r on u.fkCodigoReserva = r.codigo
+                        inner join cabina as c on u.fkCodigoCabina = c.codigoCabina
+                        inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
                         inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva
-                        group by c.codigoCabina
-                        order by total desc";
+                        inner join servicio as s on ir.fkCodigoServicio = s.codigoServicio
+                        inner join tipoDeServicio as ts on s.fkcodigoTipoDeServicio = ts.codigoTipoDeServicio
+                    where ir.fechaQuePidioReserva between date_sub(now(), interval 1 month) and now() and ir.pago = true;";
 
       // Execute the query, or else return the error message.
       $result = $dbhandle->query($strQuery) or exit("Error code ({$dbhandle->errno}): {$dbhandle->error}");
@@ -55,7 +54,7 @@
           // The `$arrData` array holds the chart attributes and data
           $arrData = array(
               "chart" => array(
-                  "caption" => "Cabinas más vendidas",
+                  "caption" => "Facturacion mensual",
                   "showValues" => "0",
                   "theme" => "fusion"
                 )
@@ -66,8 +65,8 @@
   // Push the data into the array
           while($row = mysqli_fetch_array($result)) {
             array_push($arrData["data"], array(
-                "label" => $row["tipoCabina"],
-                "value" => $row["total"]
+                "label" => $row["mes"],
+                "value" => $row["sumaViaje"]
                 )
             );
           }
@@ -88,7 +87,5 @@
       }
     ?>
     <div id="chart-1"><!-- Fusion Charts will render here--></div>\
-    
-    <a class="btn btn-primary" href="adminReporteUno.php">Volver</a>
    </body>
 </html>

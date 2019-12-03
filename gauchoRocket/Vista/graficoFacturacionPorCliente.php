@@ -4,6 +4,7 @@
 /* Include the `fusioncharts.php` file that contains functions  to embed the charts. */
 
    include("../help/fusioncharts-suite-xt/integrations/php/fusioncharts-wrapper/fusioncharts.php");
+    include("head.php");
 
 /* The following 4 code lines contain the database connection information. Alternatively, you can move these code lines to a separate file and include the file here. You can also modify this code based on your database connection. */
 
@@ -89,5 +90,6 @@ group by clientes;";
       }
     ?>
     <div id="chart-1"><!-- Fusion Charts will render here--></div>\
+    <a class="btn btn-primary" href="adminReporteUno.php">Volver</a>
    </body>
 </html>

@@ -1,8 +1,10 @@
+
 <?php
 
 /* Include the `fusioncharts.php` file that contains functions  to embed the charts. */
 
    include("../help/fusioncharts-suite-xt/integrations/php/fusioncharts-wrapper/fusioncharts.php");
+    include("head.php");
 
 /* The following 4 code lines contain the database connection information. Alternatively, you can move these code lines to a separate file and include the file here. You can also modify this code based on your database connection. */
 
@@ -34,13 +36,18 @@
     <?php
       // Form the SQL query that returns the top 10 most populous countries
        
-      $strQuery = "select count(v.codigo) as cantidad, v.nombre as nombre
-                      from viaje as v
-                        inner join relacionViajeTrayecto as relu on v.codigo = relu.fkCodigoViaje
-                        inner join trayecto as t on relu.fkIdTrayecto = t.idTrayecto
-                        inner join relacionReservaTrayecto as reld on t.idTrayecto = reld.fkIdTrayecto
-                        inner join reserva as r on reld.fkCodigoReserva = r.codigo
-                        inner join itemReserva as ir on r.codigo = ir.fkcodigoReserva";
+      $strQuery = "select e.matricula as matEquipo, v.nombre as nomViaje,
+                        (100 * count(ir.fkCodigoCabina = 2) / e.capacidadFamiliar) as pocentajefamiliar,
+                        (100 * count(ir.fkCodigoCabina = 1) / e.capacidadGeneral) as pocentajegeneral,
+                        (100 * count(ir.fkCodigoCabina = 3) / e.capacidadSuit) as pocentajesuite
+                    from itemReserva as ir
+                        inner join cabina as c on ir.fkCodigoCabina = c.codigoCabina
+                        inner join tipoDeCabina as tc on c.fkCodigoTipoDeCabina = tc.codigoTipoDeCabina
+                        inner join relacionCabinaEquipo as rel on c.codigoCabina = rel.fkCodigoCabina
+                        inner join equipo as e on rel.fkMatriculaEquipo = e.matricula
+                        inner join viaje as v on e.matricula = v.matriculaEquipo
+                    where ir.pago = true
+                    group by v.nombre, e.matricula;";
 
       // Execute the query, or else return the error message.
       $result = $dbhandle->query($strQuery) or exit("Error code ({$dbhandle->errno}): {$dbhandle->error}");
@@ -50,7 +57,7 @@
           // The `$arrData` array holds the chart attributes and data
           $arrData = array(
               "chart" => array(
-                  "caption" => "Tasa de ocupación por vuelos",
+                  "caption" => "Tasa por equipo",
                   "showValues" => "0",
                   "theme" => "fusion"
                 )
@@ -61,8 +68,10 @@
   // Push the data into the array
           while($row = mysqli_fetch_array($result)) {
             array_push($arrData["data"], array(
-                "label" => $row["nombre"],
-                "value" => $row["cantidad"]
+                "label" => $row["matEquipo"],
+                "value" => $row["pocentajefamiliar"],
+                "value" => $row["pocentajegeneral"],
+                "value" => $row["pocentajesuite"]
                 )
             );
           }
@@ -83,5 +92,6 @@
       }
     ?>
     <div id="chart-1"><!-- Fusion Charts will render here--></div>\
+     <a class="btn btn-primary" href="adminReporteUno.php">Volver</a>
    </body>
 </html>

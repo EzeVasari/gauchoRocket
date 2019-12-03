@@ -25,7 +25,7 @@
                     <h4 class="font-weight-bold text-center">Tasa de ocupación</h4>
                     
                     <div class="text-center mt-4">
-                        <a href="graficoCabinaMasVendida.php" class="btn btn-primary">Tasa por vuelo</a>
+                        <a href="graficoTasaPorVuelo.php" class="btn btn-primary">Tasa por vuelo</a>
                         <a href="graficoTasaPorEquipo.php" class="btn btn-primary">Tasa por equipo</a>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="col-md-5 col-sm-11 mb-5 ml-3 mr-3 bg-light p-3 border border-primary rounded-lg">
                     <h4 class="font-weight-bold text-center">Facturación Mensual</h4>
                     <div class="text-center mt-4">
-                        <a href="graficoCabinaMasVendida.php" class="btn btn-primary">Facturacion</a>
+                        <a href="graficoFacturacionMensual.php" class="btn btn-primary">Facturacion</a>
                     </div>
                 </div>
                 
