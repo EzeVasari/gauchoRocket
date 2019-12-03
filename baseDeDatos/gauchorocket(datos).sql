@@ -122,16 +122,16 @@ insert into relacionViajeTrayecto (fkCodigoViaje, fkIdTrayecto) values
 (2, 14);
 
 insert into usuario (dni, rol, nombre, apellido, fechaDeNacimiento, email, active) values
-(1, true, 'Ala','Cran', '1992.08.10', 'admin@gmail.com', true),
-(1111, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com', true),
-(2222, false, 'Cesar','Noso', '2000.02.02', 'dos@gmail.com', true),
-(3333, false, 'Micho','Tito', '2000.03.03', 'tres@gmail.com', true),
-(4444, false, 'Lola','Mento', '2000.04.04', 'cuatro@gmail.com', true),
-(5555, false, 'Soila','Cerda', '2000.05.05', 'cinco@gmail.com', true),
-(6666, false, 'Paca','Garte', '2000.06.06', 'seis@gmail.com', true),
-(7777, false, 'Ana','Tomia', '2000.07.07', 'siete@gmail.com', true),
-(8888, false, 'Helen','Chufe', '2000.08.08', 'ocho@gmail.com', true),
-(9999, false, 'Marcia','Ana', '2000.09.09', 'nueve@gmail.com', true);
+(32457212, true, 'Ala','Cran', '1992.08.10', 'admin@gmail.com', true),
+(12590832, false, 'Susana','Oria', '2000.01.01', 'uno@gmail.com', true),
+(22678204, false, 'Cesar','Banana', '2000.02.02', 'dos@gmail.com', true),
+(35923681, false, 'Michel','Torino', '2000.03.03', 'tres@gmail.com', true),
+(40340245, false, 'Lola','Mento', '2000.04.04', 'cuatro@gmail.com', true),
+(16823501, false, 'Juan','Fernet', '2000.05.05', 'cinco@gmail.com', true),
+(34023152, false, 'Carlos','Messi', '2000.06.06', 'seis@gmail.com', true),
+(25678777, false, 'Enrique','Bootstrap', '2000.07.07', 'siete@gmail.com', true),
+(26895421, false, 'Helen','Chufe', '2000.08.08', 'ocho@gmail.com', true),
+(31034989, false, 'Marcia','Ana', '2000.09.09', 'nueve@gmail.com', true);
 
 insert into login (pass, fkEmailUsuario) values
 (md5('asd'), 'admin@gmail.com'),
