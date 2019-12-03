@@ -146,7 +146,7 @@
                                                             if($centro['pago'] == true){
                                                                 if($centro['checki'] == false){
                                                                 echo "<div class='row justify-content-end mr-2'>
-                                                                        <a href='checkin.php?reserva=".$centro['codigo']."&vuelo=".$centro['codViaje']."&cabina=".$centro['cabina']."&origen=".$centro['origen']."&destino=".$centro['destino']."'
+                                                                        <a href='checkin.php?reserva=".$centro['codigo']."&viaje=".$centro['codViaje']."'
                                                                         class='btn btn-primary'>
                                                                             Confirmar check-in
                                                                         </a>
