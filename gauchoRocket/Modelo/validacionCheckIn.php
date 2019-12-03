@@ -21,6 +21,26 @@
             $resultadoLimite = mysqli_query($conexion, $queryLimite);
             $limite = mysqli_fetch_assoc($resultadoLimite);
             
+            $queryCabina = "SELECT tdc.descripcion as nombre
+                            FROM cabina as c INNER JOIN tipoDeCabina as tdc
+                             ON c.fkCodigoTipoDeCabina = tdc.codigoTipoDeCabina
+                             WHERE c.codigoCabina =".$cabina;
+        
+            $resultadoCabina = mysqli_query($conexion, $queryCabina);
+            $cabinaNombre = mysqli_fetch_assoc($resultadoCabina);
+            
+            $queryServicio = "SELECT tds.descripcion as nombre
+                            FROM reserva as r INNER JOIN itemReserva as ir 
+                                ON ir.fkCodigoReserva = r.codigo
+                            INNER JOIN servicio as s
+                                ON ir.fkCodigoServicio = s.codigoServicio
+                            INNER JOIN tipoDeServicio as tds
+                                ON s.fkCodigoTipoDeServicio = tds.codigoTipoDeServicio
+                            WHERE r.codigo = '".$codigoReserva."'";
+        
+            $resultadoServicio = mysqli_query($conexion, $queryServicio);
+            $servicio = mysqli_fetch_assoc($resultadoServicio);
+            
             if($limite["resultado"] == count($ubicaciones)) {
             
                 $queryTrayecto = "SELECT t.fkCodigoLugarOrigen AS origen, t.fkCodigoLugarDestino AS destino, rvt.fkCodigoViaje AS codigoViaje, t.idTrayecto as idTrayecto
@@ -73,6 +93,24 @@
                 $resultadoitem = mysqli_query($conexion, $queryItem);
 
                 if($resultadoUbicacion) {
+                    
+                     echo '<br><div class="alert alert-success mt-5" role="alert">
+                            ¡Check-in confirmado! Te hemos mandado tu pase de abordaje a '.$_SESSION['user'].' también.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </div>';
+                    
+                    if(!isset($_SESSION)){
+                        session_start();
+                    }
+                    
+                    $usuario = $_SESSION['user'];
+                    
+                    //Busqueda Usuario
+                    $busquedaUsuario = "SELECT * FROM usuario WHERE email ='" .$_SESSION['user']. "'";
+                    $resultadoUsuario = mysqli_query($conexion, $busquedaUsuario);
+                    $datos = mysqli_fetch_assoc($resultadoUsuario);
+                    
                     $queryTrayecto = "SELECT t.nombreTrayecto as nombreTrayecto, t.fkCodigoLugarOrigen as codigoOrigen, t.fkCodigoLugarDestino as codigoDestino
                       FROM reserva AS r 
                       INNER JOIN relacionReservaTrayecto as rrt
@@ -139,12 +177,58 @@
                     $contenido = $codigoReserva; //Texto
 
                         //Enviamos los parametros a la Función para generar código QR 
-                    QRcode::png($contenido, $filename, $level, $tamanio, $framSize); 
+                    QRcode::png($contenido, $filename, $level, $tamanio, $framSize);
+                    
+                    
+                    /* == Envio de email == */
+                    $asunto = "Confirmación de checkin | Gaucho Rocket"; 
+
+                    $cuerpo = ' 
+                            <!DOCTYPE html>
+                            <html lang="es">
+                                <head>
+                                    <meta charset="utf-8">
+                                </head>
+                                <body style="font-family: sans-serif !important;">
+                                    <div style="width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; @media (min-width: 576px) { max-width: 540px; }; @media (min-width: 768px) { max-width: 720px;}; @media (min-width: 992px) { max-width: 960px;}; padding: 1.5rem !important; margin-bottom: 0.5rem !important; @page { min-width: 992px !important;}; background-color: #A08DD7 !important; color: #fff !important;">
+                                     <div style="display: -ms-flexbox !important; display: flex !important; -ms-flex-pack: center !important; justify-content: center !important;">
+                                       <h2>
+                                        <img src="http://localhost/gauchoRocket/gauchoRocket/Vista/img/cohete.png" width="25" height="25" alt="">
+                                        Gaucho Rocket
+                                      </h2>
+                                     </div>
+                                     <div style="padding: 1rem !important; background-color: #fff !important; color: #343a40 !important;">
+                                        <h3 style="text-align: center !important;">Confirmacion de Check-in</h3>
+                                        <p>¡Se ha confirmado el check-in de la reserva #<strong>fghdsj3</strong>!</p>
+                                        <h5 style ="margin-top: 0.5rem !important; text-align: center; !important"><strong>'.$origen["nombreOrigen"].' - '.$destino["nombreDestino"].'</strong></h5>
+                                         <p style ="margin-top: 0.5rem !important;"><strong>Codigo de abordaje:</strong><strong style ="font-size: 24px; !important;"> '.$codigoReserva.'</strong></p>
+                                         <p style ="margin-top: 0.5rem !important;"><strong>Cabina:</strong> '.$cabinaNombre["nombre"].'</p>
+                                         <p style ="margin-top: 0.5rem !important;"><strong>Servicio:</strong> '.$servicio["nombre"].'</p>
+                                        <p style ="margin-top: 0.5rem !important;"><strong>Nombre y apellido:</strong> '.$datos["nombre"].' '.$datos["apellido"].'</p>
+                                        <p style ="margin-top: 1rem !important;"><strong>Codigo QR para ingresar en puerta de embarque:</strong></p>
+                                        <img  class="border border-primary" src="http://localhost/gauchoRocket/gauchoRocket/Vista/'.$dir.basename($filename).'"/>
+                                        <p style="margin-top: 1rem !important;">
+                                        Gracias,<br>
+                                        El equipo de <span style="font-weight: 700 !important;">Gaucho Rocket</span>.
+                                        </p>
+                                     </div>
+                                    </div>
+                                </body>
+                            </html>
+
+                            ';
+
+                    $headers = "MIME-Version: 1.0\r\n"; 
+                    $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
+
+                    mail($datos["email"],$asunto,$cuerpo,$headers);
+
+                        /* == Fin envio de email == */
 
                     /*------------------ CODIGO QR ---------------*/
 
                     echo '
-                        <br><div class="col-0-md-7 text-center mt-5">
+                        <br><div class="col-0-md-7 text-center mt-1">
                                 <h2 class="font-weight-bold">Check-in confirmado</h2>
                                 <p class="text-muted">Este es su pase de abordaje:</p>
                             </div>

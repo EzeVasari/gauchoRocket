@@ -73,7 +73,7 @@ insert into equipo (matricula, modelo, capacidadSuit, capacidadGeneral, capacida
 ('BA3', 'Zorzal', 0, 50, 50, 1); 
 
 insert into viaje (codigo, descripcion, precio, nombre, fecha, codigoLugarOrigen, codigoLugarDestino, codigoTipoDeViaje, matriculaEquipo) values
-(1, 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2019.12.05 12:11:00', 2, 4, 2, 'O1'),
+(1, 'Vuelo desde Ankara hasta Marte en 8hs. Trayectos : Ankara-EEI, EEI-OH, OH-Luna, etc.', 7000, 'Ankara - Marte', '2019.12.05 13:50:00', 2, 4, 2, 'O1'),
 (2,'Vuelo desde Buenos Aires a Marte en 8hs.', 7000, 'Bs. As. - Marte', '2019.12.06 21:30:00', 1, 4, 2, 'AA1'),
 (4,'Vuelo completo desde Buenos Aires hacia Titan en 77 hs.', 10000, 'Bs. As. - Titan', '2020.10.23 12:00:00', 1, 8, 1, 'BA10');
 /* A LOS SIGUIENTES HAY QUE ESTABLECER 1 DÍA MÁS TARDE DESDE LA FECHA EN QUE SE DECIDA HACER LA PRIUEBA 

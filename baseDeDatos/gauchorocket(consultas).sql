@@ -826,10 +826,37 @@ where fechaLimiteDeCheckin < now() and listaDeEspera = true;
 select *
 from itemReserva;
 
+SELECT t.fkCodigoLugarOrigen AS origen, t.fkCodigoLugarDestino AS destino, rvt.fkCodigoViaje AS codigoViaje, t.idTrayecto as idTrayecto
+	FROM reserva AS r INNER JOIN relacionReservaTrayecto AS rrt
+		ON r.codigo = rrt.fkCodigoReserva
+	INNER JOIN trayecto AS t
+		ON rrt.fkIdTrayecto = t.idTrayecto
+	INNER JOIN relacionViajeTrayecto AS rvt
+		ON t.idTrayecto = rvt.fkIdTrayecto
+	WHERE r.codigo = 'n79jj5' and rvt.fkCodigoViaje = 1;
+    
+    
+SELECT * 
+   FROM trayecto as t
+   INNER JOIN relacionViajeTrayecto as rvt
+		ON t.idTrayecto = rvt.fkIdTrayecto
+   WHERE t.fkCodigoLugarOrigen = 2 and t.fkCodigoLugarDestino =3 and fkCodigoViaje = 1;
+   
+   
+UPDATE ubicacion as u INNER JOIN trayecto as t
+	ON u.fkIdTrayecto = t.idTrayecto
+SET estado = false, nroUbicacion = '".$u."'
+WHERE idTrayecto = 4 and fkCodigoCabina = 3 and fkCodigoViaje = 1 and fkCodigoReserva = 'n79jj5';
 
 
-
-
+SELECT tds.descripcion as nombre
+FROM reserva as r INNER JOIN itemReserva as ir 
+	ON ir.fkCodigoReserva = r.codigo
+INNER JOIN servicio as s
+	ON ir.fkCodigoServicio = s.codigoServicio
+INNER JOIN tipoDeServicio as tds
+	ON s.fkCodigoTipoDeServicio = tds.codigoTipoDeServicio
+WHERE r.codigo = '2i20oa';
 
 
 

@@ -139,7 +139,7 @@
 
                         $queryRelacionTrayecto = "INSERT INTO relacionReservaTrayecto (fkCodigoReserva, fkIdTrayecto) VALUES ('".$codigoReserva."', ".$trayecto["idTrayecto"].")";
                         
-
+                        
                         $registroClienteItemReserva = mysqli_query($conexion, $queryRelacion);
                         $registroReservaTrayecto = mysqli_query($conexion, $queryRelacionTrayecto);
 
